@@ -160,7 +160,7 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-- Email: huzaifa@example.com
+- Email: huzaifaabbasi09123@gmail.com
 - GitHub: https://github.com/huzaifaabbasi630
 - LinkedIn: https://linkedin.com
 
