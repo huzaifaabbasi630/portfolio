@@ -90,6 +90,23 @@ const HDR_STYLES = `
 .hdr-cta:hover::before { opacity: 1; }
 .hdr-cta span { position: relative; z-index: 1; }
 
+.hdr-resume {
+  padding: 9px 18px; border-radius: 100px; flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  color: rgba(241,241,255,.65); font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  text-decoration: none; display: flex; align-items: center; gap: 7px;
+  transition: all .22s cubic-bezier(.22,1,.36,1);
+  margin-right: 8px;
+}
+.hdr-resume:hover {
+  background: rgba(99,102,241,.1); border-color: rgba(99,102,241,.35);
+  color: #a5b4fc; transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99,102,241,.08);
+}
+.hdr-resume svg { transition: transform .2s; }
+.hdr-resume:hover svg { transform: translateY(-1px); }
+
 /* hamburger */
 .hdr-burger {
   display: none; width: 38px; height: 38px; border-radius: 50%;
@@ -129,7 +146,7 @@ const HDR_STYLES = `
 
 /* responsive */
 @media (max-width: 640px) {
-  .hdr-nav, .hdr-cta { display: none !important; }
+  .hdr-nav, .hdr-cta, .hdr-resume { display: none !important; }
   .hdr-burger { display: flex !important; }
   .hdr-pill { padding: 10px 10px 10px 18px; }
   .hdr-wrap.small .hdr-pill { max-width: 400px; }
@@ -241,10 +258,18 @@ export default function Header() {
             )}
           </nav>
 
-          {/* Hire me - always visible */}
-          <a href="/contact" className="hdr-cta">
-            <span>Hire Me</span>
-          </a>
+          {/* Right actions (Resume + Hire me) - always visible */}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <a href="/assets/resume.pdf" className="hdr-resume">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span>Resume</span>
+            </a>
+            <Link to="/contact" className="hdr-cta">
+              <span>Hire Me</span>
+            </Link>
+          </div>
 
           {/* Burger */}
           <button
@@ -293,10 +318,16 @@ export default function Header() {
               animate={{ opacity:1, y:0  }}
               transition={{ delay:.35 }}
             >
-              <Link to="/contact" className="hdr-mob-cta" onClick={() => setOpen(false)}>
-                <span>Hire Me</span>
-                <span>↗</span>
-              </Link>
+            <a href="/assets/resume.pdf" className="hdr-mob-cta" style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.1)', color: 'rgba(241,241,255,.6)', marginBottom: '12px' }} onClick={() => setOpen(false)}>
+              <span>Resume</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </a>
+            <Link to="/contact" className="hdr-mob-cta" onClick={() => setOpen(false)}>
+              <span>Hire Me</span>
+              <span>↗</span>
+            </Link>
             </motion.div>
           </motion.div>
         )}

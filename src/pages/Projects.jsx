@@ -118,6 +118,22 @@ const PROJECTS = [
     live: 'https://share-hub-live.netlify.app/',
     featured: true,
   },
+  {
+    id: 8,
+    title: 'ATELIER',
+    short: 'Premium Ecommerce platform for ladies, gents, and kids built with TypeScript',
+    desc: 'A sophisticated full-stack e-commerce project named ATELIER. This platform offers a seamless shopping experience for clothing categories including ladies, gents, and kids. Built with high-end aesthetics, it features robust state management, product filtering, and a modern UI using TypeScript.',
+    tech: ['React', 'Node.js', 'Express', 'firebase', 'TypeScript', 'Tailwind CSS'],
+    type: 'Full Stack',
+    status: 'Completed',
+    accent: '236,72,153',
+    glow: '#ec4899',
+    placeholder: '👗',
+    image: '/assets/atelier.png',
+    github: ['https://github.com/huzaifaabbasi630/ecommerce-backend-', 'https://github.com/huzaifaabbasi630/Atelier-frontend'],
+    live: 'https://ateliieerr.netlify.app/',
+    featured: true,
+  },
 ];
 
 const FILTERS = ['All', 'Full Stack', 'Frontend'];
@@ -998,12 +1014,12 @@ export default function Projects() {
                 <span className="pj-t2">BUILT & SHIPPED</span>
               </motion.h1>
               <motion.p className="pj-sub" {...fu(.22)}>
-                From concept to production — 7 real projects spanning full-stack systems and beautiful frontends.
+                From concept to production — 8 real projects spanning full-stack systems and beautiful frontends.
               </motion.p>
               <motion.div className="pj-count-strip" {...fu(.32)}>
-                <span><span className="pj-count-n">7</span> Projects</span>
+                <span><span className="pj-count-n">8</span> Projects</span>
                 <span style={{ color: 'rgba(241,241,255,.12)' }}>|</span>
-                <span><span className="pj-count-n">2</span> Full Stack</span>
+                <span><span className="pj-count-n">3</span> Full Stack</span>
               </motion.div>
             </div>
           </div>

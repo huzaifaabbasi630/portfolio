@@ -14,7 +14,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const STATS = [
   {
-    n: 6,
+    n: 8,
     suffix: "+",
     label: "Projects Built",
     icon: "🚀",
@@ -37,44 +37,7 @@ const STATS = [
   },
 ];
 
-const PERSONALITY = [
-  {
-    icon: "🎮",
-    label: "Gaming",
-    desc: "Competitive FPS & story-driven RPGs",
-    color: "99,102,241",
-  },
-  {
-    icon: "🎧",
-    label: "Lo-fi",
-    desc: "My coding soundtrack, always",
-    color: "139,92,246",
-  },
-  {
-    icon: "☕",
-    label: "Coffee",
-    desc: "Minimum 3 cups before deployment",
-    color: "236,72,153",
-  },
-  {
-    icon: "📚",
-    label: "Learning",
-    desc: "A new course every other month",
-    color: "34,211,238",
-  },
-  {
-    icon: "🌙",
-    label: "Night Owl",
-    desc: "Best code written after midnight",
-    color: "245,158,11",
-  },
-  {
-    icon: "🐛",
-    label: "Debugger",
-    desc: "Bug whisperer since 2020",
-    color: "74,222,128",
-  },
-];
+const PERSONALITY = [];
 
 const FLOAT_SYMBOLS = [
   { s: "</>", x: "3%", y: "12%", sz: 14, op: 0.09, dur: 14, depth: 0.3 },
@@ -2157,31 +2120,6 @@ export default function About() {
               </div>
             </div>
 
-            <div className="ab-divider" />
-
-            {/* ══ PERSONALITY ══ */}
-            <div className="ab-reveal" ref={rr}>
-              <p className="ab-sec-lbl">Beyond the Code</p>
-              <h2 className="ab-sec-h">
-                Who I Am <em>IRL</em>
-              </h2>
-            </div>
-            <div className="ab-pers-grid">
-              {PERSONALITY.map((p, i) => (
-                <motion.div
-                  key={p.label}
-                  className="ab-pers-card ab-reveal"
-                  ref={rr}
-                  style={{ "--pc": p.color, transitionDelay: `${i * 0.09}s` }}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 320, damping: 22 }}
-                >
-                  <span className="ab-pers-icon">{p.icon}</span>
-                  <div className="ab-pers-lbl">{p.label}</div>
-                  <div className="ab-pers-desc">{p.desc}</div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
         <Footer />
