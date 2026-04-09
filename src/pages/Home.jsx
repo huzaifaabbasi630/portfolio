@@ -14,7 +14,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const STATS = [
   {
-    n: 8,
+    n: 10,
     suffix: "+",
     label: "Projects Built",
     icon: "🚀",

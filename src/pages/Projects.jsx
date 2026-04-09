@@ -134,6 +134,38 @@ const PROJECTS = [
     live: 'https://ateliieerr.netlify.app/',
     featured: true,
   },
+  {
+    id: 9,
+    title: 'Auto Ustaad User',
+    short: 'Vehicle owners to nearby mechanics app with real-time tracking',
+    desc: 'Auto Ustaad User App connects vehicle owners with nearby mechanics for instant service requests.\nUsers can track mechanics in real-time on an interactive map using Socket.io.\nGoogle OAuth login ensures a smooth and secure authentication experience.\nFrontend runs on Netlify, with backend temporarily exposed via ngrok for demo purposes.\nThis app demonstrates real-time tracking, API integration, and full-stack functionality for end users.',
+    tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Tailwind', 'CSS', 'Lucide Icons'],
+    type: 'Full Stack',
+    status: 'Completed',
+    accent: '34,211,238',
+    glow: '#22d3ee',
+    placeholder: '🚗',
+    image: '/assets/ustaadUser.png',
+    github: ['https://github.com/huzaifaabbasi630/auto-ustaad-server', 'https://github.com/huzaifaabbasi630/auto-ustaad-client'],
+    live: 'https://auto-ustaad-user.netlify.app/',
+    featured: true,
+  },
+  {
+    id: 10,
+    title: 'Auto Ustaad Partner',
+    short: 'Mechanics app to receive and manage service requests',
+    desc: 'Auto Ustaad Partner App allows mechanics to receive and manage service requests from users.\nReal-time updates show incoming jobs and user locations using Socket.io.\nAuthentication is handled securely with Google OAuth and email verification.\nFrontend is deployed on Netlify, while backend runs via ngrok for demonstration purposes.\nThis app highlights real-time job management, full-stack APIs, and partner-focused dashboards.',
+    tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Tailwind', 'CSS', 'Lucide Icons'],
+    type: 'Full Stack',
+    status: 'Completed',
+    accent: '251,191,36',
+    glow: '#fbbf24',
+    placeholder: '🔧',
+    image: '/assets/ustaadPartner.png',
+    github: ['https://github.com/huzaifaabbasi630/auto-ustaad-server', 'https://github.com/huzaifaabbasi630/auto-ustaad-partner'],
+    live: 'https://auto-ustaad-partner.netlify.app/',
+    featured: true,
+  },
 ];
 
 const FILTERS = ['All', 'Full Stack', 'Frontend'];
@@ -1014,12 +1046,12 @@ export default function Projects() {
                 <span className="pj-t2">BUILT & SHIPPED</span>
               </motion.h1>
               <motion.p className="pj-sub" {...fu(.22)}>
-                From concept to production — 8 real projects spanning full-stack systems and beautiful frontends.
+                From concept to production — 10 real projects spanning full-stack systems and beautiful frontends.
               </motion.p>
               <motion.div className="pj-count-strip" {...fu(.32)}>
-                <span><span className="pj-count-n">8</span> Projects</span>
+                <span><span className="pj-count-n">10</span> Projects</span>
                 <span style={{ color: 'rgba(241,241,255,.12)' }}>|</span>
-                <span><span className="pj-count-n">3</span> Full Stack</span>
+                <span><span className="pj-count-n">5</span> Full Stack</span>
               </motion.div>
             </div>
           </div>
