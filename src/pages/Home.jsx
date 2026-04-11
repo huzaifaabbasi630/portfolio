@@ -21,7 +21,7 @@ const STATS = [
     color: "99,102,241",
   },
   {
-    n: 20000,
+    n: 5000,
     suffix: "+",
     label: "Coding Line Experienced",
     icon: "🤝",

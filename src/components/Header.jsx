@@ -13,7 +13,7 @@ const HDR_STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap');
 
 .hdr-wrap {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200000;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 5000;
   display: flex; justify-content: center;
   padding: 20px 24px;
   transition: padding 0.2s ease;
