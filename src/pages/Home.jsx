@@ -54,7 +54,7 @@ const SUBTITLES = [
  
   "Full Stack Developer",
   "MERN Stack Engineer",
-  "Mobile App Developer (Using React-Native)",
+  " App Developer (Using React-Native)",
   "React Specialist",
   "Backend Architect",
   "Problem Solver",
@@ -1151,7 +1151,7 @@ function PageLoader({ onDone }) {
               }}
             >
               Welcome to My Portfolio
-              <span>Hafiz Huzaifa — Full Stack Developer</span>
+              <span>Hafiz Huzaifa — Full Stack Web & App Developer</span>
             </motion.div>
 
             {/* Social links */}
@@ -1666,7 +1666,7 @@ function HangingIDCard() {
                   <div className="id-name">Hafiz Huzaifa</div>
 
                   {/* Role */}
-                  <div className="id-role">Full Stack Developer</div>
+                  <div className="id-role">Full Stack Web & App Developer</div>
 
                   {/* Divider */}
                   <div className="id-divider" />

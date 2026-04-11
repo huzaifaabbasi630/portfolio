@@ -73,7 +73,7 @@ const PROJECTS = [
   {
     id: 5,
     title: 'AI Clinic System',
-    short: 'Firat  Assignment as a Full Stack Developer: Smart clinic connecting doctors, patients & receptionists',
+    short: 'Firat  Assignment as a Full Stack Web & App Developer: Smart clinic connecting doctors, patients & receptionists',
     desc: 'A full-stack AI-powered clinic management system. Doctors can view patient records, receptionists manage appointments, and users can book consultations. Features role-based authentication, real-time updates, and an intelligent scheduling system.',
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', ],
     type: 'Full Stack',
