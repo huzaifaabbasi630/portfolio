@@ -177,7 +177,7 @@ const PROJECTS = [
     accent: '139,92,246',
     glow: '#8b5cf6',
     placeholder: '⛅',
-    image: '/assets/weather-mobile.png',
+    image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app-backend', 'https://github.com/huzaifaabbasi630/weather-app-frontend'],
     live: 'https://expo.dev/accounts/edfdvf/projects/weather-app/builds/e255240b-f904-4939-8cbb-5fea24af0151',
     featured: true,
@@ -193,7 +193,7 @@ const PROJECTS = [
     accent: '22d3ee',
     glow: '#22d3ee',
     placeholder: '🌦️',
-    image: '/assets/weather-web.png',
+    image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app-backend', 'https://github.com/huzaifaabbasi630/weather-app-web'],
     live: 'https://ateliieerr.netlify.app/', // Using placeholder or provided link
     featured: false,
