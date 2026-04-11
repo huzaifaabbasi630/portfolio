@@ -15,6 +15,7 @@ const CATEGORIES = [
     skills: [
       { name: 'React',         icon: '⚛',  level: 92, desc: 'Hooks, context, custom hooks, performance optimization' },
       { name: 'JavaScript',    icon: '⬡',  level: 90, desc: 'ES6+, async/await, closures, DOM manipulation' },
+      { name: 'TypeScript',    icon: 'TS', level: 85, desc: 'Type safety, interfaces, generic types, robust coding' },
       { name: 'HTML / CSS',    icon: '◫',  level: 95, desc: 'Semantic HTML, Flexbox, Grid, animations' },
       { name: 'Tailwind CSS',  icon: '◉',  level: 88, desc: 'Utility-first, responsive design, custom config' },
     ],
@@ -31,6 +32,18 @@ const CATEGORIES = [
       { name: 'MongoDB',    icon: '🍃', level: 80, desc: 'CRUD, aggregation, indexing, Mongoose ODM' },
       { name: 'REST APIs',  icon: '◈',  level: 87, desc: 'Design patterns, authentication, versioning' },
       { name: 'JWT / Auth', icon: '🔐', level: 78, desc: 'Token-based auth, refresh tokens, role-based access' },
+    ],
+  },
+  {
+    id: 'mobile',
+    label: 'Mobile Developer',
+    icon: '📱',
+    accent: '139,92,246',
+    glow: '#8b5cf6',
+    skills: [
+      { name: 'React Native (CLI / Expo)', icon: '⚛',  level: 88, desc: 'Cross-platform mobile apps for iOS and Android' },
+      { name: 'JavaScript (ES6+)',         icon: '⬡',  level: 90, desc: 'Modern JavaScript features and best practices' },
+      { name: 'TypeScript',                icon: 'TS', level: 85, desc: 'Type-safe development for enterprise apps' },
     ],
   },
   {

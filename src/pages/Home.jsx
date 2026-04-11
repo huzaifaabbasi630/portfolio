@@ -14,16 +14,16 @@ import { useEffect, useRef, useState, useCallback } from "react";
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const STATS = [
   {
-    n: 10,
+    n: 11,
     suffix: "+",
     label: "Projects Built",
     icon: "🚀",
     color: "99,102,241",
   },
   {
-    n: 0,
+    n: 20000,
     suffix: "+",
-    label: "Clients Served",
+    label: "Coding Line Experienced",
     icon: "🤝",
     color: "139,92,246",
   },
@@ -51,8 +51,10 @@ const FLOAT_SYMBOLS = [
 ];
 
 const SUBTITLES = [
+ 
   "Full Stack Developer",
   "MERN Stack Engineer",
+  "Mobile App Developer (Using React-Native)",
   "React Specialist",
   "Backend Architect",
   "Problem Solver",

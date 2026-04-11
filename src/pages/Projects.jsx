@@ -166,9 +166,41 @@ const PROJECTS = [
     live: 'https://auto-ustaad-partner.netlify.app/',
     featured: true,
   },
+  {
+    id: 11,
+    title: 'Weather App (Mobile)',
+    short: 'Real-time weather application for iOS and Android',
+    desc: 'A robust mobile application built with React Native and Expo. It provides real-time weather updates, recursive forecasts, and location-based data fetching from OpenWeatherMap API. Features a clean, modern UI with smooth transitions and offline support.',
+    tech: ['React Native', 'Expo', 'JavaScript', 'TypeScript', 'OpenWeatherMap API'],
+    type: 'Mobile',
+    status: 'Completed',
+    accent: '139,92,246',
+    glow: '#8b5cf6',
+    placeholder: '⛅',
+    image: '/assets/weather-mobile.png',
+    github: ['https://github.com/huzaifaabbasi630/weather-app-backend', 'https://github.com/huzaifaabbasi630/weather-app-frontend'],
+    live: 'https://expo.dev/accounts/edfdvf/projects/weather-app/builds/e255240b-f904-4939-8cbb-5fea24af0151',
+    featured: true,
+  },
+  {
+    id: 12,
+    title: 'Weather App (Web Version)',
+    short: 'Fully responsive web version of the Weather App',
+    desc: 'A full-stack web version of the weather application. Built with React and Node.js, it offers a seamless experience across all devices. Features include search by city, current weather details, 7-day forecast, and dynamic backgrounds based on weather conditions.',
+    tech: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'OpenWeatherMap API'],
+    type: 'Full Stack',
+    status: 'Completed',
+    accent: '22d3ee',
+    glow: '#22d3ee',
+    placeholder: '🌦️',
+    image: '/assets/weather-web.png',
+    github: ['https://github.com/huzaifaabbasi630/weather-app-backend', 'https://github.com/huzaifaabbasi630/weather-app-web'],
+    live: 'https://ateliieerr.netlify.app/', // Using placeholder or provided link
+    featured: false,
+  },
 ];
 
-const FILTERS = ['All', 'Full Stack', 'Frontend'];
+const FILTERS = ['All', 'Full Stack', 'Mobile', 'Frontend'];
 
 const FLOAT_SYMBOLS = [
   { s: '</>', x: '3%', y: '8%', sz: 13, op: .06, dur: 14, depth: 0.3 },
@@ -987,9 +1019,11 @@ export default function Projects() {
 
   const filtered = filter === 'All' ? PROJECTS : PROJECTS.filter(p => p.type === filter);
   const fu = (d = 0) => ({ initial: { opacity: 0, y: 26, filter: 'blur(7px)' }, animate: { opacity: 1, y: 0, filter: 'blur(0px)' }, transition: { duration: .72, delay: d, ease: [.22, 1, .36, 1] } });
-  const getTypeStyle = t => t === 'Full Stack'
-    ? { bg: 'rgba(52,211,153,.1)', bc: 'rgba(52,211,153,.3)', c: '#6ee7b7' }
-    : { bg: 'rgba(99,102,241,.1)', bc: 'rgba(99,102,241,.3)', c: '#a5b4fc' };
+  const getTypeStyle = t => {
+    if (t === 'Full Stack') return { bg: 'rgba(52,211,153,.1)', bc: 'rgba(52,211,153,.3)', c: '#6ee7b7' };
+    if (t === 'Mobile') return { bg: 'rgba(139,92,246,.1)', bc: 'rgba(139,92,246,.3)', c: '#c4b5fd' };
+    return { bg: 'rgba(99,102,241,.1)', bc: 'rgba(99,102,241,.3)', c: '#a5b4fc' };
+  };
 
   const onLoaderDone = useCallback(() => setLoaded(true), []);
 
@@ -1046,12 +1080,12 @@ export default function Projects() {
                 <span className="pj-t2">BUILT & SHIPPED</span>
               </motion.h1>
               <motion.p className="pj-sub" {...fu(.22)}>
-                From concept to production — 10 real projects spanning full-stack systems and beautiful frontends.
+                From concept to production — 11 real projects spanning mobile apps, full-stack systems and beautiful frontends.
               </motion.p>
               <motion.div className="pj-count-strip" {...fu(.32)}>
-                <span><span className="pj-count-n">10</span> Projects</span>
+                <span><span className="pj-count-n">11</span> Projects</span>
                 <span style={{ color: 'rgba(241,241,255,.12)' }}>|</span>
-                <span><span className="pj-count-n">5</span> Full Stack</span>
+                <span><span className="pj-count-n">6</span> Full Stack</span>
               </motion.div>
             </div>
           </div>
