@@ -178,7 +178,7 @@ const PROJECTS = [
     glow: '#8b5cf6',
     placeholder: '⛅',
     image: '/assets/weather.png',
-    github: ['https://github.com/huzaifaabbasi630/weather-app-backend', 'https://github.com/huzaifaabbasi630/weather-app-frontend'],
+    github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
     live: 'https://expo.dev/accounts/edfdvf/projects/weather-app/builds/e255240b-f904-4939-8cbb-5fea24af0151',
     featured: true,
   },
@@ -194,8 +194,8 @@ const PROJECTS = [
     glow: '#22d3ee',
     placeholder: '🌦️',
     image: '/assets/weather.png',
-    github: ['https://github.com/huzaifaabbasi630/weather-app-backend', 'https://github.com/huzaifaabbasi630/weather-app-web'],
-    live: 'https://ateliieerr.netlify.app/', // Using placeholder or provided link
+    github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
+    live: 'https://weather-app-six-theta-78.vercel.app/', // Using placeholder or provided link
     featured: false,
   },
 ];
