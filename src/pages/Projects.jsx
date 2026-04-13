@@ -148,7 +148,7 @@ const PROJECTS = [
     image: '/assets/ustaadUser.png',
     video: '/assets/ustaadUser.mp4',
     github: ['https://github.com/huzaifaabbasi630/auto-ustaad-server', 'https://github.com/huzaifaabbasi630/auto-ustaad-client'],
-    live: 'https://auto-ustaad-user.netlify.app/',
+    live: 'https://auto-ustaad-client.vercel.app',
     featured: true,
     ngrokNote: true,
   },
