@@ -131,7 +131,7 @@ const PROJECTS = [
     placeholder: '👗',
     image: '/assets/atelier.png',
     github: ['https://github.com/huzaifaabbasi630/ecommerce-backend-', 'https://github.com/huzaifaabbasi630/Atelier-frontend'],
-    live: 'https://ateliieerr.netlify.app/',
+    live: 'https://ateliieerr.vercel.app',
     featured: true,
   },
   {
