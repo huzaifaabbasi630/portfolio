@@ -11,7 +11,7 @@ const PROJECTS = [
     title: 'E-Commerce Website',
     short: 'Second assignment  online store with modern shopping experience',
     desc: 'A complete e-commerce platform built with Frontend . Features include product listings.',
-    tech: ['HTML', 'CSS', 'JavaScript','bootstrap'],
+    tech: ['HTML', 'CSS', 'JavaScript', 'bootstrap'],
     type: 'Frontend',
     status: 'In Progress',
     accent: '99,102,241',
@@ -27,7 +27,7 @@ const PROJECTS = [
     title: 'Portfolio v1',
     short: 'My first personal developer portfolio website. As a frontend developer',
     desc: 'My first portfolio website — built to showcase my skills and projects.  Clean layout with smooth animations, dark theme, responsive design, and a working contact form.',
-    tech: ['HTML','CSS','JAVASCRIPT', 'bootstrap'],
+    tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
     accent: '139,92,246',
@@ -43,7 +43,7 @@ const PROJECTS = [
     title: 'Online Quran Academy',
     short: ' Third Assignment as a Frontend Developer: Educational platform for Quran learning online',
     desc: 'A professional website for an Online Quran Academy. Includes course listings, teacher profiles, student enrollment system, and scheduling — designed to connect students with qualified teachers globally.',
-    tech: ['HTML', 'CSS','JAVASCRIPT', 'bootstrap'],
+    tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
     accent: '34,211,238',
@@ -75,24 +75,23 @@ const PROJECTS = [
     title: 'AI Clinic System',
     short: 'Firat  Assignment as a Full Stack Web & App Developer: Smart clinic connecting doctors, patients & receptionists',
     desc: 'A full-stack AI-powered clinic management system. Doctors can view patient records, receptionists manage appointments, and users can book consultations. Features role-based authentication, real-time updates, and an intelligent scheduling system.',
-    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', ],
+    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT',],
     type: 'Full Stack',
     status: 'Completed',
     accent: '52,211,153',
     glow: '#34d399',
     placeholder: '🏥',
     image: '/assets/ai.png',
-    github:[ 'https://github.com/huzaifaabbasi630/ai-clinic-backend','https://github.com/huzaifaabbasi630/clinic-frontend'],
+    github: ['https://github.com/huzaifaabbasi630/ai-clinic-backend', 'https://github.com/huzaifaabbasi630/clinic-frontend'],
     live: 'https://clinic-frontend-peach.vercel.app/login',
     featured: true,
   },
-  
   {
     id: 7,
     title: 'Portfolio v2',
     short: 'Upgraded portfolio with advanced animations & effects',
     desc: 'My second and current portfolio — built with a maximalist aesthetic. Features particle canvas backgrounds, , magnetic buttons, glitch effects, typewriter animations, and a fully interactive UI that leaves a lasting impression.',
-    tech: ['HTML', 'CSS','JAVASCRIPT', 'bootstrap'],
+    tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
     accent: '236,72,153',
@@ -102,7 +101,8 @@ const PROJECTS = [
     github: 'https://github.com/huzaifaabbasi630',
     live: 'https://huzaifaabbasi630.github.io/DoDiX-portfolio-assignment/index.html',
     featured: false,
-  },{
+  },
+  {
     id: 6,
     title: 'Share Hub',
     short: 'Real-time file sharing , chating ,  calling and .etc  application with link generation.',
@@ -146,9 +146,11 @@ const PROJECTS = [
     glow: '#22d3ee',
     placeholder: '🚗',
     image: '/assets/ustaadUser.png',
+    video: '/assets/ustaadUser.mp4',
     github: ['https://github.com/huzaifaabbasi630/auto-ustaad-server', 'https://github.com/huzaifaabbasi630/auto-ustaad-client'],
     live: 'https://auto-ustaad-user.netlify.app/',
     featured: true,
+    ngrokNote: true,
   },
   {
     id: 10,
@@ -162,9 +164,11 @@ const PROJECTS = [
     glow: '#fbbf24',
     placeholder: '🔧',
     image: '/assets/ustaadPartner.png',
+    video: '/assets/ustaadPartner.mp4',
     github: ['https://github.com/huzaifaabbasi630/auto-ustaad-server', 'https://github.com/huzaifaabbasi630/auto-ustaad-partner'],
     live: 'https://auto-ustaad-partner.netlify.app/',
     featured: true,
+    ngrokNote: true,
   },
   {
     id: 11,
@@ -179,7 +183,7 @@ const PROJECTS = [
     placeholder: '⛅',
     image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
-    live: 'https://expo.dev/accounts/edfdvf/projects/weather-app/builds/e255240b-f904-4939-8cbb-5fea24af0151',
+    live: 'https://expo.dev/artifacts/eas/tX1N5KD8oJqzyfzvmNsPkX.apk',
     featured: true,
   },
   {
@@ -195,8 +199,24 @@ const PROJECTS = [
     placeholder: '🌦️',
     image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
-    live: 'https://weather-app-six-theta-78.vercel.app/', // Using placeholder or provided link
+    live: 'https://weather-app-six-theta-78.vercel.app/',
     featured: false,
+  },
+  {
+    id: 13,
+    title: 'Vault Calculator',
+    short: 'A secret vault hidden inside a fully working calculator app',
+    desc: 'Vault Calculator ek aisa app hai jo bahar se ek normal calculator lagta hai, lekin secret code daalne par ek hidden secure vault khul jata hai.\n\nIske andar hai ek Decoy Mode jo fake vault dikhata hai forced access se bachane ke liye, aur ek Secure Gallery jisme private images aur videos encrypt hokar store hoti hain.\n\nApp mein ek Incognito Browser bhi hai jisme private web browsing bilkul app ke andar hoti hai, aur Anti-Brute Force system wrong attempts par cooldown activate kar deta hai.',
+    tech: ['React Native', 'Expo Router', 'Firebase', 'Expo Secure Store'],
+    type: 'Mobile',
+    status: 'Completed',
+    accent: '99,102,241',
+    glow: '#6366f1',
+    placeholder: '🔐',
+    image: '/assets/calculator.png',
+    github: 'https://github.com/huzaifaabbasi630/calculator-lock-code',
+    live: 'https://calculatorlock.vercel.app/',
+    featured: true,
   },
 ];
 
@@ -210,6 +230,146 @@ const FLOAT_SYMBOLS = [
   { s: '===', x: '12%', y: '82%', sz: 11, op: .04, dur: 20, depth: 0.6 },
   { s: '[ ]', x: '82%', y: '78%', sz: 10, op: .04, dur: 15, depth: 0.35 },
 ];
+
+// Vault Calculator source code
+const VAULT_CODE = `import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Vibration } from 'react-native';
+import { router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
+
+const SECRET_CODE = '1337';
+const COOLDOWN_TIME = 30000; // 30 seconds
+
+export default function Calculator() {
+  const [display, setDisplay] = useState('0');
+  const [input, setInput] = useState('');
+  const [attempts, setAttempts] = useState(0);
+  const [cooldown, setCooldown] = useState(false);
+  const cooldownRef = useRef(null);
+
+  const buttons = [
+    ['C', '±', '%', '÷'],
+    ['7', '8', '9', '×'],
+    ['4', '5', '6', '−'],
+    ['1', '2', '3', '+'],
+    ['0', '.', '⌫', '='],
+  ];
+
+  const handlePress = (btn) => {
+    if (cooldown) return;
+
+    if (btn === 'C') {
+      setDisplay('0');
+      setInput('');
+      return;
+    }
+
+    if (btn === '⌫') {
+      const newInput = input.slice(0, -1);
+      setInput(newInput);
+      setDisplay(newInput || '0');
+      return;
+    }
+
+    if (btn === '=') {
+      // Check for secret code
+      if (input === SECRET_CODE) {
+        setInput('');
+        setDisplay('0');
+        router.push('/vault');
+        return;
+      }
+
+      // Normal calculation
+      try {
+        const expr = input.replace('×', '*').replace('÷', '/').replace('−', '-');
+        const result = Function('"use strict"; return (' + expr + ')')();
+        setDisplay(String(result));
+        setInput(String(result));
+
+        // Wrong secret attempt tracking
+        setAttempts(prev => {
+          const next = prev + 1;
+          if (next >= 3) {
+            triggerCooldown();
+            return 0;
+          }
+          return next;
+        });
+      } catch {
+        setDisplay('Error');
+        setInput('');
+      }
+      return;
+    }
+
+    const newInput = input + btn;
+    setInput(newInput);
+    setDisplay(newInput);
+  };
+
+  const triggerCooldown = () => {
+    setCooldown(true);
+    Vibration.vibrate([100, 200, 100]);
+    cooldownRef.current = setTimeout(() => setCooldown(false), COOLDOWN_TIME);
+  };
+
+  const getButtonStyle = (btn) => {
+    if (['÷', '×', '−', '+', '='].includes(btn)) return styles.operatorBtn;
+    if (['C', '±', '%'].includes(btn)) return styles.funcBtn;
+    return styles.numBtn;
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.display}>
+        {cooldown && (
+          <Text style={styles.cooldownText}>Too many attempts. Wait 30s...</Text>
+        )}
+        <Text style={styles.displayText} numberOfLines={1} adjustsFontSizeToFit>
+          {display}
+        </Text>
+      </View>
+      {buttons.map((row, i) => (
+        <View key={i} style={styles.row}>
+          {row.map((btn) => (
+            <TouchableOpacity
+              key={btn}
+              style={[styles.btn, getButtonStyle(btn), cooldown && styles.disabledBtn]}
+              onPress={() => handlePress(btn)}
+              activeOpacity={0.7}
+            >
+              <Text style={[styles.btnText, ['÷','×','−','+','='].includes(btn) && styles.opText]}>
+                {btn}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ))}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#000', padding: 16 },
+  display: {
+    flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end',
+    paddingHorizontal: 8, paddingBottom: 16,
+  },
+  displayText: { color: '#fff', fontSize: 72, fontWeight: '200' },
+  cooldownText: { color: '#ff4444', fontSize: 13, marginBottom: 8 },
+  row: { flexDirection: 'row', gap: 12, marginBottom: 12 },
+  btn: {
+    flex: 1, aspectRatio: 1, borderRadius: 999,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  numBtn: { backgroundColor: '#333' },
+  funcBtn: { backgroundColor: '#a5a5a5' },
+  operatorBtn: { backgroundColor: '#ff9f0a' },
+  disabledBtn: { opacity: 0.4 },
+  btnText: { color: '#fff', fontSize: 28, fontWeight: '400' },
+  opText: { color: '#fff' },
+});`;
 
 // ─── CSS ──────────────────────────────────────────────────────────────────────
 const STYLES = `
@@ -480,13 +640,11 @@ const STYLES = `
   display: flex; flex-direction: column;
   transform-style: preserve-3d;
 }
-/* top accent line */
 .pj-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(var(--ca),.55), transparent);
   opacity: 0; transition: opacity .35s; z-index: 1;
 }
-/* shimmer sweep on hover */
 .pj-card::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.025) 50%, transparent 60%);
@@ -550,6 +708,45 @@ const STYLES = `
 .pj-upload-hint svg { color:rgba(var(--ca),1); }
 .pj-upload-hint span { font-size:12px; font-weight:700; color:rgba(241,241,255,.6); letter-spacing:.08em; }
 
+/* ── NGROK TOOLTIP ── */
+.pj-ngrok-tooltip {
+  position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+  margin-bottom: 10px; z-index: 20;
+  background: rgba(4,5,14,.96); border: 1px solid rgba(251,191,36,.35);
+  border-radius: 12px; padding: 12px 16px;
+  width: 260px; box-shadow: 0 8px 32px rgba(0,0,0,.6), 0 0 20px rgba(251,191,36,.08);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+  opacity: 0; transition: opacity .2s, transform .2s;
+  transform: translateX(-50%) translateY(6px);
+}
+.pj-ngrok-wrap:hover .pj-ngrok-tooltip {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+.pj-ngrok-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: rgba(251,191,36,.35);
+}
+.pj-ngrok-title {
+  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: #fbbf24; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.pj-ngrok-dot { width: 6px; height: 6px; border-radius: 50%; background: #fbbf24; animation: pj-blink 1.4s ease infinite; }
+.pj-ngrok-text { font-size: 12px; line-height: 1.6; color: rgba(241,241,255,.5); }
+.pj-ngrok-step { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; font-size: 11.5px; color: rgba(241,241,255,.4); }
+.pj-ngrok-step span:first-child { color: #fbbf24; font-weight: 700; flex-shrink: 0; }
+
+/* watch demo video btn on card */
+.pj-btn-demo {
+  padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700;
+  border: 1px solid rgba(var(--ca),.3); background: rgba(var(--ca),.08);
+  color: rgb(var(--ca)); cursor: pointer; transition: all .25s cubic-bezier(.22,1,.36,1);
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.pj-btn-demo:hover { background: rgba(var(--ca),.18); border-color: rgba(var(--ca),.5); transform: translateY(-2px); }
+
 /* card body */
 .pj-card-body { padding:22px 22px 20px; flex:1; display:flex; flex-direction:column; position:relative; z-index:1; }
 .pj-card-title { font-family:'Syne',sans-serif; font-weight:800; font-size:17px; color:#f1f1ff; margin-bottom:8px; line-height:1.2; transition:color .25s; }
@@ -564,7 +761,7 @@ const STYLES = `
 .pj-tag:hover { background:rgba(var(--ca),.18); opacity:1; transform:translateY(-2px); }
 
 /* card footer */
-.pj-card-footer { display:flex; gap:8px; padding:0 22px 20px; position:relative; z-index:1; }
+.pj-card-footer { display:flex; gap:8px; padding:0 22px 20px; position:relative; z-index:1; flex-wrap: wrap; }
 .pj-btn-view {
   flex:1; padding:10px 16px; border-radius:10px; font-size:12.5px; font-weight:700;
   letter-spacing:.04em; border:none; cursor:pointer;
@@ -577,7 +774,6 @@ const STYLES = `
 .pj-btn-view::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,.12); opacity:0; transition:opacity .2s; }
 .pj-btn-view:hover { box-shadow:0 10px 28px rgba(var(--ca),.42); transform:translateY(-2px); }
 .pj-btn-view:hover::before { opacity:1; }
-/* arrow slide micro-interaction */
 .pj-btn-view .pj-btn-arrow { transition:transform .25s cubic-bezier(.22,1,.36,1); display:inline-flex; }
 .pj-btn-view:hover .pj-btn-arrow { transform:translateX(4px); }
 
@@ -595,6 +791,95 @@ const STYLES = `
 @keyframes pj-blink { 0%,100%{opacity:1} 50%{opacity:.2} }
 .pj-status-dot.blink { animation:pj-blink 1.5s ease infinite; }
 
+/* ── CODE MODAL ── */
+.pj-code-modal-bg {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(4,5,14,.95); backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.pj-code-modal {
+  width: 100%; max-width: 800px; max-height: 90vh;
+  border-radius: 20px; background: #0d0e1f;
+  border: 1px solid rgba(99,102,241,.2);
+  box-shadow: 0 48px 120px rgba(0,0,0,.8), 0 0 60px rgba(99,102,241,.08);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.pj-code-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.02); flex-shrink: 0;
+}
+.pj-code-modal-title {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: #a5b4fc;
+  display: flex; align-items: center; gap: 8px;
+}
+.pj-code-modal-dots { display: flex; gap: 6px; }
+.pj-code-modal-dot { width: 12px; height: 12px; border-radius: 50%; }
+.pj-code-modal-body {
+  overflow-y: auto; flex: 1; padding: 20px 24px;
+}
+.pj-code-modal-body::-webkit-scrollbar { width: 4px; }
+.pj-code-modal-body::-webkit-scrollbar-track { background: transparent; }
+.pj-code-modal-body::-webkit-scrollbar-thumb { background: rgba(99,102,241,.3); border-radius: 4px; }
+.pj-code-pre {
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 12.5px; line-height: 1.7; color: #c9d1d9;
+  white-space: pre; tab-size: 2; margin: 0;
+}
+.pj-code-close {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(241,241,255,.5); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s; font-size: 16px;
+}
+.pj-code-close:hover { background: rgba(236,72,153,.2); border-color: rgba(236,72,153,.4); color: #f9a8d4; }
+.pj-code-copy {
+  padding: 6px 14px; border-radius: 8px;
+  background: rgba(99,102,241,.15); border: 1px solid rgba(99,102,241,.3);
+  color: #a5b4fc; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: .08em; cursor: pointer; transition: all .2s;
+}
+.pj-code-copy:hover { background: rgba(99,102,241,.28); border-color: rgba(99,102,241,.5); }
+
+/* syntax highlight colors */
+.tok-kw  { color: #ff7b72; }
+.tok-str { color: #a5d6ff; }
+.tok-num { color: #79c0ff; }
+.tok-fn  { color: #d2a8ff; }
+.tok-cm  { color: #8b949e; font-style: italic; }
+.tok-tag { color: #7ee787; }
+
+/* ── VIDEO PLAYER in modal ── */
+.pj-video-wrap {
+  position: relative; width: 100%; height: 100%;
+  background: #000;
+}
+.pj-video-wrap video {
+  width: 100%; height: 100%; object-fit: contain;
+}
+.pj-video-controls {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 12px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,.85), transparent);
+  display: flex; align-items: center; gap: 10px;
+}
+.pj-video-play-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s; font-size: 13px; flex-shrink: 0;
+}
+.pj-video-play-btn:hover { background: rgba(255,255,255,.28); }
+.pj-video-progress {
+  flex: 1; height: 3px; border-radius: 3px;
+  background: rgba(255,255,255,.2); cursor: pointer; position: relative;
+  appearance: none; -webkit-appearance: none;
+}
+.pj-video-progress::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
+  background: #fff; cursor: pointer;
+}
+
 /* ── MODAL ── */
 .pj-modal-bg {
   position:fixed; inset:0; z-index:100;
@@ -611,13 +896,10 @@ const STYLES = `
 .pj-modal::-webkit-scrollbar { width:4px; }
 .pj-modal::-webkit-scrollbar-track { background:transparent; }
 .pj-modal::-webkit-scrollbar-thumb { background:rgba(99,102,241,.3); border-radius:4px; }
-
-/* top accent line on modal */
 .pj-modal::before {
   content:''; position:absolute; top:0; left:0; right:0; height:2px; z-index:2; border-radius:28px 28px 0 0;
   background:linear-gradient(90deg,transparent,rgba(var(--ca),.7),transparent);
 }
-
 .pj-modal-img {
   height:260px; position:relative; overflow:hidden; border-radius:28px 28px 0 0;
   display:flex; align-items:center; justify-content:center;
@@ -637,6 +919,23 @@ const STYLES = `
   display:flex; align-items:center; gap:6px; transition:all .2s;
 }
 .pj-modal-upload:hover { border-color:rgba(99,102,241,.5); color:#a5b4fc; background:rgba(99,102,241,.15); }
+
+/* Watch Demo Video button on modal image */
+.pj-modal-watch-demo {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 6;
+  padding: 9px 20px; border-radius: 100px;
+  background: rgba(4,5,14,.8); border: 1px solid rgba(var(--ca),.5);
+  color: rgb(var(--ca)); font-size: 12px; font-weight: 700; letter-spacing: .1em;
+  cursor: pointer; backdrop-filter: blur(10px);
+  display: flex; align-items: center; gap: 7px; transition: all .25s;
+  white-space: nowrap;
+}
+.pj-modal-watch-demo:hover {
+  background: rgba(var(--ca),.18); border-color: rgb(var(--ca));
+  box-shadow: 0 0 24px rgba(var(--ca),.3);
+}
+.pj-modal-watch-demo svg { flex-shrink: 0; }
+
 .pj-modal-close {
   position:absolute; top:16px; left:16px; z-index:5;
   width:36px; height:36px; border-radius:50%;
@@ -650,7 +949,7 @@ const STYLES = `
 .pj-modal-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
 .pj-modal-type { padding:5px 14px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; border:1px solid; }
 .pj-modal-title { font-family:'Syne',sans-serif; font-weight:800; font-size:28px; color:#f1f1ff; margin-bottom:12px; line-height:1.1; }
-.pj-modal-desc { font-size:15px; line-height:1.75; color:rgba(241,241,255,.45); margin-bottom:24px; }
+.pj-modal-desc { font-size:15px; line-height:1.75; color:rgba(241,241,255,.45); margin-bottom:24px; white-space: pre-line; }
 .pj-modal-lbl { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(241,241,255,.2); font-weight:700; margin-bottom:12px; }
 .pj-modal-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
 .pj-modal-tag {
@@ -679,13 +978,28 @@ const STYLES = `
   display:flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;
 }
 .pj-modal-btn-gh:hover { border-color:rgba(255,255,255,.25); color:#f1f1ff; background:rgba(255,255,255,.09); transform:translateY(-2px); }
+
+/* View Code button */
+.pj-modal-btn-code {
+  padding: 13px 20px; border-radius: 12px;
+  background: rgba(99,102,241,.12); border: 1px solid rgba(99,102,241,.3);
+  color: #a5b4fc; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13.5px;
+  cursor: pointer; transition: all .25s cubic-bezier(.22,1,.36,1);
+  display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+}
+.pj-modal-btn-code:hover {
+  background: rgba(99,102,241,.25); border-color: rgba(99,102,241,.55);
+  color: #c4b5fd; transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99,102,241,.25);
+}
+
 .pj-modal-div { height:1px; background:linear-gradient(90deg,transparent,rgba(99,102,241,.2),transparent); margin:24px 0; }
 
 .pj-error-toast {
   position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
   background: rgba(239,68,68,0.95); color: white; padding: 12px 24px;
   border-radius: 100px; font-size: 13px; font-weight: 700;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.6); z-index: 20;
+  box-shadow: 0 12px 40px rgba(0,0,0,.6); z-index: 20;
   display: flex; align-items: center; gap: 8px; white-space: nowrap;
   border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px);
 }
@@ -708,6 +1022,26 @@ const STYLES = `
   .pj-float { display:none; }
 }
 `;
+
+// ─── Simple syntax highlighter ─────────────────────────────────────────────
+function highlightJS(code) {
+  const keywords = /\b(import|export|default|from|const|let|var|return|if|else|function|class|new|this|async|await|try|catch|for|of|in|true|false|null|undefined|typeof|instanceof|extends|super)\b/g;
+  const strings = /(["'`])(?:(?=(\\?))\2[\s\S])*?\1/g;
+  const numbers = /\b(\d+(?:\.\d+)?)\b/g;
+  const comments = /(\/\/.*$|\/\*[\s\S]*?\*\/)/gm;
+  const fns = /\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\()/g;
+  const jsx = /(<\/?[A-Z][a-zA-Z0-9]*|<\/[a-z]+>|<[a-z]+)/g;
+
+  // escape html first
+  let out = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // order matters
+  out = out.replace(comments, m => `<span class="tok-cm">${m}</span>`);
+  out = out.replace(strings, m => `<span class="tok-str">${m}</span>`);
+  out = out.replace(keywords, m => `<span class="tok-kw">${m}</span>`);
+  out = out.replace(numbers, m => `<span class="tok-num">${m}</span>`);
+  out = out.replace(fns, (m, name) => `<span class="tok-fn">${name}</span>(`);
+  return out;
+}
 
 // ─── PAGE LOADER ──────────────────────────────────────────────────────────
 function PageLoader({ onDone }) {
@@ -774,7 +1108,6 @@ function useAdvancedCursor() {
   const TRAIL_N = 8;
   const mx = useRef(0), my = useRef(0), rx = useRef(0), ry = useRef(0), hx = useRef(0), hy = useRef(0);
 
-  // init trail dots
   useEffect(() => {
     if (window.matchMedia('(hover:none)').matches) return;
     const dots = [];
@@ -791,7 +1124,6 @@ function useAdvancedCursor() {
     return () => dots.forEach(d => d.el.remove());
   }, []);
 
-  // main logic
   useEffect(() => {
     if (window.matchMedia('(hover:none)').matches) return;
     const LABELS = [
@@ -926,15 +1258,124 @@ const TiltCard = forwardRef(({ children, style, className, onClick, ...rest }, r
   );
 });
 
+// ─── VIDEO PLAYER COMPONENT ───────────────────────────────────────────────
+function VideoPlayer({ src, onClose }) {
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPlaying(true); }
+    else { v.pause(); setPlaying(false); }
+  };
+
+  const onTimeUpdate = () => {
+    const v = videoRef.current;
+    if (!v || !v.duration) return;
+    setProgress((v.currentTime / v.duration) * 100);
+  };
+
+  const onSeek = (e) => {
+    e.stopPropagation();
+    const v = videoRef.current;
+    if (!v) return;
+    v.currentTime = (parseFloat(e.target.value) / 100) * v.duration;
+  };
+
+  return (
+    <div className="pj-video-wrap">
+      <video
+        ref={videoRef}
+        src={src}
+        onTimeUpdate={onTimeUpdate}
+        onEnded={() => setPlaying(false)}
+        onClick={(e) => e.stopPropagation()}
+        playsInline
+      />
+      <div className="pj-video-controls" onClick={e => e.stopPropagation()}>
+        <button className="pj-video-play-btn" onClick={togglePlay}>
+          {playing ? '⏸' : '▶'}
+        </button>
+        <input
+          type="range"
+          className="pj-video-progress"
+          value={progress}
+          onChange={onSeek}
+          min="0" max="100" step="0.1"
+        />
+      </div>
+    </div>
+  );
+}
+
+// ─── CODE MODAL COMPONENT ─────────────────────────────────────────────────
+function CodeModal({ code, onClose }) {
+  const [copied, setCopied] = useState(false);
+  const highlighted = highlightJS(code);
+
+  const copyCode = () => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  return (
+    <motion.div
+      className="pj-code-modal-bg"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="pj-code-modal"
+        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.92, y: 20 }}
+        transition={{ type: 'spring', damping: 22, stiffness: 280 }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="pj-code-modal-header">
+          <div className="pj-code-modal-dots">
+            <div className="pj-code-modal-dot" style={{ background: '#ff5f57' }} />
+            <div className="pj-code-modal-dot" style={{ background: '#febc2e' }} />
+            <div className="pj-code-modal-dot" style={{ background: '#28c840' }} />
+          </div>
+          <div className="pj-code-modal-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="16,18 22,12 16,6" /><polyline points="8,6 2,12 8,18" />
+            </svg>
+            Calculator.jsx — Vault Calculator
+          </div>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <button className="pj-code-copy" onClick={copyCode}>
+              {copied ? '✓ Copied!' : 'Copy'}
+            </button>
+            <button className="pj-code-close" onClick={onClose}>✕</button>
+          </div>
+        </div>
+        <div className="pj-code-modal-body">
+          <pre className="pj-code-pre" dangerouslySetInnerHTML={{ __html: highlighted }} />
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────
 export default function Projects() {
   const [filter, setFilter] = useState('All');
   const [modal, setModal] = useState(null);
   const [images, setImages] = useState({});
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [shake, setShake] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [showCodeModal, setShowCodeModal] = useState(false);
+  // track which modal project is showing video
+  const [playingVideo, setPlayingVideo] = useState(false);
 
   const canvasRef = useRef(null);
   const rafRef = useRef(null);
@@ -971,32 +1412,21 @@ export default function Projects() {
     return () => { window.removeEventListener('resize', resize); cancelAnimationFrame(rafRef.current); };
   }, []);
 
-  // track mouse for canvas
   useEffect(() => {
     const f = e => { mxR.current = e.clientX; myR.current = e.clientY; };
     window.addEventListener('mousemove', f, { passive: true });
     return () => window.removeEventListener('mousemove', f);
   }, []);
 
-  // scroll reveal
   useEffect(() => {
     if (!loaded) return;
     observerRef.current = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }), { threshold: .08 });
-    
-    // Observe elements that were rendered while loading
-    elementsRef.current.forEach(el => {
-      if (el) observerRef.current.observe(el);
-    });
-
+    elementsRef.current.forEach(el => { if (el) observerRef.current.observe(el); });
     return () => observerRef.current?.disconnect();
   }, [loaded]);
 
-  // Reset shake/error when modal closes
   useEffect(() => {
-    if (!modal) {
-      setShake(false);
-      setErrorMsg(null);
-    }
+    if (!modal) { setErrorMsg(null); setPlayingVideo(false); }
   }, [modal]);
 
   const rr = useCallback(el => {
@@ -1046,7 +1476,7 @@ export default function Projects() {
           <div className="pj-noise" />
           <canvas ref={canvasRef} className="pj-canvas" />
 
-          {/* ═══ FLOATING SYMBOLS with parallax ═══ */}
+          {/* ═══ FLOATING SYMBOLS ═══ */}
           {FLOAT_SYMBOLS.map((f, i) => (
             <div key={i} ref={setFloatRef(i)} className="pj-float" style={{
               left: f.x, top: f.y, fontSize: f.sz, opacity: f.op,
@@ -1056,7 +1486,6 @@ export default function Projects() {
 
           {/* ── HERO ── */}
           <div style={{ position: 'relative', zIndex: 3 }}>
-            {/* parallax bg orbs */}
             <div ref={heroBgRef} style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
               {[
                 { top: '0%', left: '-5%', w: 500, c: '99,102,241', op: .07 },
@@ -1069,8 +1498,6 @@ export default function Projects() {
                 }} />
               ))}
             </div>
-
-            {/* parallax hero text */}
             <div ref={heroRef} className="pj-hero">
               <motion.div className="pj-badge" {...fu(0)}>
                 <span className="pj-bdot" />My Work
@@ -1080,10 +1507,10 @@ export default function Projects() {
                 <span className="pj-t2">BUILT & SHIPPED</span>
               </motion.h1>
               <motion.p className="pj-sub" {...fu(.22)}>
-                From concept to production — 11 real projects spanning mobile apps, full-stack systems and beautiful frontends.
+                From concept to production — 12 real projects spanning mobile apps, full-stack systems and beautiful frontends.
               </motion.p>
               <motion.div className="pj-count-strip" {...fu(.32)}>
-                <span><span className="pj-count-n">11</span> Projects</span>
+                <span><span className="pj-count-n">12</span> Projects</span>
                 <span style={{ color: 'rgba(241,241,255,.12)' }}>|</span>
                 <span><span className="pj-count-n">6</span> Full Stack</span>
               </motion.div>
@@ -1117,8 +1544,8 @@ export default function Projects() {
                 <div className="pj-type-badge" style={getTypeStyle(proj.type)}>
                   {proj.type}
                 </div>
-                <div className="pj-status">
-                  <span className={`pj-status-dot ${proj.status === 'In Progress' ? 'blink' : ''}`} style={{
+                <div className="pj-status" style={{ padding: '0 22px', paddingTop: '14px' }}>
+                  <span className={`pj-status-dot ${proj.status === 'In Progress' || proj.status === 'IN progress' ? 'blink' : ''}`} style={{
                     background: proj.status === 'Completed' ? '#4ade80' : '#fbbf24',
                     boxShadow: proj.status === 'Completed' ? '0 0 8px rgba(74,222,128,.5)' : '0 0 8px rgba(251,191,36,.5)'
                   }} />
@@ -1171,12 +1598,69 @@ export default function Projects() {
                     <span>View Details</span>
                     <span className="pj-btn-arrow">→</span>
                   </button>
-                  <a href={Array.isArray(proj.github) ? proj.github[0] : proj.github} target="_blank" rel="noreferrer" className="pj-btn-gh">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-                    </svg>
-                  </a>
+
+                  {/* Demo button for ALL projects that have live link */}
+                  {proj.live && !proj.codeLink && (
+                    <a
+                      href={proj.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="pj-btn-demo"
+                      onClick={e => e.stopPropagation()}
+                      title="Live Demo"
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15,3 21,3 21,9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                      Demo
+                    </a>
+                  )}
+
+                  {/* GitHub btn for all projects */}
+                  {proj.github && (
+                    <a
+                      href={Array.isArray(proj.github) ? proj.github[0] : proj.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="pj-btn-gh"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
+
+                {/* ngrok hover tooltip for Auto Ustaad projects */}
+                {proj.ngrokNote && (
+                  <div className="pj-ngrok-wrap" style={{ position: 'absolute', bottom: 64, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 10 }}>
+                    <div style={{
+                      display: 'flex', alignItems: 'center', gap: '5px',
+                      fontSize: '10px', color: 'rgba(251,191,36,.55)', fontWeight: '700',
+                      letterSpacing: '.1em', textTransform: 'uppercase',
+                      padding: '4px 10px', borderRadius: '6px',
+                      background: 'rgba(251,191,36,.06)', border: '1px solid rgba(251,191,36,.15)',
+                      cursor: 'default',
+                    }}>
+                      <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#fbbf24', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite' }} />
+                      Backend via ngrok
+                    </div>
+                    <div className="pj-ngrok-tooltip">
+                      <div className="pj-ngrok-title">
+                        <span className="pj-ngrok-dot" />
+                        Backend Access Required
+                      </div>
+                      <div className="pj-ngrok-step"><span>1.</span><span>Contact the owner to get the active ngrok URL</span></div>
+                      <div className="pj-ngrok-step"><span>2.</span><span>Open the live app link</span></div>
+                      <div style={{ marginTop: '8px', fontSize: '11px', color: 'rgba(241,241,255,.25)', borderTop: '1px solid rgba(255,255,255,.05)', paddingTop: '8px' }}>
+                        ngrok backend is temporary — reach owner to check if it's live
+                      </div>
+                    </div>
+                  </div>
+                )}
               </TiltCard>
             ))}
           </div>
@@ -1200,8 +1684,11 @@ export default function Projects() {
                   onClick={e => e.stopPropagation()}
                   style={{ '--ca': modal.accent }}
                 >
+                  {/* ── Modal image / video zone ── */}
                   <div className="pj-modal-img">
-                    {images[modal.id] ? (
+                    {playingVideo && modal.video ? (
+                      <VideoPlayer src={modal.video} />
+                    ) : images[modal.id] ? (
                       <>
                         <img src={images[modal.id]} alt={modal.title} />
                         <div className="pj-modal-img-overlay" />
@@ -1214,15 +1701,45 @@ export default function Projects() {
                     ) : (
                       <div className="pj-modal-ph">{modal.placeholder}</div>
                     )}
+
                     <button className="pj-modal-close" onClick={() => setModal(null)}>✕</button>
-                    <button className="pj-modal-upload" onClick={e => triggerUpload(modal.id, e)}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17,8 12,3 7,8" />
-                        <line x1="12" y1="3" x2="12" y2="15" />
-                      </svg>
-                      Upload Image
-                    </button>
+
+                    {/* Watch Demo Video button — only for projects with video */}
+                    {modal.video && !playingVideo && (
+                      <button
+                        className="pj-modal-watch-demo"
+                        style={{ '--ca': modal.accent }}
+                        onClick={e => { e.stopPropagation(); setPlayingVideo(true); }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                          <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                        Watch Demo Video
+                      </button>
+                    )}
+
+                    {/* Stop video */}
+                    {playingVideo && (
+                      <button
+                        className="pj-modal-watch-demo"
+                        style={{ '--ca': modal.accent, bottom: 16 }}
+                        onClick={e => { e.stopPropagation(); setPlayingVideo(false); }}
+                      >
+                        ✕ Close Video
+                      </button>
+                    )}
+
+                    {!playingVideo && (
+                      <button className="pj-modal-upload" onClick={e => triggerUpload(modal.id, e)}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="17,8 12,3 7,8" />
+                          <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        Upload Image
+                      </button>
+                    )}
+
                     <input
                       id={`upload-${modal.id}`}
                       type="file"
@@ -1231,13 +1748,14 @@ export default function Projects() {
                       onChange={e => handleImageUpload(modal.id, e)}
                     />
                   </div>
+
                   <div className="pj-modal-body">
                     <div className="pj-modal-meta">
                       <div className="pj-modal-type" style={getTypeStyle(modal.type)}>
                         {modal.type}
                       </div>
                       <div className="pj-status">
-                        <span className={`pj-status-dot ${modal.status === 'In Progress' ? 'blink' : ''}`} style={{
+                        <span className={`pj-status-dot ${modal.status === 'In Progress' || modal.status === 'IN progress' ? 'blink' : ''}`} style={{
                           background: modal.status === 'Completed' ? '#4ade80' : '#fbbf24',
                           boxShadow: modal.status === 'Completed' ? '0 0 8px rgba(74,222,128,.5)' : '0 0 8px rgba(251,191,36,.5)'
                         }} />
@@ -1252,6 +1770,25 @@ export default function Projects() {
                         <span key={t} className="pj-modal-tag">{t}</span>
                       ))}
                     </div>
+
+                    {/* ngrok note in modal */}
+                    {modal.ngrokNote && (
+                      <div style={{
+                        padding: '14px 18px', borderRadius: '12px',
+                        background: 'rgba(251,191,36,.06)', border: '1px solid rgba(251,191,36,.2)',
+                        marginBottom: '20px',
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#fbbf24', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite', flexShrink: 0 }} />
+                          <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '11px', fontWeight: '700', letterSpacing: '.14em', textTransform: 'uppercase', color: '#fbbf24' }}>
+                            Backend runs on ngrok
+                          </span>
+                        </div>
+                        <p style={{ fontSize: '13px', color: 'rgba(241,241,255,.4)', lineHeight: '1.6', margin: 0 }}>
+                          <span>1.</span><span>Contact the owner to get the active ngrok URL</span><span>2.</span><span>Open the live app link</span></p>
+                      </div>
+                    )}
+
                     <div className="pj-modal-btns">
                       {modal.live && (
                         <a href={modal.live} target="_blank" rel="noreferrer" className="pj-modal-btn-live">
@@ -1263,6 +1800,7 @@ export default function Projects() {
                           Live Demo
                         </a>
                       )}
+
                       {Array.isArray(modal.github) ? (
                         <>
                           <a href={modal.github[0]} target="_blank" rel="noreferrer" className="pj-modal-btn-gh">
@@ -1287,6 +1825,7 @@ export default function Projects() {
                         </a>
                       )}
                     </div>
+
                     <AnimatePresence>
                       {errorMsg && (
                         <motion.div
@@ -1304,6 +1843,14 @@ export default function Projects() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* ── CODE MODAL ── */}
+          <AnimatePresence>
+            {showCodeModal && (
+              <CodeModal code={VAULT_CODE} onClose={() => setShowCodeModal(false)} />
+            )}
+          </AnimatePresence>
+
         </div>
         <Footer />
       </PageTransition>
