@@ -272,7 +272,6 @@ export default function Calculator() {
     }
 
     if (btn === '=') {
-      // Check for secret code
       if (input === SECRET_CODE) {
         setInput('');
         setDisplay('0');
@@ -280,14 +279,12 @@ export default function Calculator() {
         return;
       }
 
-      // Normal calculation
       try {
         const expr = input.replace('×', '*').replace('÷', '/').replace('−', '-');
         const result = Function('"use strict"; return (' + expr + ')')();
         setDisplay(String(result));
         setInput(String(result));
 
-        // Wrong secret attempt tracking
         setAttempts(prev => {
           const next = prev + 1;
           if (next >= 3) {
@@ -849,37 +846,6 @@ const STYLES = `
 .tok-cm  { color: #8b949e; font-style: italic; }
 .tok-tag { color: #7ee787; }
 
-/* ── VIDEO PLAYER in modal ── */
-.pj-video-wrap {
-  position: relative; width: 100%; height: 100%;
-  background: #000;
-}
-.pj-video-wrap video {
-  width: 100%; height: 100%; object-fit: contain;
-}
-.pj-video-controls {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 12px 16px;
-  background: linear-gradient(to top, rgba(0,0,0,.85), transparent);
-  display: flex; align-items: center; gap: 10px;
-}
-.pj-video-play-btn {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.2);
-  color: #fff; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all .2s; font-size: 13px; flex-shrink: 0;
-}
-.pj-video-play-btn:hover { background: rgba(255,255,255,.28); }
-.pj-video-progress {
-  flex: 1; height: 3px; border-radius: 3px;
-  background: rgba(255,255,255,.2); cursor: pointer; position: relative;
-  appearance: none; -webkit-appearance: none;
-}
-.pj-video-progress::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
-  background: #fff; cursor: pointer;
-}
-
 /* ── MODAL ── */
 .pj-modal-bg {
   position:fixed; inset:0; z-index:100;
@@ -979,20 +945,6 @@ const STYLES = `
 }
 .pj-modal-btn-gh:hover { border-color:rgba(255,255,255,.25); color:#f1f1ff; background:rgba(255,255,255,.09); transform:translateY(-2px); }
 
-/* View Code button */
-.pj-modal-btn-code {
-  padding: 13px 20px; border-radius: 12px;
-  background: rgba(99,102,241,.12); border: 1px solid rgba(99,102,241,.3);
-  color: #a5b4fc; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13.5px;
-  cursor: pointer; transition: all .25s cubic-bezier(.22,1,.36,1);
-  display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
-}
-.pj-modal-btn-code:hover {
-  background: rgba(99,102,241,.25); border-color: rgba(99,102,241,.55);
-  color: #c4b5fd; transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(99,102,241,.25);
-}
-
 .pj-modal-div { height:1px; background:linear-gradient(90deg,transparent,rgba(99,102,241,.2),transparent); margin:24px 0; }
 
 .pj-error-toast {
@@ -1030,11 +982,8 @@ function highlightJS(code) {
   const numbers = /\b(\d+(?:\.\d+)?)\b/g;
   const comments = /(\/\/.*$|\/\*[\s\S]*?\*\/)/gm;
   const fns = /\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\()/g;
-  const jsx = /(<\/?[A-Z][a-zA-Z0-9]*|<\/[a-z]+>|<[a-z]+)/g;
 
-  // escape html first
   let out = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  // order matters
   out = out.replace(comments, m => `<span class="tok-cm">${m}</span>`);
   out = out.replace(strings, m => `<span class="tok-str">${m}</span>`);
   out = out.replace(keywords, m => `<span class="tok-kw">${m}</span>`);
@@ -1258,11 +1207,23 @@ const TiltCard = forwardRef(({ children, style, className, onClick, ...rest }, r
   );
 });
 
-// ─── VIDEO PLAYER COMPONENT ───────────────────────────────────────────────
-function VideoPlayer({ src, onClose }) {
+// ─── FULLSCREEN VIDEO PLAYER ──────────────────────────────────────────────
+function FullscreenVideoPlayer({ src, accentColor, onClose }) {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) {
+      v.play().then(() => setPlaying(true)).catch(() => {});
+    }
+    const onKey = e => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
   const togglePlay = (e) => {
     e.stopPropagation();
@@ -1275,7 +1236,12 @@ function VideoPlayer({ src, onClose }) {
   const onTimeUpdate = () => {
     const v = videoRef.current;
     if (!v || !v.duration) return;
+    setCurrentTime(v.currentTime);
     setProgress((v.currentTime / v.duration) * 100);
+  };
+
+  const onLoadedMetadata = () => {
+    if (videoRef.current) setDuration(videoRef.current.duration);
   };
 
   const onSeek = (e) => {
@@ -1285,29 +1251,226 @@ function VideoPlayer({ src, onClose }) {
     v.currentTime = (parseFloat(e.target.value) / 100) * v.duration;
   };
 
+  const formatTime = (s) => {
+    if (!s || isNaN(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2, '0')}`;
+  };
+
   return (
-    <div className="pj-video-wrap">
-      <video
-        ref={videoRef}
-        src={src}
-        onTimeUpdate={onTimeUpdate}
-        onEnded={() => setPlaying(false)}
-        onClick={(e) => e.stopPropagation()}
-        playsInline
-      />
-      <div className="pj-video-controls" onClick={e => e.stopPropagation()}>
-        <button className="pj-video-play-btn" onClick={togglePlay}>
-          {playing ? '⏸' : '▶'}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 999999,
+        background: 'rgba(0,0,0,0.97)',
+        backdropFilter: 'blur(24px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px',
+      }}
+    >
+      {/* Top bar */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          padding: '20px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.7), transparent)',
+          zIndex: 10,
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          fontFamily: 'Syne, sans-serif',
+          fontWeight: 700,
+          fontSize: '13px',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: 'rgba(255,255,255,0.5)',
+        }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ color: `rgb(${accentColor})` }}>
+            <polygon points="5,3 19,12 5,21" />
+          </svg>
+          Demo Video
+        </div>
+        <button
+          onClick={onClose}
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.08)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: 18,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all .2s',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(236,72,153,0.25)';
+            e.currentTarget.style.borderColor = 'rgba(236,72,153,0.5)';
+            e.currentTarget.style.color = '#f9a8d4';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+            e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
+          }}
+        >
+          ✕
         </button>
-        <input
-          type="range"
-          className="pj-video-progress"
-          value={progress}
-          onChange={onSeek}
-          min="0" max="100" step="0.1"
-        />
       </div>
-    </div>
+
+      {/* Video container */}
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0, y: 30 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.85, opacity: 0, y: 30 }}
+        transition={{ type: 'spring', damping: 24, stiffness: 280 }}
+        onClick={e => e.stopPropagation()}
+        style={{
+          width: '100%',
+          maxWidth: 1100,
+          borderRadius: 20,
+          overflow: 'hidden',
+          border: `1px solid rgba(${accentColor}, 0.25)`,
+          boxShadow: `0 48px 120px rgba(0,0,0,0.9), 0 0 60px rgba(${accentColor}, 0.12)`,
+          background: '#000',
+          position: 'relative',
+        }}
+      >
+        {/* Accent top line */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, height: 2, zIndex: 2,
+          background: `linear-gradient(90deg, transparent, rgba(${accentColor}, 0.8), transparent)`,
+        }} />
+
+        <video
+          ref={videoRef}
+          src={src}
+          onTimeUpdate={onTimeUpdate}
+          onLoadedMetadata={onLoadedMetadata}
+          onEnded={() => setPlaying(false)}
+          onClick={togglePlay}
+          playsInline
+          style={{
+            width: '100%',
+            display: 'block',
+            maxHeight: '72vh',
+            objectFit: 'contain',
+            cursor: 'pointer',
+          }}
+        />
+
+        {/* Controls overlay */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0, left: 0, right: 0,
+            padding: '32px 20px 18px',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Progress bar */}
+          <input
+            type="range"
+            value={progress}
+            onChange={onSeek}
+            min="0"
+            max="100"
+            step="0.1"
+            style={{
+              width: '100%',
+              height: 4,
+              cursor: 'pointer',
+              accentColor: `rgb(${accentColor})`,
+              borderRadius: 4,
+            }}
+          />
+
+          {/* Controls row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            {/* Play/Pause */}
+            <button
+              onClick={togglePlay}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                background: `rgba(${accentColor}, 0.2)`,
+                border: `1px solid rgba(${accentColor}, 0.4)`,
+                color: `rgb(${accentColor})`,
+                fontSize: 16,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                transition: 'all .2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = `rgba(${accentColor}, 0.35)`; }}
+              onMouseLeave={e => { e.currentTarget.style.background = `rgba(${accentColor}, 0.2)`; }}
+            >
+              {playing
+                ? <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                : <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+              }
+            </button>
+
+            {/* Time */}
+            <span style={{
+              fontFamily: 'Syne, sans-serif',
+              fontSize: 12,
+              fontWeight: 700,
+              color: 'rgba(255,255,255,0.45)',
+              letterSpacing: '0.06em',
+              flexShrink: 0,
+            }}>
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </span>
+
+            <div style={{ flex: 1 }} />
+
+            {/* ESC hint */}
+            <span style={{
+              fontFamily: 'Syne, sans-serif',
+              fontSize: 10,
+              fontWeight: 700,
+              color: 'rgba(255,255,255,0.2)',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+            }}>
+              ESC to close
+            </span>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -1374,8 +1537,8 @@ export default function Projects() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [showCodeModal, setShowCodeModal] = useState(false);
-  // track which modal project is showing video
-  const [playingVideo, setPlayingVideo] = useState(false);
+  // fullscreenVideo: null or { src, accent }
+  const [fullscreenVideo, setFullscreenVideo] = useState(null);
 
   const canvasRef = useRef(null);
   const rafRef = useRef(null);
@@ -1426,7 +1589,7 @@ export default function Projects() {
   }, [loaded]);
 
   useEffect(() => {
-    if (!modal) { setErrorMsg(null); setPlayingVideo(false); }
+    if (!modal) { setErrorMsg(null); setFullscreenVideo(null); }
   }, [modal]);
 
   const rr = useCallback(el => {
@@ -1599,8 +1762,7 @@ export default function Projects() {
                     <span className="pj-btn-arrow">→</span>
                   </button>
 
-                  {/* Demo button for ALL projects that have live link */}
-                  {proj.live && !proj.codeLink && (
+                  {proj.live && (
                     <a
                       href={proj.live}
                       target="_blank"
@@ -1618,7 +1780,6 @@ export default function Projects() {
                     </a>
                   )}
 
-                  {/* GitHub btn for all projects */}
                   {proj.github && (
                     <a
                       href={Array.isArray(proj.github) ? proj.github[0] : proj.github}
@@ -1634,7 +1795,6 @@ export default function Projects() {
                   )}
                 </div>
 
-                {/* ngrok hover tooltip for Auto Ustaad projects */}
                 {proj.ngrokNote && (
                   <div className="pj-ngrok-wrap" style={{ position: 'absolute', bottom: 64, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 10 }}>
                     <div style={{
@@ -1684,11 +1844,9 @@ export default function Projects() {
                   onClick={e => e.stopPropagation()}
                   style={{ '--ca': modal.accent }}
                 >
-                  {/* ── Modal image / video zone ── */}
+                  {/* ── Modal image zone ── */}
                   <div className="pj-modal-img">
-                    {playingVideo && modal.video ? (
-                      <VideoPlayer src={modal.video} />
-                    ) : images[modal.id] ? (
+                    {images[modal.id] ? (
                       <>
                         <img src={images[modal.id]} alt={modal.title} />
                         <div className="pj-modal-img-overlay" />
@@ -1705,11 +1863,14 @@ export default function Projects() {
                     <button className="pj-modal-close" onClick={() => setModal(null)}>✕</button>
 
                     {/* Watch Demo Video button — only for projects with video */}
-                    {modal.video && !playingVideo && (
+                    {modal.video && (
                       <button
                         className="pj-modal-watch-demo"
                         style={{ '--ca': modal.accent }}
-                        onClick={e => { e.stopPropagation(); setPlayingVideo(true); }}
+                        onClick={e => {
+                          e.stopPropagation();
+                          setFullscreenVideo({ src: modal.video, accent: modal.accent });
+                        }}
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                           <polygon points="5,3 19,12 5,21" />
@@ -1718,27 +1879,14 @@ export default function Projects() {
                       </button>
                     )}
 
-                    {/* Stop video */}
-                    {playingVideo && (
-                      <button
-                        className="pj-modal-watch-demo"
-                        style={{ '--ca': modal.accent, bottom: 16 }}
-                        onClick={e => { e.stopPropagation(); setPlayingVideo(false); }}
-                      >
-                        ✕ Close Video
-                      </button>
-                    )}
-
-                    {!playingVideo && (
-                      <button className="pj-modal-upload" onClick={e => triggerUpload(modal.id, e)}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="17,8 12,3 7,8" />
-                          <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg>
-                        Upload Image
-                      </button>
-                    )}
+                    <button className="pj-modal-upload" onClick={e => triggerUpload(modal.id, e)}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17,8 12,3 7,8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                      </svg>
+                      Upload Image
+                    </button>
 
                     <input
                       id={`upload-${modal.id}`}
@@ -1784,8 +1932,10 @@ export default function Projects() {
                             Backend runs on ngrok
                           </span>
                         </div>
-                        <p style={{ fontSize: '13px', color: 'rgba(241,241,255,.4)', lineHeight: '1.6', margin: 0 }}>
-                          <span>1.</span><span>Contact the owner to get the active ngrok URL</span><span>2.</span><span>Open the live app link</span></p>
+                        <div style={{ fontSize: '13px', color: 'rgba(241,241,255,.4)', lineHeight: '1.7' }}>
+                          <div style={{ marginBottom: '4px' }}>1. Contact the owner to get the active ngrok URL</div>
+                          <div>2. Open the live app link above</div>
+                        </div>
                       </div>
                     )}
 
@@ -1854,6 +2004,17 @@ export default function Projects() {
         </div>
         <Footer />
       </PageTransition>
+
+      {/* ── FULLSCREEN VIDEO PLAYER — renders outside PageTransition so z-index works fully ── */}
+      <AnimatePresence>
+        {fullscreenVideo && (
+          <FullscreenVideoPlayer
+            src={fullscreenVideo.src}
+            accentColor={fullscreenVideo.accent}
+            onClose={() => setFullscreenVideo(null)}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
