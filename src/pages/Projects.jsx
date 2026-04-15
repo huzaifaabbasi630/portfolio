@@ -166,7 +166,7 @@ const PROJECTS = [
     image: '/assets/ustaadPartner.png',
     video: '/assets/ustaadPartner.mp4',
     github: ['https://github.com/huzaifaabbasi630/auto-ustaad-server', 'https://github.com/huzaifaabbasi630/auto-ustaad-partner'],
-    live: 'https://auto-ustaad-partner.netlify.app/',
+    live: 'https://auto-ustaad-partner.vercel.app',
     featured: true,
     ngrokNote: true,
   },
