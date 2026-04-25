@@ -218,6 +218,22 @@ const PROJECTS = [
     live: 'https://calculatorlock.vercel.app/',
     featured: true,
   },
+  {
+    id: 14,
+    title: 'Flappy Bird',
+    short: 'A classic game made with React Native',
+    desc: 'Flappy Bird ek classic game hai jo React Native aur Expo ke sath banaya gaya hai. Isme smooth graphics, physics-based gameplay aur touch controls hain.',
+    tech: ['React Native', 'Expo'],
+    type: 'Mobile',
+    status: 'Completed',
+    accent: '99,102,241',
+    glow: '#6366f1',
+    placeholder: '🔐',
+    image: '/assets/flappy-bird.png',
+    // github: 'https://github.com/huzaifaabbasi630/calculator-lock-code',
+    live: 'https://flappy-bird-mu-rho.vercel.app/',
+    featured: true,
+  },
 ];
 
 const FILTERS = ['All', 'Full Stack', 'Mobile', 'Frontend'];
