@@ -230,8 +230,8 @@ const PROJECTS = [
     glow: '#6366f1',
     placeholder: '🔐',
     image: '/assets/flappy-bird.png',
-    // github: 'https://github.com/huzaifaabbasi630/calculator-lock-code',
-    live: 'https://flappy-bird-mu-rho.vercel.app/',
+    github: 'https://github.com/huzaifaabbasi630/falppy-birds-game',
+    live: 'https://expo.dev/artifacts/eas/ghwTQ2qQ7S3ghAgj3VGJn2.apk',
     featured: true,
   },
 ];
