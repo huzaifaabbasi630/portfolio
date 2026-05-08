@@ -1167,7 +1167,7 @@ function PageLoader({ onDone }) {
             >
               <a
                 className="ab-loader-social-link"
-                href="https://github.com"
+                href="https://github.com/huzaifaabbasi630"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1183,7 +1183,7 @@ function PageLoader({ onDone }) {
               </a>
               <a
                 className="ab-loader-social-link"
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/hafiz-muhammad-huzaifa/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1693,7 +1693,7 @@ function HangingIDCard() {
                     {/* LinkedIn */}
                     <a
                       className="id-social"
-                      href="https://linkedin.com"
+                      href="https://www.linkedin.com/in/hafiz-muhammad-huzaifa/"
                       target="_blank"
                       rel="noopener noreferrer"
                       title="LinkedIn"

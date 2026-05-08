@@ -908,7 +908,7 @@ const handleSubmit = async (e) => {
               <div className="ct-quick-links">
                 {[
                   { label: '📧 Send an Email', href: 'mailto:huzaifaabbasi09123@gmail.com' },
-                  { label: '💼 LinkedIn Profile', href: 'https://linkedin.com' },
+                  { label: '💼 LinkedIn Profile', href: 'https://www.linkedin.com/in/hafiz-muhammad-huzaifa/' },
                   { label: '⌨️ GitHub Profile', href: 'https://github.com/huzaifaabbasi630' },
                   { label: '📄 Download Resume', href: '/assets/resume.pdf' },
                 ].map(({ label, href }) => (
