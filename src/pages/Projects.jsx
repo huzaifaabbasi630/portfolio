@@ -1234,7 +1234,7 @@ function FullscreenVideoPlayer({ src, accentColor, onClose }) {
   useEffect(() => {
     const v = videoRef.current;
     if (v) {
-      v.play().then(() => setPlaying(true)).catch(() => {});
+      v.play().then(() => setPlaying(true)).catch(() => { });
     }
     const onKey = e => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
@@ -1453,8 +1453,8 @@ function FullscreenVideoPlayer({ src, accentColor, onClose }) {
               onMouseLeave={e => { e.currentTarget.style.background = `rgba(${accentColor}, 0.2)`; }}
             >
               {playing
-                ? <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                : <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                ? <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
+                : <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
               }
             </button>
 
