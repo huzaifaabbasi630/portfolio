@@ -1702,12 +1702,12 @@ export default function Projects() {
                 <span className="pj-t2">BUILT & SHIPPED</span>
               </motion.h1>
               <motion.p className="pj-sub" {...fu(.22)}>
-                From concept to production — 14 real projects spanning mobile apps, full-stack systems and beautiful frontends.
+                From concept to production — 15 real projects spanning mobile apps, full-stack systems and beautiful frontends.
               </motion.p>
               <motion.div className="pj-count-strip" {...fu(.32)}>
-                <span><span className="pj-count-n">14</span> Projects</span>
+                <span><span className="pj-count-n">15</span> Projects</span>
                 <span style={{ color: 'rgba(241,241,255,.12)' }}>|</span>
-                <span><span className="pj-count-n">6</span> Full Stack</span>
+                <span><span className="pj-count-n">7</span> Full Stack</span>
               </motion.div>
             </div>
           </div>
