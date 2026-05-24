@@ -108,6 +108,23 @@ const PROJECTS = [
     featured: true,
   },
   {
+    id: 11,
+    title: 'ShareHub',
+    short: 'ShareHub is a real-time collaboration and room management platform featuring instant messaging and low-latency WebSockets with WebRTC signaling for seamless user connectivity.',
+    desc: 'ShareHub is a real-time collaboration platform featuring dynamic room management, instant messaging, and low-latency WebSockets with WebRTC signaling for audio/video connectivity. Built with a robust Node.js/Express backend and MongoDB, it ensures secure cross-origin communication and high fault tolerance. Note for Reviewers: Since the backend is hosted on a free Back4App container, the live deployment link automatically spins down or updates after 60 minutes of inactivity. If you would like to test the live application, please contact me directly so I can instantly reactivate the server instance for your review.',
+    tech: ['React JSX', 'Web Audio API','React Router DOM', 'Node.js', 'Express', 'Socket.io', 'WebRTC Signaling',,'MongoDB', 'Tailwind', 'CSS'],
+    type: 'Full Stack',
+    status: 'Completed',
+    accent: '34,211,238',
+    glow: '#3aee22ff',
+    placeholder: '📄',
+    image: '/assets/sharehub.png',
+    video: '/assets/sharehub.mp4',
+    github: ['https://github.com/huzaifaabbasi630/sharehub-server', 'https://github.com/huzaifaabbasi630/sharehub-client'],
+    live: 'https://sharehub-client.vercel.app',
+    featured: true,
+  },
+  {
     id: 12,
     title: 'Weather App (Web Version)',
     short: 'Fully responsive web version of the Weather App',
@@ -1702,12 +1719,12 @@ export default function Projects() {
                 <span className="pj-t2">BUILT & SHIPPED</span>
               </motion.h1>
               <motion.p className="pj-sub" {...fu(.22)}>
-                From concept to production — 15 real projects spanning mobile apps, full-stack systems and beautiful frontends.
+                From concept to production — 16 real projects spanning mobile apps, full-stack systems and beautiful frontends.
               </motion.p>
               <motion.div className="pj-count-strip" {...fu(.32)}>
-                <span><span className="pj-count-n">15</span> Projects</span>
+                <span><span className="pj-count-n">16</span> Projects</span>
                 <span style={{ color: 'rgba(241,241,255,.12)' }}>|</span>
-                <span><span className="pj-count-n">7</span> Full Stack</span>
+                <span><span className="pj-count-n">8</span> Full Stack</span>
               </motion.div>
             </div>
           </div>
