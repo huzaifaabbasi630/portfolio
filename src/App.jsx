@@ -10,14 +10,17 @@ function App() {
   return (
     <Router>
       <ScreenGuard>
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </AnimatePresence>
+        {/* ⚡ Global Wrapper: Yeh poori website ko Deep Dark theme aur smooth scrolling dega */}
+        <div className="bg-dark text-white min-h-screen selection:bg-accent/30 selection:text-white antialiased">
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/skills" element={<Skills />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </AnimatePresence>
+        </div>
       </ScreenGuard>
     </Router>
   );

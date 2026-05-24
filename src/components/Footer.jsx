@@ -45,7 +45,7 @@ const STYLES = `
 
 .ft-line {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(99,102,241,.4) 25%, rgba(139,92,246,.3) 50%, rgba(236,72,153,.25) 75%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(99,102,241,.4) 25%, rgba(139,92,246,.3) 50%, rgba(99,102,241,.25) 75%, transparent 100%);
 }
 
 .ft-bg { position: absolute; inset: 0; background: rgba(4,5,14,.98); pointer-events: none; }
@@ -95,11 +95,11 @@ const STYLES = `
 .ft-avail {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 7px 16px; border-radius: 100px;
-  background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.2);
-  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #4ade80;
+  background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.16);
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #c7d2fe;
 }
-.ft-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; }
-@keyframes ft-adot { 0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)} 50%{box-shadow:0 0 0 6px rgba(74,222,128,0)} }
+.ft-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #6366f1; }
+@keyframes ft-adot { 0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.5)} 50%{box-shadow:0 0 0 6px rgba(99,102,241,0)} }
 .ft-avail-dot { animation: ft-adot 2s infinite; }
 
 /* col label */
@@ -122,7 +122,7 @@ const STYLES = `
 }
 .ft-nav-link::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(#6366f1, #ec4899); border-radius: 2px;
+  background: linear-gradient(135deg, #6366f1, #7c3aed); border-radius: 2px;
   transform: scaleY(0); transition: transform .22s;
 }
 .ft-nav-link:hover { color: #f1f1ff; background: rgba(99,102,241,.07); padding-left: 16px; }
@@ -164,7 +164,7 @@ const STYLES = `
 }
 .ft-sep { color: rgba(241,241,255,.1); }
 @keyframes ft-beat { 0%,100%{transform:scale(1)} 40%{transform:scale(1.3)} }
-.ft-heart { display: inline-block; color: #ec4899; animation: ft-beat 1.6s ease infinite; }
+.ft-heart { display: inline-block; color: #8b5cf6; animation: ft-beat 1.6s ease infinite; }
 .ft-stack { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .ft-pill {
   padding: 3px 10px; border-radius: 100px; font-size: 10.5px; font-weight: 700;
@@ -211,7 +211,7 @@ export default function Footer() {
 
       <div className="ft-bg">
         <div className="ft-orb" style={{ width: 480, height: 480, top: '-160px', left: '-100px', background: 'radial-gradient(circle, rgba(99,102,241,.06), transparent 70%)' }} />
-        <div className="ft-orb" style={{ width: 360, height: 360, bottom: '-80px', right: '-60px', background: 'radial-gradient(circle, rgba(236,72,153,.045), transparent 70%)' }} />
+        <div className="ft-orb" style={{ width: 360, height: 360, bottom: '-80px', right: '-60px', background: 'radial-gradient(circle, rgba(99,102,241,.045), transparent 70%)' }} />
         <div className="ft-orb" style={{ width: 280, height: 280, top: '40%', left: '50%', background: 'radial-gradient(circle, rgba(139,92,246,.04), transparent 70%)' }} />
         <div className="ft-noise" />
         <div className="ft-grid-bg" />

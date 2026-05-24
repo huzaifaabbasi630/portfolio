@@ -14,8 +14,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '52,211,153',
-    glow: '#34d399',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '🏥',
     image: '/assets/ai.png',
     github: ['https://github.com/huzaifaabbasi630/ai-clinic-backend', 'https://github.com/huzaifaabbasi630/clinic-frontend'],
@@ -30,8 +30,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Tailwind CSS'],
     type: 'Full Stack',
     status: 'FEATURED',
-    accent: '34,211,238',
-    glow: '#22d3ee',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '🔗',
     image: '/assets/helphub.png',
     github: ['https://github.com/huzaifaabbasi630/HelpHub-AI-backend', 'https://github.com/huzaifaabbasi630/HelpHub-AI-frontend'],
@@ -46,8 +46,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'Express', 'firebase', 'TypeScript', 'Tailwind CSS'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '236,72,153',
-    glow: '#ec4899',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '👗',
     image: '/assets/atelier.png',
     github: ['https://github.com/huzaifaabbasi630/ecommerce-backend-', 'https://github.com/huzaifaabbasi630/Atelier-frontend'],
@@ -62,8 +62,8 @@ const PROJECTS = [
     tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Tailwind', 'CSS', 'Lucide Icons'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '34,211,238',
-    glow: '#22d3ee',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '🚗',
     image: '/assets/ustaadUser.png',
     video: '/assets/ustaadUser.mp4',
@@ -80,8 +80,8 @@ const PROJECTS = [
     tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Tailwind', 'CSS', 'Lucide Icons'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '251,191,36',
-    glow: '#fbbf24',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '🔧',
     image: '/assets/ustaadPartner.png',
     video: '/assets/ustaadPartner.mp4',
@@ -98,8 +98,8 @@ const PROJECTS = [
     tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Tailwind', 'CSS'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '34,211,238',
-    glow: '#22d3ee',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '📄',
     image: '/assets/analyzer.png',
     video: '/assets/analyzervideo.mp4',
@@ -115,8 +115,8 @@ const PROJECTS = [
     tech: ['React JSX', 'Web Audio API','React Router DOM', 'Node.js', 'Express', 'Socket.io', 'WebRTC Signaling',,'MongoDB', 'Tailwind', 'CSS'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '34,211,238',
-    glow: '#3aee22ff',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '📄',
     image: '/assets/sharehub.png',
     video: '/assets/sharehub.mp4',
@@ -132,8 +132,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'OpenWeatherMap API'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '22d3ee',
-    glow: '#22d3ee',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '🌦️',
     image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
@@ -165,7 +165,7 @@ const PROJECTS = [
     type: 'Frontend',
     status: 'Completed',
     accent: '139,92,246',
-    glow: '#8b5cf6',
+    glow: '#6366f1',
     placeholder: '✨',
     image: '/assets/portfolio1.jpg',
     github: 'https://github.com/huzaifaabbasi630/hafiz-huzaifa-portfolio',
@@ -180,8 +180,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
-    accent: '34,211,238',
-    glow: '#22d3ee',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '📖',
     image: '/assets/quran.jpg',
     github: 'https://github.com/huzaifaabbasi630/online-Quran-Academy',
@@ -196,8 +196,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS3', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
-    accent: '251,191,36',
-    glow: '#fbbf24',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '🪵',
     image: '/assets/wood.jpg',
     github: 'https://github.com/huzaifaabbasi630/hackaton-wood-web-design-project',
@@ -212,8 +212,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
-    accent: '236,72,153',
-    glow: '#ec4899',
+    accent: '99,102,241',
+    glow: '#6366f1',
     placeholder: '🚀',
     image: '/assets/portfolio2.png',
     github: 'https://github.com/huzaifaabbasi630',
@@ -229,7 +229,7 @@ const PROJECTS = [
     type: 'Mobile',
     status: 'Completed',
     accent: '139,92,246',
-    glow: '#8b5cf6',
+    glow: '#6366f1',
     placeholder: '⛅',
     image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
@@ -422,8 +422,8 @@ const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
 
 :root {
-  --indigo: #6366f1; --violet: #8b5cf6; --pink: #ec4899;
-  --cyan: #22d3ee; --green: #4ade80; --bg: #04050e;
+  --indigo: #6366f1; --violet: #8b5cf6; --pink: #7c3aed;
+  --cyan: #a78bfa; --bg: #04050e;
 }
 .pj, .pj * { box-sizing: border-box; }
 .pj {
@@ -510,12 +510,12 @@ const STYLES = `
   .pj-cur.hov {
     width: 10px; height: 10px; mix-blend-mode: normal;
     background: var(--pink);
-    box-shadow: 0 0 0 3px rgba(236,72,153,.2), 0 0 18px rgba(236,72,153,.7), 0 0 36px rgba(236,72,153,.3);
+    box-shadow: 0 0 0 3px rgba(99,102,241,.2), 0 0 18px rgba(99,102,241,.7), 0 0 36px rgba(99,102,241,.3);
   }
   .pj-cur.clicking {
     width: 5px; height: 5px; mix-blend-mode: normal;
     background: var(--cyan);
-    box-shadow: 0 0 20px var(--cyan), 0 0 40px rgba(34,211,238,.5);
+    box-shadow: 0 0 20px var(--cyan), 0 0 40px rgba(99,102,241,.5);
   }
   .pj-cur.text-hov {
     width: 2px; height: 20px; border-radius: 1px; mix-blend-mode: normal;
@@ -531,8 +531,8 @@ const STYLES = `
     transition: width .38s cubic-bezier(.22,1,.36,1), height .38s cubic-bezier(.22,1,.36,1),
                 border-color .25s, border-radius .25s, background .25s;
   }
-  .pj-curR.hov     { width: 50px; height: 50px; border-color: rgba(236,72,153,.65); background: rgba(236,72,153,.04); }
-  .pj-curR.clicking{ width: 22px; height: 22px; border-color: var(--cyan); background: rgba(34,211,238,.07); }
+  .pj-curR.hov     { width: 50px; height: 50px; border-color: rgba(99,102,241,.65); background: rgba(99,102,241,.04); }
+  .pj-curR.clicking{ width: 22px; height: 22px; border-color: var(--cyan); background: rgba(99,102,241,.07); }
   .pj-curR.text-hov{ width: 2px; height: 28px; border-radius: 2px; border-color: transparent; background: rgba(165,180,252,.18); }
 
   .pj-cur-halo {
@@ -544,8 +544,8 @@ const STYLES = `
     transition: opacity .4s, width .5s cubic-bezier(.22,1,.36,1), height .5s cubic-bezier(.22,1,.36,1), background .3s;
   }
   .pj-cur-halo.vis      { opacity: 1; }
-  .pj-cur-halo.hov      { opacity: 1; width: 110px; height: 110px; background: radial-gradient(circle, rgba(236,72,153,.13) 0%, transparent 70%); }
-  .pj-cur-halo.clicking { opacity: 1; width: 55px;  height: 55px;  background: radial-gradient(circle, rgba(34,211,238,.22) 0%, transparent 70%); }
+  .pj-cur-halo.hov      { opacity: 1; width: 110px; height: 110px; background: radial-gradient(circle, rgba(99,102,241,.13) 0%, transparent 70%); }
+  .pj-cur-halo.clicking { opacity: 1; width: 55px;  height: 55px;  background: radial-gradient(circle, rgba(99,102,241,.22) 0%, transparent 70%); }
 
   .pj-cur-label {
     position: fixed; pointer-events: none; z-index: 10000;
@@ -758,9 +758,9 @@ const STYLES = `
 .pj-ngrok-tooltip {
   position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
   margin-bottom: 10px; z-index: 20;
-  background: rgba(4,5,14,.96); border: 1px solid rgba(251,191,36,.35);
+  background: rgba(4,5,14,.96); border: 1px solid rgba(99,102,241,.18);
   border-radius: 12px; padding: 12px 16px;
-  width: 260px; box-shadow: 0 8px 32px rgba(0,0,0,.6), 0 0 20px rgba(251,191,36,.08);
+  width: 260px; box-shadow: 0 8px 32px rgba(0,0,0,.6), 0 0 20px rgba(99,102,241,.08);
   backdrop-filter: blur(12px);
   pointer-events: none;
   opacity: 0; transition: opacity .2s, transform .2s;
@@ -771,17 +771,17 @@ const STYLES = `
 }
 .pj-ngrok-tooltip::after {
   content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-  border: 6px solid transparent; border-top-color: rgba(251,191,36,.35);
+  border: 6px solid transparent; border-top-color: rgba(99,102,241,.35);
 }
 .pj-ngrok-title {
   font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase; color: #fbbf24; margin-bottom: 6px;
+  letter-spacing: .14em; text-transform: uppercase; color: #a78bfa; margin-bottom: 6px;
   display: flex; align-items: center; gap: 6px;
 }
-.pj-ngrok-dot { width: 6px; height: 6px; border-radius: 50%; background: #fbbf24; animation: pj-blink 1.4s ease infinite; }
+.pj-ngrok-dot { width: 6px; height: 6px; border-radius: 50%; background: #6366f1; animation: pj-blink 1.4s ease infinite; }
 .pj-ngrok-text { font-size: 12px; line-height: 1.6; color: rgba(241,241,255,.5); }
 .pj-ngrok-step { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; font-size: 11.5px; color: rgba(241,241,255,.4); }
-.pj-ngrok-step span:first-child { color: #fbbf24; font-weight: 700; flex-shrink: 0; }
+.pj-ngrok-step span:first-child { color: #a78bfa; font-weight: 700; flex-shrink: 0; }
 
 /* watch demo video btn on card */
 .pj-btn-demo {
@@ -878,7 +878,7 @@ const STYLES = `
   color: rgba(241,241,255,.5); display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: all .2s; font-size: 16px;
 }
-.pj-code-close:hover { background: rgba(236,72,153,.2); border-color: rgba(236,72,153,.4); color: #f9a8d4; }
+.pj-code-close:hover { background: rgba(99,102,241,.2); border-color: rgba(99,102,241,.4); color: #a78bfa; }
 .pj-code-copy {
   padding: 6px 14px; border-radius: 8px;
   background: rgba(99,102,241,.15); border: 1px solid rgba(99,102,241,.3);
@@ -958,7 +958,7 @@ const STYLES = `
   color:rgba(241,241,255,.5); display:flex; align-items:center; justify-content:center;
   cursor:pointer; backdrop-filter:blur(8px); transition:all .2s; font-size:18px;
 }
-.pj-modal-close:hover { background:rgba(236,72,153,.2); border-color:rgba(236,72,153,.4); color:#f9a8d4; transform:rotate(90deg); }
+.pj-modal-close:hover { background:rgba(99,102,241,.2); border-color:rgba(99,102,241,.4); color:#a78bfa; transform:rotate(90deg); }
 
 .pj-modal-body { padding:28px 32px 32px; }
 .pj-modal-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
@@ -1132,7 +1132,7 @@ function useAdvancedCursor() {
       { sel: '.pj-modal-btn-live', text: 'Live Demo' },
     ];
     const spawnBurst = (cx, cy) => {
-      const pal = ['#6366f1', '#8b5cf6', '#ec4899', '#22d3ee', '#a78bfa', '#f9a8d4', '#67e8f9'];
+      const pal = ['#6366f1', '#8b5cf6', '#7c3aed', '#a78bfa'];
       for (let i = 0; i < 14; i++) {
         const el = document.createElement('div'); el.className = 'pj-burst';
         const angle = (i / 14) * Math.PI * 2 + (Math.random() - .5) * .4;
@@ -1376,9 +1376,9 @@ function FullscreenVideoPlayer({ src, accentColor, onClose }) {
             transition: 'all .2s',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.background = 'rgba(236,72,153,0.25)';
-            e.currentTarget.style.borderColor = 'rgba(236,72,153,0.5)';
-            e.currentTarget.style.color = '#f9a8d4';
+            e.currentTarget.style.background = 'rgba(99,102,241,0.25)';
+            e.currentTarget.style.borderColor = 'rgba(99,102,241,0.5)';
+            e.currentTarget.style.color = '#a78bfa';
           }}
           onMouseLeave={e => {
             e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
@@ -1758,8 +1758,8 @@ export default function Projects() {
                 </div>
                 <div className="pj-status" style={{ padding: '0 22px', paddingTop: '14px' }}>
                   <span className={`pj-status-dot ${proj.status === 'In Progress' || proj.status === 'IN progress' ? 'blink' : ''}`} style={{
-                    background: proj.status === 'Completed' ? '#4ade80' : '#fbbf24',
-                    boxShadow: proj.status === 'Completed' ? '0 0 8px rgba(74,222,128,.5)' : '0 0 8px rgba(251,191,36,.5)'
+                    background: proj.status === 'Completed' ? '#6366f1' : '#8b5cf6',
+                    boxShadow: proj.status === 'Completed' ? '0 0 8px rgba(99,102,241,.5)' : '0 0 8px rgba(139,92,246,.4)'
                   }} />
                   {proj.status}
                 </div>
@@ -1848,13 +1848,13 @@ export default function Projects() {
                   <div className="pj-ngrok-wrap" style={{ position: 'absolute', bottom: 64, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 10 }}>
                     <div style={{
                       display: 'flex', alignItems: 'center', gap: '5px',
-                      fontSize: '10px', color: 'rgba(251,191,36,.55)', fontWeight: '700',
+                      fontSize: '10px', color: 'rgba(99,102,241,.85)', fontWeight: '700',
                       letterSpacing: '.1em', textTransform: 'uppercase',
                       padding: '4px 10px', borderRadius: '6px',
-                      background: 'rgba(251,191,36,.06)', border: '1px solid rgba(251,191,36,.15)',
+                      background: 'rgba(99,102,241,.08)', border: '1px solid rgba(99,102,241,.2)',
                       cursor: 'default',
                     }}>
-                      <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#fbbf24', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite' }} />
+                      <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#6366f1', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite' }} />
                       Backend via ngrok
                     </div>
                     <div className="pj-ngrok-tooltip">
@@ -1953,8 +1953,8 @@ export default function Projects() {
                       </div>
                       <div className="pj-status">
                         <span className={`pj-status-dot ${modal.status === 'In Progress' || modal.status === 'IN progress' ? 'blink' : ''}`} style={{
-                          background: modal.status === 'Completed' ? '#4ade80' : '#fbbf24',
-                          boxShadow: modal.status === 'Completed' ? '0 0 8px rgba(74,222,128,.5)' : '0 0 8px rgba(251,191,36,.5)'
+                          background: modal.status === 'Completed' ? '#6366f1' : '#8b5cf6',
+                          boxShadow: modal.status === 'Completed' ? '0 0 8px rgba(99,102,241,.5)' : '0 0 8px rgba(139,92,246,.4)'
                         }} />
                         {modal.status}
                       </div>
@@ -1972,12 +1972,12 @@ export default function Projects() {
                     {modal.ngrokNote && (
                       <div style={{
                         padding: '14px 18px', borderRadius: '12px',
-                        background: 'rgba(251,191,36,.06)', border: '1px solid rgba(251,191,36,.2)',
+                        background: 'rgba(99,102,241,.06)', border: '1px solid rgba(99,102,241,.2)',
                         marginBottom: '20px',
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
-                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#fbbf24', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite', flexShrink: 0 }} />
-                          <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '11px', fontWeight: '700', letterSpacing: '.14em', textTransform: 'uppercase', color: '#fbbf24' }}>
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#6366f1', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite', flexShrink: 0 }} />
+                          <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '11px', fontWeight: '700', letterSpacing: '.14em', textTransform: 'uppercase', color: '#a78bfa' }}>
                             Backend runs on ngrok
                           </span>
                         </div>

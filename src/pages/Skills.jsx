@@ -24,8 +24,8 @@ const CATEGORIES = [
     id: 'backend',
     label: 'Backend',
     icon: '⬡',
-    accent: '34,211,238',
-    glow: '#22d3ee',
+    accent: '99,102,241',
+    glow: '#6366f1',
     skills: [
       { name: 'Node.js',    icon: '🟢', level: 85, desc: 'Event loop, streams, file system, HTTP server' },
       { name: 'Express',    icon: '⚡', level: 83, desc: 'REST APIs, middleware, routing, error handling' },
@@ -50,8 +50,8 @@ const CATEGORIES = [
     id: 'tools',
     label: 'Tools & Other',
     icon: '⌘',
-    accent: '236,72,153',
-    glow: '#ec4899',
+    accent: '139,92,246',
+    glow: '#8b5cf6',
     skills: [
       { name: 'Git / GitHub', icon: '⎇',  level: 88, desc: 'Branching, PRs, rebasing, collaboration workflows' },
       { name: 'Vite',         icon: '⚡', level: 90, desc: 'Fast builds, HMR, plugin ecosystem, optimization' },
@@ -66,7 +66,7 @@ const CATEGORIES = [
 const TECH_ICONS = [
   { icon: '⚛',  label: 'React',      c: '99,102,241'  },
   { icon: '🟢', label: 'Node.js',    c: '52,211,153'  },
-  { icon: '🍃', label: 'MongoDB',    c: '34,211,238'  },
+  { icon: '🍃', label: 'MongoDB',    c: '99,102,241'  },
   { icon: '⬡',  label: 'JS',         c: '251,191,36'  },
   { icon: '◉',  label: 'Tailwind',   c: '139,92,246'  },
   { icon: '▲',  label: 'Vercel',     c: '241,241,255' },
@@ -87,8 +87,8 @@ const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
 
 :root {
-  --indigo: #6366f1; --violet: #8b5cf6; --pink: #ec4899;
-  --cyan: #22d3ee; --green: #4ade80; --bg: #04050e;
+  --indigo: #6366f1; --violet: #8b5cf6; --pink: #7c3aed;
+  --cyan: #a78bfa; --bg: #04050e;
 }
 .sk, .sk * { box-sizing: border-box; }
 .sk {
@@ -175,12 +175,12 @@ const STYLES = `
   .sk-cur.hov {
     width: 10px; height: 10px; mix-blend-mode: normal;
     background: var(--pink);
-    box-shadow: 0 0 0 3px rgba(236,72,153,.2), 0 0 18px rgba(236,72,153,.7), 0 0 36px rgba(236,72,153,.3);
+    box-shadow: 0 0 0 3px rgba(99,102,241,.2), 0 0 18px rgba(99,102,241,.7), 0 0 36px rgba(99,102,241,.3);
   }
   .sk-cur.clicking {
     width: 5px; height: 5px; mix-blend-mode: normal;
     background: var(--cyan);
-    box-shadow: 0 0 20px var(--cyan), 0 0 40px rgba(34,211,238,.5);
+    box-shadow: 0 0 20px var(--cyan), 0 0 40px rgba(99,102,241,.5);
   }
   .sk-cur.text-hov {
     width: 2px; height: 20px; border-radius: 1px; mix-blend-mode: normal;
@@ -196,8 +196,8 @@ const STYLES = `
     transition: width .38s cubic-bezier(.22,1,.36,1), height .38s cubic-bezier(.22,1,.36,1),
                 border-color .25s, border-radius .25s, background .25s;
   }
-  .sk-curR.hov      { width: 50px; height: 50px; border-color: rgba(236,72,153,.65); background: rgba(236,72,153,.04); }
-  .sk-curR.clicking { width: 22px; height: 22px; border-color: var(--cyan); background: rgba(34,211,238,.07); }
+  .sk-curR.hov      { width: 50px; height: 50px; border-color: rgba(99,102,241,.65); background: rgba(99,102,241,.04); }
+  .sk-curR.clicking { width: 22px; height: 22px; border-color: var(--cyan); background: rgba(99,102,241,.07); }
   .sk-curR.text-hov { width: 2px; height: 28px; border-radius: 2px; border-color: transparent; background: rgba(165,180,252,.18); }
 
   .sk-cur-halo {
@@ -209,8 +209,8 @@ const STYLES = `
     transition: opacity .4s, width .5s cubic-bezier(.22,1,.36,1), height .5s cubic-bezier(.22,1,.36,1), background .3s;
   }
   .sk-cur-halo.vis      { opacity: 1; }
-  .sk-cur-halo.hov      { opacity: 1; width: 110px; height: 110px; background: radial-gradient(circle, rgba(236,72,153,.13) 0%, transparent 70%); }
-  .sk-cur-halo.clicking { opacity: 1; width: 55px;  height: 55px;  background: radial-gradient(circle, rgba(34,211,238,.22) 0%, transparent 70%); }
+  .sk-cur-halo.hov      { opacity: 1; width: 110px; height: 110px; background: radial-gradient(circle, rgba(99,102,241,.13) 0%, transparent 70%); }
+  .sk-cur-halo.clicking { opacity: 1; width: 55px;  height: 55px;  background: radial-gradient(circle, rgba(99,102,241,.22) 0%, transparent 70%); }
 
   .sk-cur-label {
     position: fixed; pointer-events: none; z-index: 10000;
@@ -361,8 +361,8 @@ const STYLES = `
   border-color: transparent; color: #fff;
   box-shadow: 0 8px 28px rgba(99,102,241,.35);
 }
-.sk-tab.active.cyan { background: linear-gradient(135deg,#0891b2,#06b6d4); box-shadow:0 8px 28px rgba(34,211,238,.3); }
-.sk-tab.active.pink { background: linear-gradient(135deg,#be185d,#ec4899); box-shadow:0 8px 28px rgba(236,72,153,.3); }
+.sk-tab.active.cyan { background: linear-gradient(135deg,#6366f1,#8b5cf6); box-shadow:0 8px 28px rgba(99,102,241,.28); }
+.sk-tab.active.pink { background: linear-gradient(135deg,#8b5cf6,#7c3aed); box-shadow:0 8px 28px rgba(139,92,246,.3); }
 
 /* ════ SKILLS SECTION ════ */
 .sk-section {
@@ -651,7 +651,7 @@ function useAdvancedCursor() {
       { sel: '.sk-sum-item',   text: 'Proficiency'     },
     ];
     const spawnBurst = (cx, cy) => {
-      const pal = ['#6366f1','#8b5cf6','#ec4899','#22d3ee','#a78bfa','#f9a8d4','#67e8f9'];
+      const pal = ['#6366f1', '#8b5cf6', '#7c3aed', '#a78bfa'];
       for (let i=0; i<14; i++) {
         const el = document.createElement('div'); el.className = 'sk-burst';
         const angle = (i/14)*Math.PI*2+(Math.random()-.5)*.4;

@@ -2,13 +2,6 @@ import { useState, useEffect } from 'react';
 
 const BREAKPOINT = 1032;
 
-/**
- * ScreenGuard — shows a centered modal warning when the viewport is
- * narrower than BREAKPOINT px.
- *
- * Props:
- *   children  – the rest of the app to render underneath
- */
 export default function ScreenGuard({ children }) {
   const [isTooSmall, setIsTooSmall] = useState(
     () => typeof window !== 'undefined' && window.innerWidth < BREAKPOINT
@@ -19,7 +12,6 @@ export default function ScreenGuard({ children }) {
     const handleResize = () => {
       const small = window.innerWidth < BREAKPOINT;
       setIsTooSmall(small);
-      // Reset dismiss so warning re-appears if user shrinks again
       if (!small) setDismissed(false);
     };
 
@@ -31,7 +23,7 @@ export default function ScreenGuard({ children }) {
 
   return (
     <>
-      {/* ── Underlying content ── */}
+      {/* Underlying content */}
       <div
         className={`transition-all duration-300 ${
           showModal ? 'blur-sm pointer-events-none select-none' : ''
@@ -40,31 +32,26 @@ export default function ScreenGuard({ children }) {
         {children}
       </div>
 
-      {/* ── Overlay + Modal ── */}
+      {/* Overlay + Modal */}
       {showModal && (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center
-                     bg-black/80 backdrop-blur-md px-4"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#04050e]/90 backdrop-blur-md px-4"
           aria-modal="true"
           role="dialog"
           aria-labelledby="screen-guard-title"
         >
           {/* Modal box */}
           <div
-            className="relative w-full max-w-md rounded-2xl border border-purple-500/30
-                       bg-[#0d0d12] shadow-[0_0_60px_rgba(139,92,246,0.15)]
-                       overflow-hidden"
+            className="relative w-full max-w-md rounded-2xl border border-indigo-500/30 bg-[#04050e] shadow-[0_0_60px_rgba(99,102,241,0.18)] overflow-hidden"
           >
             {/* Top accent bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-purple-600 via-violet-500 to-purple-400" />
+            <div className="h-1 w-full bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-400" />
 
             <div className="px-8 py-10 flex flex-col items-center text-center gap-6">
               {/* Icon */}
               <div
-                className="flex items-center justify-center w-16 h-16 rounded-full
-                           bg-purple-500/10 border border-purple-500/30"
+                className="flex items-center justify-center w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/30"
               >
-                {/* Monitor + warning SVG */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-8 h-8 text-purple-400"
@@ -104,20 +91,10 @@ export default function ScreenGuard({ children }) {
               {/* Dismiss button */}
               <button
                 onClick={() => setDismissed(true)}
-                className="group relative w-full py-3 px-6 rounded-xl text-sm font-medium
-                           text-white overflow-hidden
-                           border border-purple-500/40
-                           bg-purple-500/10
-                           transition-all duration-200
-                           hover:bg-purple-500/20 hover:border-purple-400/60
-                           hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
-                           active:scale-[0.98] cursor-pointer"
+                className="group relative w-full py-3 px-6 rounded-xl text-sm font-medium text-white overflow-hidden border border-indigo-500/40 bg-indigo-500/10 transition-all duration-200 hover:bg-indigo-500/20 hover:border-indigo-400/60 hover:shadow-[0_0_20px_rgba(99,102,241,0.25)] active:scale-[0.98] cursor-pointer"
               >
-                {/* Subtle shimmer on hover */}
                 <span
-                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full
-                             transition-transform duration-700 ease-in-out
-                             bg-gradient-to-r from-transparent via-white/5 to-transparent"
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/5 to-transparent"
                 />
                 <span className="relative">Anyway, I will use this device</span>
               </button>

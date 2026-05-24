@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { path: '/',        label: 'Home'     },
-  { path: '/projects',label: 'Projects' },
-  { path: '/skills',  label: 'Skills'   },
-  { path: '/contact', label: 'Contact'  },
+  { path: '/',         label: 'Home'     },
+  { path: '/projects', label: 'Projects' },
+  { path: '/skills',   label: 'Skills'   },
+  { path: '/contact',  label: 'Contact'  },
 ];
 
 const HDR_STYLES = `
@@ -24,20 +24,19 @@ const HDR_STYLES = `
   width: 100%; max-width: 860px;
   padding: 10px 10px 10px 22px;
   border-radius: 100px;
-  border: 1px solid rgba(255,255,255,.07);
-  background: rgba(4,5,14,.5);
+  border: 1px solid rgba(99,102,241,.16);
+  background: rgba(4,5,14,.6);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 8px 48px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
   transition: all 0.2s ease;
 }
 .hdr-wrap.small .hdr-pill {
-  max-width: 500px;  /* Only width changes */
+  max-width: 500px;
   border-color: rgba(99,102,241,.25);
   box-shadow: 0 12px 56px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 1px rgba(99,102,241,.15);
 }
 
-/* logo - always HMH */
 .hdr-logo {
   font-family: 'Syne', sans-serif; font-weight: 800;
   font-size: 16px; letter-spacing: -.3px;
@@ -57,7 +56,6 @@ const HDR_STYLES = `
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
-/* desktop nav */
 .hdr-nav { display: flex; align-items: center; gap: 4px; }
 .hdr-link {
   position: relative; padding: 7px 14px; border-radius: 100px;
@@ -73,17 +71,16 @@ const HDR_STYLES = `
   border: 1px solid rgba(99,102,241,.18);
 }
 
-/* hire me cta */
 .hdr-cta {
   padding: 9px 22px; border-radius: 100px; flex-shrink: 0;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
   color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .04em;
   text-decoration: none; position: relative; overflow: hidden;
   transition: transform .22s, box-shadow .22s;
 }
 .hdr-cta::before {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, #818cf8, #a78bfa);
+  background: linear-gradient(135deg, rgba(99,102,241,.25), rgba(139,92,246,.15));
   opacity: 0; transition: opacity .22s;
 }
 .hdr-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(99,102,241,.45); }
@@ -100,14 +97,13 @@ const HDR_STYLES = `
   margin-right: 8px;
 }
 .hdr-resume:hover {
-  background: rgba(99,102,241,.1); border-color: rgba(99,102,241,.35);
-  color: #a5b4fc; transform: translateY(-2px);
+  background: rgba(99,102,241,.12); border-color: rgba(99,102,241,.35);
+  color: #f1f1ff; transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(99,102,241,.08);
 }
 .hdr-resume svg { transition: transform .2s; }
 .hdr-resume:hover svg { transform: translateY(-1px); }
 
-/* hamburger */
 .hdr-burger {
   display: none; width: 38px; height: 38px; border-radius: 50%;
   align-items: center; justify-content: center;
@@ -117,7 +113,6 @@ const HDR_STYLES = `
 }
 .hdr-burger:hover { background: rgba(99,102,241,.12); color: #f1f1ff; border-color: rgba(99,102,241,.3); }
 
-/* mobile drawer */
 .hdr-mobile {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 199;
   display: flex; flex-direction: column;
@@ -133,7 +128,7 @@ const HDR_STYLES = `
 }
 .hdr-mob-link:hover, .hdr-mob-link.active { color: #f1f1ff; }
 .hdr-mob-link.active {
-  background: linear-gradient(130deg, #6366f1, #ec4899);
+  background: linear-gradient(130deg, #6366f1, #8b5cf6);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .hdr-mob-cta {
@@ -144,8 +139,7 @@ const HDR_STYLES = `
   align-self: flex-start;
 }
 
-/* responsive */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .hdr-nav, .hdr-cta, .hdr-resume { display: none !important; }
   .hdr-burger { display: flex !important; }
   .hdr-pill { padding: 10px 10px 10px 18px; }
@@ -163,16 +157,9 @@ export default function Header() {
     const onScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Small navbar when scrolling down
-      if (currentScrollY > lastScrollY && currentScrollY > 0) {
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
         setIsSmall(true);
-      } 
-      // Full navbar when scrolling up ANY amount (even 1px)
-      else if (currentScrollY < lastScrollY) {
-        setIsSmall(false);
-      }
-      // At very top (scrollY === 0) always full
-      else if (currentScrollY === 0) {
+      } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
         setIsSmall(false);
       }
       
@@ -180,12 +167,9 @@ export default function Header() {
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    // Initial check
-    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, [lastScrollY]);
 
-  // inject styles once
   useEffect(() => {
     const id = 'hdr-styles';
     if (!document.getElementById(id)) {
@@ -195,7 +179,6 @@ export default function Header() {
     }
   }, []);
 
-  // lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -210,17 +193,13 @@ export default function Header() {
         transition={{ duration: .7, ease: [.22,1,.36,1] }}
       >
         <div className="hdr-pill">
-
-          {/* Logo - always HMH */}
           <Link to="/" className="hdr-logo" onClick={() => setOpen(false)}>
             <span className="hdr-logo-dot" />
             <span className="hdr-logo-text">HMH</span>
           </Link>
 
-          {/* Desktop links - shows only current page when small, all links when full */}
           <nav className="hdr-nav">
             {isSmall ? (
-              // When small, show only current page link
               <>
                 {navLinks.map(({ path, label }) => {
                   if (location.pathname === path) {
@@ -239,7 +218,6 @@ export default function Header() {
                 })}
               </>
             ) : (
-              // When full, show all links
               navLinks.map(({ path, label }) => {
                 const active = location.pathname === path;
                 return (
@@ -258,8 +236,7 @@ export default function Header() {
             )}
           </nav>
 
-          {/* Right actions (Resume + Hire me) - always visible */}
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }} className="hdr-actions-desktop">
             <a href="/assets/resume.pdf" className="hdr-resume">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
@@ -271,7 +248,6 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Burger */}
           <button
             className="hdr-burger"
             onClick={() => setOpen(o => !o)}
@@ -287,7 +263,6 @@ export default function Header() {
         </div>
       </motion.div>
 
-      {/* Mobile full-screen menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -317,17 +292,17 @@ export default function Header() {
               initial={{ opacity:0, y:16 }}
               animate={{ opacity:1, y:0  }}
               transition={{ delay:.35 }}
+              className="flex flex-col gap-4 mt-6"
             >
-            <a href="/assets/resume.pdf" className="hdr-mob-cta" style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.1)', color: 'rgba(241,241,255,.6)', marginBottom: '12px' }} onClick={() => setOpen(false)}>
-              <span>Resume</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-            </a>
-            <Link to="/contact" className="hdr-mob-cta" onClick={() => setOpen(false)}>
-              <span>Hire Me</span>
-              <span>↗</span>
-            </Link>
+              <a href="/assets/resume.pdf" className="hdr-mob-cta" style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.1)', color: 'rgba(241,241,255,.6)' }} onClick={() => setOpen(false)}>
+                <span>Resume</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </a>
+              <Link to="/contact" className="hdr-mob-cta" onClick={() => setOpen(false)}>
+                <span>Hire Me ↗</span>
+              </Link>
             </motion.div>
           </motion.div>
         )}

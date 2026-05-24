@@ -11,11 +11,17 @@ export default {
         'display': ['Syne', 'sans-serif'],
       },
       colors: {
+        // 🌌 Deep Dark Background
         'dark': '#04050e',
+
+        // 🟣 Indigo/Purple palette for primary highlights
         'primary': '#6366f1',
         'secondary': '#8b5cf6',
-        'accent': '#ec4899',
-        'cyan': '#22d3ee',
+        'accent': '#7c3aed',
+        'muted': '#a5b4fc',
+
+        // 📝 Premium text on dark background
+        'text': '#f1f1ff',
       },
       animation: {
         'gradient': 'gradient 8s linear infinite',
