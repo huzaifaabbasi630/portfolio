@@ -57,11 +57,15 @@
     <script type="module" src="/src/index.js"></script>
     
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<!-- n8n Chat Widget Styling -->
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+
+<!-- n8n Chat Script -->
 <script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
   createChat({
-    webhookUrl: 'https://huzaifaabbasi.app.n8n.cloud/webhook-test/98c3a26d-0519-47c4-909d-295e8c065837/chat',
+    webhookUrl: 'https://huzaifaabbasi.app.n8n.cloud/webhook/98c3a26d-0519-47c4-909d-295e8c065837/chat',
     showWelcomeScreen: false,
     initialMessages: [
       "Hi there! 👋 I am HMH AI, Huzaifa's official assistant. Ask me anything about his projects, skills, or resume!"
@@ -70,19 +74,16 @@
       en: {
         title: 'HMH AI Assistant',
         subtitle: 'Ask about projects & skills',
-        inputPlaceholder: 'Type or use voice...',
+        inputPlaceholder: 'Type your message here...',
       }
     },
     style: {
       fontFamily: 'sans-serif',
-      // Aapke dark theme portfolio ke mutabiq colors setup
       backgroundColor: '#0d0e15', 
-      primaryColor: '#a855f7', // Eye-catching Purple Accent
+      primaryColor: '#a855f7', 
       textColor: '#ffffff',
-      // Chat button settings
       buttonBackgroundColor: '#a855f7',
       buttonIconColor: '#ffffff',
-      chatWindowHeight: '500px',
     }
   });
 </script>
