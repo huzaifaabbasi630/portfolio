@@ -57,9 +57,10 @@
     <script type="module" src="/src/index.js"></script>
     
     <!-- n8n Chat Widget -->
-    <script src="https://huzaifaabbasi.app.n8n.cloud/webhook/chat/widget.js"></script>
-    <script>
-      createChatWidget({
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <script type="module">
+      import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+      createChat({
         webhookUrl: 'https://huzaifaabbasi.app.n8n.cloud/webhook-test/98c3a26d-0519-47c4-909d-295e8c065837/chat'
       });
     </script>
