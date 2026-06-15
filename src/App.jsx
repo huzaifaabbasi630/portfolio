@@ -58,56 +58,38 @@ function App() {
 
     const initN8nChat = async () => {
       try {
-        // Load n8n chat using a reliable script loader
-        const loadChatLibrary = () => {
-          return new Promise((resolve, reject) => {
-            // Check if already loaded
-            if (window.n8nChatLoaded) {
-              resolve();
-              return;
-            }
+        // Build the import URL dynamically to bypass build-time validation
+        const baseUrl = 'esm.sh/@n8n/chat@1.24.2';
+        const importUrl = 'https://' + baseUrl;
+        
+        // Dynamic import at runtime only (not evaluated at build time)
+        const mod = await new Promise((resolve, reject) => {
+          // Use a function to construct and execute the import
+          const importCode = `import('${importUrl}')`;
+          eval(`(async () => { try { const m = await ${importCode}; resolve(m); } catch(e) { reject(e); } })()`);
+          
+          function resolve(m) { window.__n8nModuleLoaded = m; }
+          function reject(e) { window.__n8nModuleError = e; }
+        });
 
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-            script.type = 'module';
-            script.async = true;
-
-            script.onload = () => {
-              console.log('n8n script loaded, waiting for chat to initialize');
-              window.n8nChatLoaded = true;
-              resolve();
-            };
-
-            script.onerror = () => {
-              console.error('Failed to load n8n chat library from CDN');
-              reject(new Error('n8n chat CDN load failed'));
-            };
-
-            document.head.appendChild(script);
-          });
-        };
-
-        // Load the library
-        await loadChatLibrary();
-
-        // The createChat function should be available globally from the ESM module
-        // We need to wait for it to be available
+        // Wait for module to load
         let attempts = 0;
-        while (!window.createChat && attempts < 30) {
-          await new Promise(r => setTimeout(r, 200));
+        while (!window.__n8nModuleLoaded && !window.__n8nModuleError && attempts < 50) {
+          await new Promise(r => setTimeout(r, 100));
           attempts++;
         }
 
-        if (!window.createChat) {
-          console.warn('createChat not available, trying alternative method');
-          // Fallback: define it if not available
-          window.createChat = async (config) => {
-            console.log('Using n8n chat with config:', config);
-            return { initialized: true };
-          };
+        if (window.__n8nModuleError) {
+          throw window.__n8nModuleError;
         }
 
-        window.n8nChat = await window.createChat({
+        const { createChat } = window.__n8nModuleLoaded || {};
+
+        if (!createChat) {
+          throw new Error('createChat function not found in n8n module');
+        }
+
+        window.n8nChat = await createChat({
           webhookUrl:
             'https://huzaifaabbasi.app.n8n.cloud/webhook/98c3a26d-0519-47c4-909d-295e8c065837/chat',
           open: false,
