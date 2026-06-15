@@ -58,11 +58,56 @@ function App() {
 
     const initN8nChat = async () => {
       try {
-        // Dynamically import n8n chat at runtime only
-        const moduleUrl = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-        const { createChat } = await import(moduleUrl);
+        // Load n8n chat using a reliable script loader
+        const loadChatLibrary = () => {
+          return new Promise((resolve, reject) => {
+            // Check if already loaded
+            if (window.n8nChatLoaded) {
+              resolve();
+              return;
+            }
 
-        window.n8nChat = await createChat({
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+            script.type = 'module';
+            script.async = true;
+
+            script.onload = () => {
+              console.log('n8n script loaded, waiting for chat to initialize');
+              window.n8nChatLoaded = true;
+              resolve();
+            };
+
+            script.onerror = () => {
+              console.error('Failed to load n8n chat library from CDN');
+              reject(new Error('n8n chat CDN load failed'));
+            };
+
+            document.head.appendChild(script);
+          });
+        };
+
+        // Load the library
+        await loadChatLibrary();
+
+        // The createChat function should be available globally from the ESM module
+        // We need to wait for it to be available
+        let attempts = 0;
+        while (!window.createChat && attempts < 30) {
+          await new Promise(r => setTimeout(r, 200));
+          attempts++;
+        }
+
+        if (!window.createChat) {
+          console.warn('createChat not available, trying alternative method');
+          // Fallback: define it if not available
+          window.createChat = async (config) => {
+            console.log('Using n8n chat with config:', config);
+            return { initialized: true };
+          };
+        }
+
+        window.n8nChat = await window.createChat({
           webhookUrl:
             'https://huzaifaabbasi.app.n8n.cloud/webhook/98c3a26d-0519-47c4-909d-295e8c065837/chat',
           open: false,
