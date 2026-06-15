@@ -58,32 +58,11 @@ function App() {
 
     const initN8nChat = async () => {
       try {
-        // Build the import URL dynamically to bypass build-time validation
-        const baseUrl = 'esm.sh/@n8n/chat@1.24.2';
-        const importUrl = 'https://' + baseUrl;
+        // Use /* @vite-ignore */ to tell the bundler not to analyze this dynamic import.
+        // This prevents the "target environment doesn't support dynamic import" error during build.
+        const moduleUrl = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
         
-        // Dynamic import at runtime only (not evaluated at build time)
-        const mod = await new Promise((resolve, reject) => {
-          // Use a function to construct and execute the import
-          const importCode = `import('${importUrl}')`;
-          eval(`(async () => { try { const m = await ${importCode}; resolve(m); } catch(e) { reject(e); } })()`);
-          
-          function resolve(m) { window.__n8nModuleLoaded = m; }
-          function reject(e) { window.__n8nModuleError = e; }
-        });
-
-        // Wait for module to load
-        let attempts = 0;
-        while (!window.__n8nModuleLoaded && !window.__n8nModuleError && attempts < 50) {
-          await new Promise(r => setTimeout(r, 100));
-          attempts++;
-        }
-
-        if (window.__n8nModuleError) {
-          throw window.__n8nModuleError;
-        }
-
-        const { createChat } = window.__n8nModuleLoaded || {};
+        const { createChat } = await import(/* @vite-ignore */ moduleUrl);
 
         if (!createChat) {
           throw new Error('createChat function not found in n8n module');
