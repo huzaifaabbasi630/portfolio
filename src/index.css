@@ -2,6 +2,21 @@
 /* 🤖 HMH AI AGENT — PREMIUM DESIGN SYSTEM */
 /* ======================================================= */
 
+/* ── Global Reset: Removes white margins and sets dark theme base ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #04050e !important; /* Force global background to match theme */
+  overflow-x: hidden;
+  width: 100%;
+}
+
 /* ── Hide default n8n launcher ── */
 .n8n-chat-launcher,
 .n8n-chat-button,
