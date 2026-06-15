@@ -227,7 +227,6 @@ function App() {
           </AnimatePresence>
 
           {/* Glow ring behind avatar - CSS inside index.css */}
-          <div className="avatar-glow-ring" />
 
           {/* AI Avatar Button */}
           <motion.button
