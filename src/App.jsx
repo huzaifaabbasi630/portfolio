@@ -58,9 +58,56 @@ function App() {
 
     const initN8nChat = async () => {
       try {
-        const { createChat } = await import(
-          'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js'
-        );
+        // Load n8n chat library via script tag (avoids build-time dynamic import error)
+        const loadN8nLibrary = () => {
+          return new Promise((resolve) => {
+            if (window.n8nChatLib) {
+              resolve(window.n8nChatLib);
+              return;
+            }
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+            script.type = 'module';
+            script.async = true;
+            script.onload = () => {
+              // Wait for library to be available
+              let attempts = 0;
+              const checkLib = () => {
+                // Try multiple possible export names
+                const lib = window.createChatMessage || window.n8n || window.createChat;
+                if (lib && attempts < 50) {
+                  resolve(lib);
+                } else if (attempts < 50) {
+                  attempts++;
+                  setTimeout(checkLib, 100);
+                } else {
+                  console.warn('n8n library failed to load');
+                  resolve(null);
+                }
+              };
+              checkLib();
+            };
+            script.onerror = () => {
+              console.error('Failed to load n8n chat script');
+              resolve(null);
+            };
+            document.body.appendChild(script);
+          });
+        };
+
+        const libObj = await loadN8nLibrary();
+        if (!libObj) {
+          console.error('n8n chat library not available');
+          return;
+        }
+
+        // Extract createChat function
+        const createChat = typeof libObj === 'function' ? libObj : libObj.createChat;
+        if (!createChat) {
+          console.error('createChat not found in n8n library');
+          return;
+        }
 
         window.n8nChat = await createChat({
           webhookUrl:
