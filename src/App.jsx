@@ -58,11 +58,12 @@ function App() {
 
     const initN8nChat = async () => {
       try {
-        // Use /* @vite-ignore */ to tell the bundler not to analyze this dynamic import.
-        // This prevents the "target environment doesn't support dynamic import" error during build.
         const moduleUrl = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
         
-        const { createChat } = await import(/* @vite-ignore */ moduleUrl);
+        // Bypassing build-time static analysis for both Vite and Webpack.
+        // Yeh hack Vercel build failure ko solve kar dega.
+        const chatModule = await new Function(`return import('${moduleUrl}')`)();
+        const { createChat } = chatModule;
 
         if (!createChat) {
           throw new Error('createChat function not found in n8n module');
@@ -232,7 +233,8 @@ function App() {
             </Routes>
           </AnimatePresence>
 
-          {/* Glow ring behind avatar - CSS inside index.css */}
+          {/* Glow ring behind avatar */}
+          <div className="avatar-glow-ring" />
 
           {/* AI Avatar Button */}
           <motion.button
