@@ -12,9 +12,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #04050e !important; /* Force global background to match theme */
+  background-color: #b2dfc3 !important; /* Force global background to match theme */
   overflow-x: hidden;
   width: 100%;
+  color: #043221;
 }
 
 /* ── Hide default n8n launcher ── */
@@ -45,10 +46,10 @@ div[class*="n8n-chat-button"],
   border-radius: 50%;
   background: conic-gradient(
     from 0deg,
-    rgba(168, 85, 247, 0.75),
-    rgba(6, 182, 212, 0.55),
-    rgba(99, 102, 241, 0.65),
-    rgba(168, 85, 247, 0.75)
+    rgba(4, 50, 33, 0.75),
+    rgba(5, 74, 50, 0.55),
+    rgba(15, 92, 64, 0.65),
+    rgba(4, 50, 33, 0.75)
   );
   filter: blur(20px);
   z-index: 99998;
@@ -113,7 +114,7 @@ div[class*="n8n-chat-button"],
   background: transparent;
   z-index: 2;
   pointer-events: none;
-  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.35));
+  filter: drop-shadow(0 0 18px rgba(4, 50, 33, 0.35));
 }
 
 /* ── Shadow neeche avatar ke ── */
@@ -139,13 +140,13 @@ div[class*="n8n-chat-button"],
   white-space: nowrap;
   background: linear-gradient(
     135deg,
-    rgba(168, 85, 247, 0.18),
-    rgba(99, 102, 241, 0.12)
+    rgba(4, 50, 33, 0.18),
+    rgba(5, 74, 50, 0.12)
   );
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(168, 85, 247, 0.25);
-  color: #e2d9f3;
+  border: 1px solid rgba(4, 50, 33, 0.25);
+  color: #043221;
   padding: 7px 14px;
   border-radius: 999px;
   font-size: 12px;
@@ -186,16 +187,16 @@ div[class*="n8n-chat-button"],
     opacity 260ms ease;
 
   /* glassmorphism */
-  background: rgba(10, 6, 25, 0.55) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
   backdrop-filter: blur(24px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
 
-  border: 1px solid rgba(168, 85, 247, 0.18) !important;
+  border: 1px solid rgba(4, 50, 33, 0.18) !important;
   border-radius: 20px !important;
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.04),
-    0 20px 60px rgba(0, 0, 0, 0.7),
-    0 0 40px rgba(168, 85, 247, 0.08) !important;
+    0 20px 60px rgba(4, 50, 33, 0.15),
+    0 0 40px rgba(4, 50, 33, 0.08) !important;
 }
 
 /* open state */
@@ -211,10 +212,10 @@ div[class*="n8n-chat-button"],
   font-weight: 700 !important;
   background: linear-gradient(
     135deg,
-    rgba(99, 102, 241, 0.2),
-    rgba(168, 85, 247, 0.15)
+    rgba(4, 50, 33, 0.1),
+    rgba(5, 74, 50, 0.08)
   ) !important;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.15) !important;
+  border-bottom: 1px solid rgba(4, 50, 33, 0.15) !important;
   border-radius: 20px 20px 0 0 !important;
 }
 
@@ -226,9 +227,9 @@ div[class*="n8n-chat-button"],
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(168, 85, 247, 0.12);
-  border: 1px solid rgba(168, 85, 247, 0.2);
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba(4, 50, 33, 0.12);
+  border: 1px solid rgba(4, 50, 33, 0.2);
+  color: rgba(4, 50, 33, 0.8);
   display: inline-grid;
   place-items: center;
   cursor: pointer;
@@ -239,7 +240,7 @@ div[class*="n8n-chat-button"],
 }
 
 .hmh-chat-close:hover {
-  background: rgba(168, 85, 247, 0.25);
+  background: rgba(4, 50, 33, 0.25);
   transform: scale(1.08);
 }
 
@@ -257,24 +258,24 @@ div[class*="n8n-chat-button"],
   line-height: 1.6 !important;
 }
 
-/* AI / bot bubble — indigo to violet gradient */
+/* AI / bot bubble — forest green gradient */
 .chat-window .chat-message-from-bot,
 .chat-window [class*="from-bot"],
 .chat-window .message.bot {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%) !important;
+  background: linear-gradient(135deg, #043221 0%, #054a32 50%, #0f5c40 100%) !important;
   color: #fff !important;
   box-shadow:
-    0 4px 20px rgba(99, 102, 241, 0.3),
-    0 0 12px rgba(168, 85, 247, 0.15) !important;
+    0 4px 20px rgba(4, 50, 33, 0.3),
+    0 0 12px rgba(5, 74, 50, 0.15) !important;
 }
 
 /* User bubble */
 .chat-window .chat-message-from-user,
 .chat-window [class*="from-user"],
 .chat-window .message.user {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #e2e2e2 !important;
+  background: rgba(4, 50, 33, 0.06) !important;
+  border: 1px solid rgba(4, 50, 33, 0.15) !important;
+  color: #043221 !important;
 }
 
 /* ══════════════════════════════════════════════
@@ -286,7 +287,7 @@ div[class*="n8n-chat-button"],
   height: 6px !important;
   border-radius: 999px !important;
   overflow: hidden !important;
-  background: rgba(99, 102, 241, 0.1) !important;
+  background: rgba(4, 50, 33, 0.1) !important;
   position: relative !important;
 }
 
@@ -302,9 +303,9 @@ div[class*="n8n-chat-button"],
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(99, 102, 241, 0.6) 30%,
-    rgba(168, 85, 247, 1) 50%,
-    rgba(6, 182, 212, 0.6) 70%,
+    rgba(4, 50, 33, 0.6) 30%,
+    rgba(5, 74, 50, 1) 50%,
+    rgba(15, 92, 64, 0.6) 70%,
     transparent 100%
   );
   animation: holographicPulse 1.8s ease-in-out infinite;
@@ -320,24 +321,24 @@ div[class*="n8n-chat-button"],
 .chat-window [class*="input"],
 .chat-window textarea {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(168, 85, 247, 0.2) !important;
-  color: #e2e2e2 !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(4, 50, 33, 0.2) !important;
+  color: #043221 !important;
   border-radius: 12px !important;
   transition: border-color 200ms ease !important;
 }
 
 .chat-window [class*="input"]:focus,
 .chat-window textarea:focus {
-  border-color: rgba(168, 85, 247, 0.5) !important;
+  border-color: rgba(4, 50, 33, 0.5) !important;
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(4, 50, 33, 0.1) !important;
 }
 
 /* ── Send button ── */
 .chat-window [class*="send"],
 .chat-window button[type="submit"] {
-  background: linear-gradient(135deg, #4f46e5, #a855f7) !important;
+  background: linear-gradient(135deg, #043221, #054a32) !important;
   border: none !important;
   border-radius: 10px !important;
   transition: opacity 200ms ease, transform 150ms ease !important;

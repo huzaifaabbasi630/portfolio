@@ -45,21 +45,21 @@ const STYLES = `
 
 .ft-line {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(99,102,241,.4) 25%, rgba(139,92,246,.3) 50%, rgba(99,102,241,.25) 75%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(4,50,33,.2) 25%, rgba(4,50,33,.15) 50%, rgba(4,50,33,.1) 75%, transparent 100%);
 }
 
-.ft-bg { position: absolute; inset: 0; background: rgba(4,5,14,.98); pointer-events: none; }
+.ft-bg { position: absolute; inset: 0; background: #b2dfc3; pointer-events: none; }
 .ft-orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
 .ft-noise {
-  position: absolute; inset: 0; pointer-events: none; opacity: .018;
+  position: absolute; inset: 0; pointer-events: none; opacity: .015;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
 }
 .ft-grid-bg {
   position: absolute; inset: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(99,102,241,.012) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99,102,241,.012) 1px, transparent 1px);
+    linear-gradient(rgba(4,50,33,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(4,50,33,.015) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -74,7 +74,7 @@ const STYLES = `
   grid-template-columns: 1.5fr 1fr 1fr;
   gap: 56px;
   padding-bottom: 56px;
-  border-bottom: 1px solid rgba(255,255,255,.045);
+  border-bottom: 1px solid rgba(4,50,33,.08);
   margin-bottom: 32px;
 }
 
@@ -83,49 +83,48 @@ const STYLES = `
   display: inline-flex; align-items: center; gap: 10px;
   text-decoration: none; margin-bottom: 18px;
 }
-.ft-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: #6366f1; flex-shrink: 0; }
-@keyframes ft-dot { 0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.6)} 50%{box-shadow:0 0 0 8px rgba(99,102,241,0)} }
+.ft-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: #043221; flex-shrink: 0; }
+@keyframes ft-dot { 0%,100%{box-shadow:0 0 0 0 rgba(4,50,33,.3)} 50%{box-shadow:0 0 0 8px rgba(4,50,33,0)} }
 .ft-logo-dot { animation: ft-dot 2.2s ease infinite; }
 .ft-logo-text {
   font-family: 'Syne', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -.3px;
-  background: linear-gradient(130deg, #f1f1ff 0%, rgba(241,241,255,.5) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #043221;
 }
-.ft-tagline { font-size: 14px; line-height: 1.75; color: rgba(241,241,255,.28); max-width: 300px; margin-bottom: 26px; }
+.ft-tagline { font-size: 14px; line-height: 1.75; color: rgba(4,50,33,.65); max-width: 300px; margin-bottom: 26px; }
 .ft-avail {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 7px 16px; border-radius: 100px;
-  background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.16);
-  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #c7d2fe;
+  background: rgba(4,50,33,.05); border: 1px solid rgba(4,50,33,.12);
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #043221;
 }
-.ft-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #6366f1; }
-@keyframes ft-adot { 0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.5)} 50%{box-shadow:0 0 0 6px rgba(99,102,241,0)} }
+.ft-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #043221; }
+@keyframes ft-adot { 0%,100%{box-shadow:0 0 0 0 rgba(4,50,33,.35)} 50%{box-shadow:0 0 0 6px rgba(4,50,33,0)} }
 .ft-avail-dot { animation: ft-adot 2s infinite; }
 
 /* col label */
 .ft-col-label {
   font-family: 'Syne', sans-serif;
   font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
-  color: rgba(241,241,255,.2); margin-bottom: 22px;
+  color: rgba(4,50,33,.35); margin-bottom: 22px;
   display: flex; align-items: center; gap: 8px;
 }
-.ft-col-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(99,102,241,.25), transparent); }
+.ft-col-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(4,50,33,.15), transparent); }
 
 /* nav links */
 .ft-nav-links { display: flex; flex-direction: column; gap: 3px; }
 .ft-nav-link {
   display: flex; align-items: center;
   padding: 8px 10px; border-radius: 10px;
-  font-size: 14px; font-weight: 500; color: rgba(241,241,255,.35);
+  font-size: 14px; font-weight: 500; color: rgba(4,50,33,.6);
   text-decoration: none; transition: all .22s;
   position: relative; overflow: hidden;
 }
 .ft-nav-link::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(135deg, #6366f1, #7c3aed); border-radius: 2px;
+  background: #043221; border-radius: 2px;
   transform: scaleY(0); transition: transform .22s;
 }
-.ft-nav-link:hover { color: #f1f1ff; background: rgba(99,102,241,.07); padding-left: 16px; }
+.ft-nav-link:hover { color: #043221; background: rgba(4,50,33,.05); padding-left: 16px; }
 .ft-nav-link:hover::before { transform: scaleY(1); }
 
 /* socials */
@@ -133,53 +132,52 @@ const STYLES = `
 .ft-social {
   display: flex; align-items: center; gap: 12px;
   padding: 11px 15px; border-radius: 12px; text-decoration: none;
-  background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.06);
-  color: rgba(241,241,255,.4); font-size: 13.5px; font-weight: 600;
+  background: rgba(4,50,33,.02); border: 1px solid rgba(4,50,33,.08);
+  color: rgba(4,50,33,.65); font-size: 13.5px; font-weight: 600;
   transition: all .25s; position: relative; overflow: hidden;
 }
 .ft-social::after {
   content: '→'; position: absolute; right: 14px; font-size: 12px;
   opacity: 0; transform: translateX(-6px); transition: all .22s;
-  color: rgba(99,102,241,.9);
+  color: #043221;
 }
-.ft-social:hover { background: rgba(99,102,241,.1); border-color: rgba(99,102,241,.28); color: #c7d2fe; }
+.ft-social:hover { background: rgba(4,50,33,.06); border-color: rgba(4,50,33,.22); color: #043221; }
 .ft-social:hover::after { opacity: 1; transform: translateX(0); }
 .ft-social-ic {
   width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.15); transition: all .22s;
+  background: rgba(4,50,33,.05); border: 1px solid rgba(4,50,33,.1); transition: all .22s;
 }
-.ft-social:hover .ft-social-ic { background: rgba(99,102,241,.22); }
+.ft-social:hover .ft-social-ic { background: rgba(4,50,33,.1); }
 
 /* bottom */
 .ft-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .ft-copy {
-  font-size: 12.5px; color: rgba(241,241,255,.2); font-weight: 500;
+  font-size: 12.5px; color: rgba(4,50,33,.5); font-weight: 500;
   display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
 }
 .ft-copy-name {
   font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px;
-  background: linear-gradient(130deg, #a5b4fc, #c4b5fd);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #043221;
 }
-.ft-sep { color: rgba(241,241,255,.1); }
+.ft-sep { color: rgba(4,50,33,.12); }
 @keyframes ft-beat { 0%,100%{transform:scale(1)} 40%{transform:scale(1.3)} }
-.ft-heart { display: inline-block; color: #8b5cf6; animation: ft-beat 1.6s ease infinite; }
+.ft-heart { display: inline-block; color: #043221; animation: ft-beat 1.6s ease infinite; }
 .ft-stack { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .ft-pill {
   padding: 3px 10px; border-radius: 100px; font-size: 10.5px; font-weight: 700;
-  letter-spacing: .07em; background: rgba(99,102,241,.08); border: 1px solid rgba(99,102,241,.16);
-  color: rgba(165,180,252,.55);
+  letter-spacing: .07em; background: rgba(4,50,33,.05); border: 1px solid rgba(4,50,33,.12);
+  color: rgba(4,50,33,.6);
 }
 .ft-top-btn {
   display: flex; align-items: center; gap: 7px;
   padding: 8px 18px; border-radius: 100px; cursor: pointer;
-  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07);
-  color: rgba(241,241,255,.3); font-size: 11.5px; font-weight: 700;
+  background: rgba(4,50,33,.03); border: 1px solid rgba(4,50,33,.1);
+  color: rgba(4,50,33,.5); font-size: 11.5px; font-weight: 700;
   letter-spacing: .09em; text-transform: uppercase; transition: all .25s;
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
-.ft-top-btn:hover { background: rgba(99,102,241,.1); border-color: rgba(99,102,241,.3); color: #a5b4fc; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(99,102,241,.2); }
+.ft-top-btn:hover { background: rgba(4,50,33,.08); border-color: rgba(4,50,33,.22); color: #043221; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(4,50,33,.1); }
 .ft-top-btn:hover svg { transform: translateY(-2px); }
 .ft-top-btn svg { transition: transform .25s; }
 
@@ -210,9 +208,9 @@ export default function Footer() {
       <div className="ft-line" />
 
       <div className="ft-bg">
-        <div className="ft-orb" style={{ width: 480, height: 480, top: '-160px', left: '-100px', background: 'radial-gradient(circle, rgba(99,102,241,.06), transparent 70%)' }} />
-        <div className="ft-orb" style={{ width: 360, height: 360, bottom: '-80px', right: '-60px', background: 'radial-gradient(circle, rgba(99,102,241,.045), transparent 70%)' }} />
-        <div className="ft-orb" style={{ width: 280, height: 280, top: '40%', left: '50%', background: 'radial-gradient(circle, rgba(139,92,246,.04), transparent 70%)' }} />
+        <div className="ft-orb" style={{ width: 480, height: 480, top: '-160px', left: '-100px', background: 'radial-gradient(circle, rgba(4,50,33,.05), transparent 70%)' }} />
+        <div className="ft-orb" style={{ width: 360, height: 360, bottom: '-80px', right: '-60px', background: 'radial-gradient(circle, rgba(4,50,33,.03), transparent 70%)' }} />
+        <div className="ft-orb" style={{ width: 280, height: 280, top: '40%', left: '50%', background: 'radial-gradient(circle, rgba(4,50,33,.02), transparent 70%)' }} />
         <div className="ft-noise" />
         <div className="ft-grid-bg" />
       </div>

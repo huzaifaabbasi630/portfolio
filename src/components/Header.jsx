@@ -24,17 +24,17 @@ const HDR_STYLES = `
   width: 100%; max-width: 860px;
   padding: 10px 10px 10px 22px;
   border-radius: 100px;
-  border: 1px solid rgba(99,102,241,.16);
-  background: rgba(4,5,14,.6);
+  border: 1px solid rgba(4,50,33,.15);
+  background: rgba(255,255,255,.45);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 8px 48px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  box-shadow: 0 8px 36px rgba(4,50,33,.08), inset 0 1px 0 rgba(255,255,255,.3);
   transition: all 0.2s ease;
 }
 .hdr-wrap.small .hdr-pill {
   max-width: 500px;
-  border-color: rgba(99,102,241,.25);
-  box-shadow: 0 12px 56px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 1px rgba(99,102,241,.15);
+  border-color: rgba(4,50,33,.25);
+  box-shadow: 0 12px 48px rgba(4,50,33,.12), inset 0 1px 0 rgba(255,255,255,.4), 0 0 0 1px rgba(4,50,33,.1);
 }
 
 .hdr-logo {
@@ -44,62 +44,61 @@ const HDR_STYLES = `
   flex-shrink: 0;
 }
 .hdr-logo-dot {
-  width: 7px; height: 7px; border-radius: 50%; background: #6366f1; flex-shrink: 0;
+  width: 7px; height: 7px; border-radius: 50%; background: #043221; flex-shrink: 0;
   animation: hdr-dot 2s ease infinite;
 }
 @keyframes hdr-dot {
-  0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,.55); }
-  50%      { box-shadow: 0 0 0 7px rgba(99,102,241,0); }
+  0%,100% { box-shadow: 0 0 0 0 rgba(4,50,33,.35); }
+  50%      { box-shadow: 0 0 0 7px rgba(4,50,33,0); }
 }
 .hdr-logo-text {
-  background: linear-gradient(130deg, #f1f1ff 0%, rgba(241,241,255,.55) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #043221; font-weight: 800;
 }
 
 .hdr-nav { display: flex; align-items: center; gap: 4px; }
 .hdr-link {
   position: relative; padding: 7px 14px; border-radius: 100px;
   font-size: 13px; font-weight: 600; letter-spacing: .03em;
-  color: rgba(241,241,255,.45); text-decoration: none;
+  color: rgba(4,50,33,.6); text-decoration: none;
   transition: color 0.2s;
 }
-.hdr-link:hover { color: rgba(241,241,255,.85); }
-.hdr-link.active { color: #f1f1ff; }
+.hdr-link:hover { color: rgba(4,50,33,.9); }
+.hdr-link.active { color: #043221; }
 .hdr-link-bg {
   position: absolute; inset: 0; border-radius: 100px;
-  background: rgba(99,102,241,.12);
-  border: 1px solid rgba(99,102,241,.18);
+  background: rgba(4,50,33,.08);
+  border: 1px solid rgba(4,50,33,.15);
 }
 
 .hdr-cta {
   padding: 9px 22px; border-radius: 100px; flex-shrink: 0;
-  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  background: #043221;
   color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .04em;
   text-decoration: none; position: relative; overflow: hidden;
   transition: transform .22s, box-shadow .22s;
 }
 .hdr-cta::before {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(99,102,241,.25), rgba(139,92,246,.15));
+  background: linear-gradient(135deg, rgba(4,50,33,.15), rgba(4,50,33,.05));
   opacity: 0; transition: opacity .22s;
 }
-.hdr-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(99,102,241,.45); }
+.hdr-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(4,50,33,.2); }
 .hdr-cta:hover::before { opacity: 1; }
 .hdr-cta span { position: relative; z-index: 1; }
 
 .hdr-resume {
   padding: 9px 18px; border-radius: 100px; flex-shrink: 0;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.03);
-  color: rgba(241,241,255,.65); font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  border: 1px solid rgba(4,50,33,.3);
+  background: rgba(4,50,33,.03);
+  color: #043221; font-size: 13px; font-weight: 700; letter-spacing: .04em;
   text-decoration: none; display: flex; align-items: center; gap: 7px;
   transition: all .22s cubic-bezier(.22,1,.36,1);
   margin-right: 8px;
 }
 .hdr-resume:hover {
-  background: rgba(99,102,241,.12); border-color: rgba(99,102,241,.35);
-  color: #f1f1ff; transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(99,102,241,.08);
+  background: rgba(4,50,33,.08); border-color: #043221;
+  color: #043221; transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(4,50,33,.05);
 }
 .hdr-resume svg { transition: transform .2s; }
 .hdr-resume:hover svg { transform: translateY(-1px); }
@@ -107,34 +106,33 @@ const HDR_STYLES = `
 .hdr-burger {
   display: none; width: 38px; height: 38px; border-radius: 50%;
   align-items: center; justify-content: center;
-  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-  color: rgba(241,241,255,.7); cursor: pointer;
+  background: rgba(4,50,33,.05); border: 1px solid rgba(4,50,33,.1);
+  color: #043221; cursor: pointer;
   transition: background .2s, color .2s; flex-shrink: 0;
 }
-.hdr-burger:hover { background: rgba(99,102,241,.12); color: #f1f1ff; border-color: rgba(99,102,241,.3); }
+.hdr-burger:hover { background: rgba(4,50,33,.1); color: #043221; border-color: rgba(4,50,33,.2); }
 
 .hdr-mobile {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 199;
   display: flex; flex-direction: column;
-  background: rgba(4,5,14,.96); backdrop-filter: blur(32px);
+  background: rgba(178,223,195,.98); backdrop-filter: blur(32px);
   padding: 100px 32px 48px;
 }
 .hdr-mob-link {
   display: block; padding: 18px 0;
   font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800;
-  letter-spacing: -1px; color: rgba(241,241,255,.35);
-  text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.05);
+  letter-spacing: -1px; color: rgba(4,50,33,.4);
+  text-decoration: none; border-bottom: 1px solid rgba(4,50,33,.1);
   transition: color .2s;
 }
-.hdr-mob-link:hover, .hdr-mob-link.active { color: #f1f1ff; }
+.hdr-mob-link:hover, .hdr-mob-link.active { color: #043221; }
 .hdr-mob-link.active {
-  background: linear-gradient(130deg, #6366f1, #8b5cf6);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #043221;
 }
 .hdr-mob-cta {
   margin-top: 36px; display: inline-flex; align-items: center; gap: 10px;
   padding: 16px 36px; border-radius: 100px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: #043221;
   color: #fff; font-size: 16px; font-weight: 700; text-decoration: none;
   align-self: flex-start;
 }
@@ -294,7 +292,7 @@ export default function Header() {
               transition={{ delay:.35 }}
               className="flex flex-col gap-4 mt-6"
             >
-              <a href="/assets/resume.pdf" className="hdr-mob-cta" style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.1)', color: 'rgba(241,241,255,.6)' }} onClick={() => setOpen(false)}>
+              <a href="/assets/resume.pdf" className="hdr-mob-cta" style={{ background: 'rgba(4,50,33,.05)', border: '1px solid rgba(4,50,33,.2)', color: '#043221' }} onClick={() => setOpen(false)}>
                 <span>Resume</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}>
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>

@@ -223,7 +223,7 @@ function App() {
   return (
     <Router>
       <ScreenGuard>
-        <div className="bg-dark text-white min-h-screen selection:bg-accent/30 selection:text-white antialiased">
+        <div className="bg-[#b2dfc3] text-[#043221] min-h-screen selection:bg-[#043221]/20 selection:text-[#043221] antialiased">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -246,7 +246,7 @@ function App() {
             aria-label="Open AI assistant"
           >
             <img src="/assets/avator.png" alt="HMH AI" />
-            <span className="avatar-tooltip">AI — Ask me anything</span>
+            <span className="avatar-tooltip" style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(4, 50, 33, 0.25)', color: '#043221' }}>AI — Ask me anything</span>
             <span className="avatar-shadow" aria-hidden="true" />
           </motion.button>
 

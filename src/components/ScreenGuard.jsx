@@ -1,23 +1,27 @@
 import { useState, useEffect } from 'react';
 
-const BREAKPOINT = 1032;
+const BREAKPOINT = 1025;
 
 export default function ScreenGuard({ children }) {
-  const [isTooSmall, setIsTooSmall] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < BREAKPOINT
-  );
+  const [isTooSmall, setIsTooSmall] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
+    const checkSize = () => {
       const small = window.innerWidth < BREAKPOINT;
       setIsTooSmall(small);
-      if (!small) setDismissed(false);
     };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    
+    checkSize();
+    window.addEventListener('resize', checkSize);
+    return () => window.removeEventListener('resize', checkSize);
   }, []);
+
+  useEffect(() => {
+    if (!isTooSmall) {
+      setDismissed(false);
+    }
+  }, [isTooSmall]);
 
   const showModal = isTooSmall && !dismissed;
 
@@ -26,7 +30,7 @@ export default function ScreenGuard({ children }) {
       {/* Underlying content */}
       <div
         className={`transition-all duration-300 ${
-          showModal ? 'blur-sm pointer-events-none select-none' : ''
+          showModal ? 'blur-md pointer-events-none select-none max-h-screen overflow-hidden' : ''
         }`}
       >
         {children}
@@ -35,26 +39,26 @@ export default function ScreenGuard({ children }) {
       {/* Overlay + Modal */}
       {showModal && (
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#04050e]/90 backdrop-blur-md px-4"
+          className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#b2dfc3] backdrop-blur-lg p-4 overflow-y-auto"
           aria-modal="true"
           role="dialog"
           aria-labelledby="screen-guard-title"
         >
           {/* Modal box */}
           <div
-            className="relative w-full max-w-md rounded-2xl border border-indigo-500/30 bg-[#04050e] shadow-[0_0_60px_rgba(99,102,241,0.18)] overflow-hidden"
+            className="relative w-full max-w-md my-auto rounded-2xl border border-[#043221]/30 bg-[#b2dfc3] shadow-[0_0_60px_rgba(4,50,33,0.3)] overflow-hidden"
           >
             {/* Top accent bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-400" />
+            <div className="h-1 w-full bg-gradient-to-r from-[#043221] via-emerald-800 to-[#043221]" />
 
-            <div className="px-8 py-10 flex flex-col items-center text-center gap-6">
+            <div className="px-6 py-8 md:px-8 md:py-10 flex flex-col items-center text-center gap-6">
               {/* Icon */}
               <div
-                className="flex items-center justify-center w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/30"
+                className="flex items-center justify-center w-16 h-16 rounded-full bg-[#043221]/10 border border-[#043221]/30"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8 text-purple-400"
+                  className="w-8 h-8 text-[#043221]"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -72,13 +76,13 @@ export default function ScreenGuard({ children }) {
               <div className="flex flex-col gap-2">
                 <h2
                   id="screen-guard-title"
-                  className="text-xl font-semibold tracking-tight text-white"
+                  className="text-xl font-bold tracking-tight text-[#043221]"
                 >
                   Screen Too Small
                 </h2>
-                <p className="text-sm leading-relaxed text-gray-400 max-w-xs mx-auto">
+                <p className="text-sm leading-relaxed text-[#043221]/70 max-w-xs mx-auto">
                   For a better experience, please use a{' '}
-                  <span className="text-purple-400 font-medium">
+                  <span className="text-[#043221] font-bold">
                     desktop or larger screen device
                   </span>
                   .
@@ -86,12 +90,12 @@ export default function ScreenGuard({ children }) {
               </div>
 
               {/* Divider */}
-              <div className="w-full h-px bg-white/5" />
+              <div className="w-full h-px bg-[#043221]/15" />
 
               {/* Dismiss button */}
               <button
                 onClick={() => setDismissed(true)}
-                className="group relative w-full py-3 px-6 rounded-xl text-sm font-medium text-white overflow-hidden border border-indigo-500/40 bg-indigo-500/10 transition-all duration-200 hover:bg-indigo-500/20 hover:border-indigo-400/60 hover:shadow-[0_0_20px_rgba(99,102,241,0.25)] active:scale-[0.98] cursor-pointer"
+                className="group relative w-full py-3 px-6 rounded-xl text-sm font-bold text-[#043221] overflow-hidden border border-[#043221]/40 bg-[#043221]/10 transition-all duration-200 hover:bg-[#043221]/20 hover:border-[#043221]/60 hover:shadow-[0_0_20px_rgba(4,50,33,0.15)] active:scale-[0.98] cursor-pointer"
               >
                 <span
                   className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/5 to-transparent"
