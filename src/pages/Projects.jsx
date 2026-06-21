@@ -151,7 +151,7 @@ const PROJECTS = [
     accent: '99,102,241',
     glow: '#6366f1',
     placeholder: '🔗',
-    image: '/assets/url.png',
+    image: '/assets/url.jpg',
     github: ['https://github.com/huzaifaabbasi630/short-URL-backend', 'https://github.com/huzaifaabbasi630/short-URL-frontend'],
     live: 'https://halfurl.vercel.app/',
     featured: true,
