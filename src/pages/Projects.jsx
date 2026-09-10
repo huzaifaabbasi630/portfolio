@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, forwardRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, forwardRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,6 +6,22 @@ import PageTransition from '../components/PageTransition';
 
 // ─── Projects Data ────────────────────────────────────────────────────────────
 const PROJECTS = [
+   {
+    id: 5,
+    title: 'mini social media app',
+    short: 'A full-stack social media application with real-time updates, user authentication, and interactive features.',
+    desc: ' Developed a full-stack social media web application using Node.js, Express, MongoDB, and JavaScript to deliver a seamless user experience. Integrated JWT authentication, bcrypt encryption, protected REST APIs, and dynamic user feeds with post creation, comments, likes, and real-time interactions. Built a fully responsive frontend interface, optimizing database queries and backend security to ensure high performance and seamless UI integration.',
+    tech: ['HTML', 'CSS', 'Vanilla JavaScript','Node.js', 'Express', 'MongoDB', 'JWT'],
+    type: 'Full Stack',
+    status: 'Completed',
+    accent: '90,58,43',
+    glow: '#8B6F47',
+    placeholder: '🏥',
+    image: '/assets/ai.png',
+    github: ['https://github.com/huzaifaabbasi630/mini-social-media-app-backend-', 'https://github.com/huzaifaabbasi630/mini-social-media-app-frontend-'],
+    live: 'https://mini-social-media-app-frontend.vercel.app/pages/profile.html',
+    featured: true,
+  },
   {
     id: 5,
     title: 'AI Clinic System',
@@ -14,8 +30,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🏥',
     image: '/assets/ai.png',
     github: ['https://github.com/huzaifaabbasi630/ai-clinic-backend', 'https://github.com/huzaifaabbasi630/clinic-frontend'],
@@ -30,8 +46,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Tailwind CSS'],
     type: 'Full Stack',
     status: 'FEATURED',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🔗',
     image: '/assets/helphub.png',
     github: ['https://github.com/huzaifaabbasi630/HelpHub-AI-backend', 'https://github.com/huzaifaabbasi630/HelpHub-AI-frontend'],
@@ -46,8 +62,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'Express', 'firebase', 'TypeScript', 'Tailwind CSS'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '👗',
     image: '/assets/atelier.png',
     github: ['https://github.com/huzaifaabbasi630/ecommerce-backend-', 'https://github.com/huzaifaabbasi630/Atelier-frontend'],
@@ -62,8 +78,8 @@ const PROJECTS = [
     tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Tailwind', 'CSS', 'Lucide Icons'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🚗',
     image: '/assets/ustaadUser.png',
     video: '/assets/ustaadUser.mp4',
@@ -80,8 +96,8 @@ const PROJECTS = [
     tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Tailwind', 'CSS', 'Lucide Icons'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🔧',
     image: '/assets/ustaadPartner.png',
     video: '/assets/ustaadPartner.mp4',
@@ -98,8 +114,8 @@ const PROJECTS = [
     tech: ['React JSX', 'Node.js', 'Express', 'MongoDB', 'Tailwind', 'CSS'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '📄',
     image: '/assets/analyzer.png',
     video: '/assets/analyzervideo.mp4',
@@ -112,11 +128,11 @@ const PROJECTS = [
     title: 'ShareHub',
     short: 'ShareHub is a real-time collaboration and room management platform featuring instant messaging and low-latency WebSockets with WebRTC signaling for seamless user connectivity.',
     desc: 'ShareHub is a real-time collaboration platform featuring dynamic room management, instant messaging, and low-latency WebSockets with WebRTC signaling for audio/video connectivity. Built with a robust Node.js/Express backend and MongoDB, it ensures secure cross-origin communication and high fault tolerance. Note for Reviewers: Since the backend is hosted on a free Back4App container, the live deployment link automatically spins down or updates after 60 minutes of inactivity. If you would like to test the live application, please contact me directly so I can instantly reactivate the server instance for your review.',
-    tech: ['React JSX', 'Web Audio API','React Router DOM', 'Node.js', 'Express', 'Socket.io', 'WebRTC Signaling',,'MongoDB', 'Tailwind', 'CSS'],
+    tech: ['React JSX', 'Web Audio API','React Router DOM', 'Node.js', 'Express', 'Socket.io', 'WebRTC Signaling','MongoDB', 'Tailwind', 'CSS'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '📄',
     image: '/assets/sharehub.png',
     video: '/assets/sharehub.mp4',
@@ -132,8 +148,8 @@ const PROJECTS = [
     tech: ['React', 'TypeScript', 'Node.js', 'Express', 'Tailwind CSS', 'Recharts'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '📊',
     image: '/assets/github.png',
     github: ['https://github.com/huzaifaabbasi630/github-DevBoard-backend-', 'https://github.com/huzaifaabbasi630/github-DevBoard-frotend-'],
@@ -148,8 +164,8 @@ const PROJECTS = [
     tech: ['Next.js', 'TypeScript', 'Node.js', 'Express', 'Redis', 'Tailwind CSS', 'Recharts'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🔗',
     image: '/assets/url.jpg',
     github: ['https://github.com/huzaifaabbasi630/short-URL-backend', 'https://github.com/huzaifaabbasi630/short-URL-frontend'],
@@ -164,8 +180,8 @@ const PROJECTS = [
     tech: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'OpenWeatherMap API'],
     type: 'Full Stack',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🌦️',
     image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
@@ -180,8 +196,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS', 'JavaScript', 'bootstrap'],
     type: 'Frontend',
     status: 'In Progress',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🛒',
     image: '/assets/ecommerce.jpg',
     github: 'https://github.com/huzaifaabbasi630/DoDiX-portfolio-assignment',
@@ -196,8 +212,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
-    accent: '139,92,246',
-    glow: '#6366f1',
+    accent: '122,82,64',
+    glow: '#8B6F47',
     placeholder: '✨',
     image: '/assets/portfolio1.jpg',
     github: 'https://github.com/huzaifaabbasi630/hafiz-huzaifa-portfolio',
@@ -212,8 +228,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '📖',
     image: '/assets/quran.jpg',
     github: 'https://github.com/huzaifaabbasi630/online-Quran-Academy',
@@ -228,8 +244,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS3', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🪵',
     image: '/assets/wood.jpg',
     github: 'https://github.com/huzaifaabbasi630/hackaton-wood-web-design-project',
@@ -244,8 +260,8 @@ const PROJECTS = [
     tech: ['HTML', 'CSS', 'JAVASCRIPT', 'bootstrap'],
     type: 'Frontend',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🚀',
     image: '/assets/portfolio2.png',
     github: 'https://github.com/huzaifaabbasi630',
@@ -260,8 +276,8 @@ const PROJECTS = [
     tech: ['React Native', 'Expo', 'JavaScript', 'TypeScript', 'OpenWeatherMap API'],
     type: 'Mobile',
     status: 'Completed',
-    accent: '139,92,246',
-    glow: '#6366f1',
+    accent: '122,82,64',
+    glow: '#8B6F47',
     placeholder: '⛅',
     image: '/assets/weather.png',
     github: ['https://github.com/huzaifaabbasi630/weather-app', 'https://github.com/huzaifaabbasi630/weather-app'],
@@ -276,8 +292,8 @@ const PROJECTS = [
     tech: ['React Native', 'Expo Router', 'Firebase', 'Expo Secure Store'],
     type: 'Mobile',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
+    accent: '90,58,43',
+    glow: '#8B6F47',
     placeholder: '🔐',
     image: '/assets/calculator.png',
     github: 'https://github.com/huzaifaabbasi630/calculator-lock-code',
@@ -292,9 +308,10 @@ const PROJECTS = [
     tech: ['React Native', 'Expo'],
     type: 'Mobile',
     status: 'Completed',
-    accent: '99,102,241',
-    glow: '#6366f1',
-    placeholder: '🐦',    image: '/assets/flappy-bird.png',
+    accent: '90,58,43',
+    glow: '#8B6F47',
+    placeholder: '🐦',
+    image: '/assets/flappy-bird.png',
     github: 'https://github.com/huzaifaabbasi630/falppy-birds-game',
     live: 'https://expo.dev/artifacts/eas/ghwTQ2qQ7S3ghAgj3VGJn2.apk',
     featured: true,
@@ -310,6 +327,13 @@ const FLOAT_SYMBOLS = [
   { s: '( )', x: '4%', y: '55%', sz: 11, op: .04, dur: 12, depth: 0.4 },
   { s: '===', x: '12%', y: '82%', sz: 11, op: .04, dur: 20, depth: 0.6 },
   { s: '[ ]', x: '82%', y: '78%', sz: 10, op: .04, dur: 15, depth: 0.35 },
+];
+
+// Coffee steam wisps (decorative, near hero badge)
+const STEAM_WISPS = [
+  { left: '-18px', delay: 0 },
+  { left: '-6px', delay: 1.1 },
+  { left: '6px', delay: 2.2 },
 ];
 
 // Vault Calculator source code
@@ -454,14 +478,14 @@ const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
 
 :root {
-  --indigo: #043221; --violet: #054a32; --pink: #022518;
-  --cyan: #043221; --bg: #b2dfc3;
+  --indigo: #5A3A2B; --violet: #7A5240; --pink: #4A2E20;
+  --cyan: #5A3A2B; --bg: #FBF2E6;
 }
 .pj, .pj * { box-sizing: border-box; }
 .pj {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--bg); min-height: 100vh;
-  overflow-x: hidden; color: #043221;
+  overflow-x: hidden; color: #5A3A2B;
 }
 
 /* ── BG ── */
@@ -473,12 +497,12 @@ const STYLES = `
 .pj-canvas { position: fixed; inset: 0; z-index: 0; opacity: .45; pointer-events: none; }
 .pj-spotlight {
   position: fixed; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(650px circle at var(--mx,50%) var(--my,50%), rgba(4,50,33,.05), transparent 70%);
+  background: radial-gradient(650px circle at var(--mx,50%) var(--my,50%), rgba(90,58,43,.05), transparent 70%);
 }
 .pj-bgrid {
   background-image:
-    linear-gradient(rgba(4,50,33,.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(4,50,33,.015) 1px, transparent 1px);
+    linear-gradient(rgba(90,58,43,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90,58,43,.015) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -494,25 +518,25 @@ const STYLES = `
 .pj-loader-logo {
   font-family: 'Syne', sans-serif; font-weight: 800;
   font-size: clamp(36px, 7vw, 68px); letter-spacing: -2px;
-  color: #043221;
+  color: #5A3A2B;
 }
 .pj-loader-bar-wrap {
   width: min(300px, 78vw); height: 2px;
-  background: rgba(4,5,33,.1); border-radius: 2px; overflow: hidden;
+  background: rgba(90,58,43,.1); border-radius: 2px; overflow: hidden;
 }
 .pj-loader-bar {
   height: 100%; border-radius: 2px;
-  background: linear-gradient(90deg, #043221, #054a32, #0f5c40);
+  background: linear-gradient(90deg, #5A3A2B, #7A5240, #8B6F47);
   transition: width .08s linear;
-  box-shadow: 0 0 12px rgba(4,50,33,.25);
+  box-shadow: 0 0 12px rgba(90,58,43,.25);
 }
 .pj-loader-pct {
   font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px;
-  letter-spacing: .22em; color: rgba(4,50,33,.4); text-transform: uppercase;
+  letter-spacing: .22em; color: rgba(90,58,43,.4); text-transform: uppercase;
 }
 .pj-loader-scan {
   position: absolute; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(4,50,33,.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(90,58,43,.2), transparent);
   animation: pj-scan-line 1.2s ease-in-out infinite;
 }
 @keyframes pj-scan-line {
@@ -532,59 +556,59 @@ const STYLES = `
     position: fixed; pointer-events: none; z-index: 9999;
     transform: translate(-50%,-50%);
     width: 8px; height: 8px; border-radius: 50%;
-    background: #043221; mix-blend-mode: normal;
+    background: #5A3A2B; mix-blend-mode: normal;
     will-change: left, top;
     transition: width .18s cubic-bezier(.22,1,.36,1), height .18s cubic-bezier(.22,1,.36,1),
                 border-radius .18s, background .18s, box-shadow .18s, mix-blend-mode 0s;
   }
   .pj-cur.hov {
     width: 10px; height: 10px; mix-blend-mode: normal;
-    background: #043221;
-    box-shadow: 0 0 0 3px rgba(4,50,33,.1), 0 0 18px rgba(4,50,33,.3);
+    background: #5A3A2B;
+    box-shadow: 0 0 0 3px rgba(90,58,43,.1), 0 0 18px rgba(90,58,43,.3);
   }
   .pj-cur.clicking {
     width: 5px; height: 5px; mix-blend-mode: normal;
-    background: #054a32;
-    box-shadow: 0 0 20px #054a32, 0 0 40px rgba(4,50,33,.2);
+    background: #7A5240;
+    box-shadow: 0 0 20px #7A5240, 0 0 40px rgba(90,58,43,.2);
   }
   .pj-cur.text-hov {
     width: 2px; height: 20px; border-radius: 1px; mix-blend-mode: normal;
-    background: #043221; box-shadow: 0 0 10px rgba(4,50,33,.3);
+    background: #5A3A2B; box-shadow: 0 0 10px rgba(90,58,43,.3);
   }
 
   .pj-curR {
     position: fixed; pointer-events: none; z-index: 9997;
     transform: translate(-50%,-50%);
     width: 36px; height: 36px; border-radius: 50%;
-    border: 1.5px solid rgba(4,50,33,.35);
+    border: 1.5px solid rgba(90,58,43,.35);
     will-change: left, top;
     transition: width .38s cubic-bezier(.22,1,.36,1), height .38s cubic-bezier(.22,1,.36,1),
                 border-color .25s, border-radius .25s, background .25s;
   }
-  .pj-curR.hov      { width: 50px; height: 50px; border-color: rgba(4,50,33,.65); background: rgba(4,50,33,.04); }
-  .pj-curR.clicking { width: 22px; height: 22px; border-color: #054a32; background: rgba(4,50,33,.07); }
-  .pj-curR.text-hov { width: 2px; height: 28px; border-radius: 2px; border-color: transparent; background: rgba(4,50,33,.1); }
+  .pj-curR.hov      { width: 50px; height: 50px; border-color: rgba(90,58,43,.65); background: rgba(90,58,43,.04); }
+  .pj-curR.clicking { width: 22px; height: 22px; border-color: #7A5240; background: rgba(90,58,43,.07); }
+  .pj-curR.text-hov { width: 2px; height: 28px; border-radius: 2px; border-color: transparent; background: rgba(90,58,43,.1); }
 
   .pj-cur-halo {
     position: fixed; pointer-events: none; z-index: 9996;
     transform: translate(-50%,-50%);
     width: 80px; height: 80px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(4,50,33,.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(90,58,43,.06) 0%, transparent 70%);
     opacity: 0; filter: blur(6px); will-change: left, top;
     transition: opacity .4s, width .5s cubic-bezier(.22,1,.36,1), height .5s cubic-bezier(.22,1,.36,1), background .3s;
   }
   .pj-cur-halo.vis      { opacity: 1; }
-  .pj-cur-halo.hov      { opacity: 1; width: 110px; height: 110px; background: radial-gradient(circle, rgba(4,50,33,.08) 0%, transparent 70%); }
-  .pj-cur-halo.clicking { opacity: 1; width: 55px;  height: 55px;  background: radial-gradient(circle, rgba(4,50,33,.12) 0%, transparent 70%); }
+  .pj-cur-halo.hov      { opacity: 1; width: 110px; height: 110px; background: radial-gradient(circle, rgba(90,58,43,.08) 0%, transparent 70%); }
+  .pj-cur-halo.clicking { opacity: 1; width: 55px;  height: 55px;  background: radial-gradient(circle, rgba(90,58,43,.12) 0%, transparent 70%); }
 
   .pj-cur-label {
     position: fixed; pointer-events: none; z-index: 10000;
     transform: translate(-50%, -50%);
     padding: 4px 12px; border-radius: 100px;
     background: rgba(255,255,255,.9); backdrop-filter: blur(12px);
-    border: 1px solid rgba(4,50,33,.15);
+    border: 1px solid rgba(90,58,43,.15);
     font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
-    letter-spacing: .1em; text-transform: uppercase; color: #043221;
+    letter-spacing: .1em; text-transform: uppercase; color: #5A3A2B;
     white-space: nowrap; opacity: 0; transition: opacity .2s;
   }
   .pj-cur-label.vis { opacity: 1; }
@@ -620,6 +644,24 @@ const STYLES = `
   66%     { transform: translateY(9px) rotate(-2deg); }
 }
 
+/* ── COFFEE STEAM WISPS (new) ── */
+.pj-steam-wrap {
+  position: absolute; top: -26px; left: 50%; width: 40px; height: 30px;
+  transform: translateX(-50%); pointer-events: none; z-index: 4;
+}
+.pj-steam {
+  position: absolute; bottom: 0; width: 3px; height: 20px;
+  background: linear-gradient(to top, rgba(90,58,43,.35), transparent);
+  border-radius: 3px; pointer-events: none;
+  animation: pj-steam-rise 3.4s ease-in-out infinite;
+}
+@keyframes pj-steam-rise {
+  0%   { transform: translateY(4px) scaleY(.7) rotate(0deg); opacity: 0; }
+  25%  { opacity: .55; }
+  55%  { transform: translateY(-16px) scaleY(1.25) rotate(5deg); opacity: .35; }
+  100% { transform: translateY(-32px) scaleY(.5) rotate(-4deg); opacity: 0; }
+}
+
 /* ── HERO ── */
 .pj-hero {
   position: relative; z-index: 3;
@@ -629,48 +671,55 @@ const STYLES = `
 .pj-badge {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 8px 20px; border-radius: 100px;
-  border: 1px solid rgba(4,50,33,.25); background: rgba(4,50,33,.04);
+  border: 1px solid rgba(90,58,43,.25); background: rgba(90,58,43,.04);
   font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
-  color: #043221; margin-bottom: 28px;
-  position: relative; overflow: hidden;
+  color: #5A3A2B; margin-bottom: 28px;
+  position: relative; overflow: visible;
   animation: pj-badge-glow 3s ease-in-out infinite;
 }
 @keyframes pj-badge-glow {
-  0%,100% { box-shadow: 0 0 20px rgba(4,50,33,.03); }
-  50%     { box-shadow: 0 0 32px rgba(4,50,33,.1); }
+  0%,100% { box-shadow: 0 0 20px rgba(90,58,43,.03); }
+  50%     { box-shadow: 0 0 32px rgba(90,58,43,.1); }
 }
 .pj-badge::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(4,50,33,.04) 50%, transparent 60%);
+  content: ''; position: absolute; inset: 0; border-radius: 100px; overflow: hidden;
+  background: linear-gradient(105deg, transparent 40%, rgba(90,58,43,.04) 50%, transparent 60%);
   transform: translateX(-100%); animation: pj-badge-shimmer 3s ease-in-out 1s infinite;
 }
 @keyframes pj-badge-shimmer { 0%,100% { transform: translateX(-100%); } 50% { transform: translateX(300%); } }
-@keyframes pj-bdot { 0%,100%{box-shadow:0 0 0 0 rgba(4,50,33,.35)} 50%{box-shadow:0 0 0 8px rgba(4,50,33,0)} }
+@keyframes pj-bdot { 0%,100%{box-shadow:0 0 0 0 rgba(90,58,43,.35)} 50%{box-shadow:0 0 0 8px rgba(90,58,43,0)} }
 .pj-bdot { width:7px; height:7px; border-radius:50%; background:var(--indigo); animation:pj-bdot 2s infinite; flex-shrink:0; }
 
 .pj-title {
   font-family: 'Syne', sans-serif; font-weight: 800;
   font-size: clamp(38px, 7vw, 72px); line-height: .9; letter-spacing: -2px; margin-bottom: 18px;
 }
-.pj-t1 { display: block; color: #043221; }
+.pj-t1 { display: block; color: #5A3A2B; }
 .pj-t2 {
   display: block;
-  color: #043221;
+  background: linear-gradient(90deg, #5A3A2B, #8B6F47, #7A5240, #5A3A2B);
+  background-size: 300% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: pj-text-shine 7s linear infinite;
+}
+@keyframes pj-text-shine {
+  0%   { background-position: 0% center; }
+  100% { background-position: 300% center; }
 }
 .pj-sub {
   font-size: clamp(14px,1.8vw,16px); line-height: 1.75;
-  color: rgba(4,50,33,.6); font-style: italic; max-width: 500px; margin: 0 auto 40px;
+  color: rgba(90,58,43,.6); font-style: italic; max-width: 500px; margin: 0 auto 40px;
 }
 .pj-count-strip {
   display: inline-flex; align-items: center; gap: 20px;
   padding: 12px 28px; border-radius: 100px;
-  background: rgba(255,255,255,.45); border: 1px solid rgba(4,50,33,.12);
+  background: rgba(255,255,255,.45); border: 1px solid rgba(90,58,43,.12);
   backdrop-filter: blur(12px);
-  font-size: 13px; color: rgba(4,50,33,.5); font-weight: 500;
+  font-size: 13px; color: rgba(90,58,43,.5); font-weight: 500;
   transition: border-color .3s, box-shadow .3s;
 }
-.pj-count-strip:hover { border-color: #043221; box-shadow: 0 0 32px rgba(4,50,33,.1); }
-.pj-count-n { font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color: #043221; }
+.pj-count-strip:hover { border-color: #5A3A2B; box-shadow: 0 0 32px rgba(90,58,43,.1); }
+.pj-count-n { font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color: #5A3A2B; }
 
 /* ── FILTERS ── */
 .pj-filters {
@@ -679,8 +728,8 @@ const STYLES = `
 }
 .pj-filter-btn {
   padding: 9px 24px; border-radius: 100px; font-size: 13px; font-weight: 700;
-  letter-spacing: .06em; border: 1px solid rgba(4,50,33,.2);
-  background: rgba(255,255,255,.45); color: rgba(4,50,33,.6);
+  letter-spacing: .06em; border: 1px solid rgba(90,58,43,.2);
+  background: rgba(255,255,255,.45); color: rgba(90,58,43,.6);
   cursor: pointer; transition: all .25s cubic-bezier(.22,1,.36,1);
   font-family: 'Plus Jakarta Sans', sans-serif; position: relative; overflow: hidden;
 }
@@ -689,12 +738,18 @@ const STYLES = `
   background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.2) 50%, transparent 60%);
   transform: translateX(-100%); transition: transform 0s;
 }
-.pj-filter-btn:hover { border-color: #043221; color: #043221; background: rgba(4,50,33,.06); }
+.pj-filter-btn:hover { border-color: #5A3A2B; color: #5A3A2B; background: rgba(90,58,43,.06); }
 .pj-filter-btn:hover::after { transform: translateX(300%); transition: transform .5s cubic-bezier(.22,1,.36,1); }
 .pj-filter-btn.active {
-  background: #043221;
+  background: #5A3A2B;
   border-color: transparent; color: #fff;
-  box-shadow: 0 8px 28px rgba(4,50,33,.2);
+  box-shadow: 0 8px 28px rgba(90,58,43,.2);
+  animation: pj-filter-pop .38s cubic-bezier(.22,1,.36,1);
+}
+@keyframes pj-filter-pop {
+  0%   { transform: scale(.9); }
+  55%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
 }
 
 /* ── GRID ── */
@@ -707,7 +762,7 @@ const STYLES = `
 /* ── CARD ── */
 .pj-card {
   border-radius: 24px; overflow: hidden;
-  background: rgba(255,255,255,.45); border: 1px solid rgba(4,50,33,.12);
+  background: rgba(255,255,255,.45); border: 1px solid rgba(90,58,43,.12);
   backdrop-filter: blur(16px); cursor: pointer; position: relative;
   transition: all .38s cubic-bezier(.22,1,.36,1);
   display: flex; flex-direction: column;
@@ -726,7 +781,7 @@ const STYLES = `
 .pj-card:hover {
   border-color: rgba(var(--ca),.32);
   transform: translateY(-12px) rotateX(3deg) rotateY(-1.5deg);
-  box-shadow: 0 36px 80px rgba(4,50,33,.08), 0 0 0 1px rgba(var(--ca),.12) inset;
+  box-shadow: 0 36px 80px rgba(90,58,43,.08), 0 0 0 1px rgba(var(--ca),.12) inset;
 }
 .pj-card:hover::before { opacity: 1; }
 .pj-card:hover::after { transform: translateX(300%); transition: transform .65s cubic-bezier(.22,1,.36,1); }
@@ -735,9 +790,14 @@ const STYLES = `
 .pj-featured-badge {
   position: absolute; top: 12px; left: 12px; z-index: 5;
   padding: 4px 12px; border-radius: 100px;
-  background: linear-gradient(135deg, rgba(4,50,33,.85), rgba(15,92,64,.85));
+  background: linear-gradient(135deg, rgba(90,58,43,.85), rgba(139,111,71,.85));
   font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
   color: #fff; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.15);
+  animation: pj-featured-pulse 2.4s ease-in-out infinite;
+}
+@keyframes pj-featured-pulse {
+  0%,100% { box-shadow: 0 0 0 rgba(90,58,43,0); }
+  50%     { box-shadow: 0 0 14px rgba(90,58,43,.4); }
 }
 
 /* type badge */
@@ -756,15 +816,15 @@ const STYLES = `
 }
 .pj-img-zone img { width:100%; height:100%; object-fit:cover; transition:transform .55s cubic-bezier(.22,1,.36,1); }
 .pj-card:hover .pj-img-zone img { transform: scale(1.07); }
-.pj-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 40%,rgba(178,223,195,.9)); }
+.pj-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 40%,rgba(251,242,230,.9)); }
 
 .pj-placeholder {
   width:100%; height:100%; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:10px;
-  background:linear-gradient(145deg,rgba(var(--ca),.08),rgba(178,223,195,.4));
+  background:linear-gradient(145deg,rgba(var(--ca),.08),rgba(251,242,230,.4));
   transition:all .35s;
 }
-.pj-card:hover .pj-placeholder { background:linear-gradient(145deg,rgba(var(--ca),.16),rgba(178,223,195,.4)); }
+.pj-card:hover .pj-placeholder { background:linear-gradient(145deg,rgba(var(--ca),.16),rgba(251,242,230,.4)); }
 .pj-ph-icon {
   font-size:52px; filter:drop-shadow(0 0 20px rgba(var(--ca),.4));
   transition:transform .35s cubic-bezier(.22,1,.36,1), filter .35s;
@@ -773,7 +833,7 @@ const STYLES = `
 .pj-ph-lbl { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(var(--ca),.6); font-weight:700; }
 
 .pj-upload-hint {
-  position:absolute; inset:0; background:rgba(4,50,33,.75);
+  position:absolute; inset:0; background:rgba(90,58,43,.75);
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
   opacity:0; transition:opacity .3s; backdrop-filter:blur(4px);
 }
@@ -785,9 +845,9 @@ const STYLES = `
 .pj-ngrok-tooltip {
   position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
   margin-bottom: 10px; z-index: 20;
-  background: #e6f5ec; border: 1px solid rgba(4,50,33,.2);
+  background: #F3E5D0; border: 1px solid rgba(90,58,43,.2);
   border-radius: 12px; padding: 12px 16px;
-  width: 260px; box-shadow: 0 8px 32px rgba(4,50,33,.1), 0 0 20px rgba(4,50,33,.08);
+  width: 260px; box-shadow: 0 8px 32px rgba(90,58,43,.1), 0 0 20px rgba(90,58,43,.08);
   backdrop-filter: blur(12px);
   pointer-events: none;
   opacity: 0; transition: opacity .2s, transform .2s;
@@ -798,17 +858,17 @@ const STYLES = `
 }
 .pj-ngrok-tooltip::after {
   content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-  border: 6px solid transparent; border-top-color: rgba(4,50,33,.2);
+  border: 6px solid transparent; border-top-color: rgba(90,58,43,.2);
 }
 .pj-ngrok-title {
   font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase; color: #043221; margin-bottom: 6px;
+  letter-spacing: .14em; text-transform: uppercase; color: #5A3A2B; margin-bottom: 6px;
   display: flex; align-items: center; gap: 6px;
 }
-.pj-ngrok-dot { width: 6px; height: 6px; border-radius: 50%; background: #043221; animation: pj-blink 1.4s ease infinite; }
-.pj-ngrok-text { font-size: 12px; line-height: 1.6; color: rgba(4,50,33,.7); }
-.pj-ngrok-step { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; font-size: 11.5px; color: rgba(4,50,33,.6); }
-.pj-ngrok-step span:first-child { color: #043221; font-weight: 700; flex-shrink: 0; }
+.pj-ngrok-dot { width: 6px; height: 6px; border-radius: 50%; background: #5A3A2B; animation: pj-blink 1.4s ease infinite; }
+.pj-ngrok-text { font-size: 12px; line-height: 1.6; color: rgba(90,58,43,.7); }
+.pj-ngrok-step { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; font-size: 11.5px; color: rgba(90,58,43,.6); }
+.pj-ngrok-step span:first-child { color: #5A3A2B; font-weight: 700; flex-shrink: 0; }
 
 /* watch demo video btn on card */
 .pj-btn-demo {
@@ -822,9 +882,9 @@ const STYLES = `
 
 /* card body */
 .pj-card-body { padding:22px 22px 20px; flex:1; display:flex; flex-direction:column; position:relative; z-index:1; }
-.pj-card-title { font-family:'Syne',sans-serif; font-weight:800; font-size:17px; color:#043221; margin-bottom:8px; line-height:1.2; transition:color .25s; }
-.pj-card:hover .pj-card-title { color:#043221; }
-.pj-card-short { font-size:13px; line-height:1.65; color:rgba(4,50,33,.6); margin-bottom:16px; flex:1; }
+.pj-card-title { font-family:'Syne',sans-serif; font-weight:800; font-size:17px; color:#5A3A2B; margin-bottom:8px; line-height:1.2; transition:color .25s; }
+.pj-card:hover .pj-card-title { color:#5A3A2B; }
+.pj-card-short { font-size:13px; line-height:1.65; color:rgba(90,58,43,.6); margin-bottom:16px; flex:1; }
 .pj-card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
 .pj-tag {
   padding:4px 10px; border-radius:6px; font-size:11px; font-weight:700; letter-spacing:.04em;
@@ -852,11 +912,11 @@ const STYLES = `
 
 .pj-btn-gh {
   padding:10px 14px; border-radius:10px; font-size:12px; font-weight:700;
-  border:1px solid rgba(4,50,33,.15); background:rgba(255,255,255,.45);
-  color:rgba(4,50,33,.6); cursor:pointer; transition:all .25s cubic-bezier(.22,1,.36,1);
+  border:1px solid rgba(90,58,43,.15); background:rgba(255,255,255,.45);
+  color:rgba(90,58,43,.6); cursor:pointer; transition:all .25s cubic-bezier(.22,1,.36,1);
   display:flex; align-items:center; justify-content:center; text-decoration:none;
 }
-.pj-btn-gh:hover { border-color:#043221; color:#043221; background:rgba(4,50,33,.06); transform:translateY(-2px); }
+.pj-btn-gh:hover { border-color:#5A3A2B; color:#5A3A2B; background:rgba(90,58,43,.06); transform:translateY(-2px); }
 
 /* status dot */
 .pj-status { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px; }
@@ -867,23 +927,23 @@ const STYLES = `
 /* ── CODE MODAL ── */
 .pj-code-modal-bg {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(178,223,195,.88); backdrop-filter: blur(20px);
+  background: rgba(251,242,230,.88); backdrop-filter: blur(20px);
   display: flex; align-items: center; justify-content: center; padding: 24px;
 }
 .pj-code-modal {
   width: 100%; max-width: 800px; max-height: 90vh;
-  border-radius: 20px; background: #e6f5ec;
-  border: 1px solid rgba(4,50,33,.2);
-  box-shadow: 0 48px 120px rgba(4,50,33,.12);
+  border-radius: 20px; background: #F3E5D0;
+  border: 1px solid rgba(90,58,43,.2);
+  box-shadow: 0 48px 120px rgba(90,58,43,.12);
   display: flex; flex-direction: column; overflow: hidden;
 }
 .pj-code-modal-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px; border-bottom: 1px solid rgba(4,50,33,.1);
+  padding: 16px 20px; border-bottom: 1px solid rgba(90,58,43,.1);
   background: rgba(255,255,255,.2); flex-shrink: 0;
 }
 .pj-code-modal-title {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: #043221;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: #5A3A2B;
   display: flex; align-items: center; gap: 8px;
 }
 .pj-code-modal-dots { display: flex; gap: 6px; }
@@ -893,51 +953,51 @@ const STYLES = `
 }
 .pj-code-modal-body::-webkit-scrollbar { width: 4px; }
 .pj-code-modal-body::-webkit-scrollbar-track { background: transparent; }
-.pj-code-modal-body::-webkit-scrollbar-thumb { background: rgba(4,50,33,.3); border-radius: 4px; }
+.pj-code-modal-body::-webkit-scrollbar-thumb { background: rgba(90,58,43,.3); border-radius: 4px; }
 .pj-code-pre {
   font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
-  font-size: 12.5px; line-height: 1.7; color: #043221;
+  font-size: 12.5px; line-height: 1.7; color: #5A3A2B;
   white-space: pre; tab-size: 2; margin: 0;
 }
 .pj-code-close {
   width: 32px; height: 32px; border-radius: 8px;
-  background: rgba(255,255,255,.4); border: 1px solid rgba(4,50,33,.1);
-  color: rgba(4,50,33,.6); display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.4); border: 1px solid rgba(90,58,43,.1);
+  color: rgba(90,58,43,.6); display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: all .2s; font-size: 16px;
 }
-.pj-code-close:hover { background: rgba(4,50,33,.2); border-color: rgba(4,50,33,.4); color: #043221; }
+.pj-code-close:hover { background: rgba(90,58,43,.2); border-color: rgba(90,58,43,.4); color: #5A3A2B; }
 .pj-code-copy {
   padding: 6px 14px; border-radius: 8px;
-  background: rgba(4,50,33,.15); border: 1px solid rgba(4,50,33,.3);
-  color: #043221; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  background: rgba(90,58,43,.15); border: 1px solid rgba(90,58,43,.3);
+  color: #5A3A2B; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
   letter-spacing: .08em; cursor: pointer; transition: all .2s;
 }
-.pj-code-copy:hover { background: rgba(4,50,33,.28); border-color: rgba(4,50,33,.5); }
+.pj-code-copy:hover { background: rgba(90,58,43,.28); border-color: rgba(90,58,43,.5); }
 
 /* syntax highlight colors */
-.tok-kw  { color: #9E2A2B; }
-.tok-str { color: #2D6A4F; }
-.tok-num { color: #1B4332; }
-.tok-fn  { color: #40916C; }
-.tok-cm  { color: #74c69d; font-style: italic; }
-.tok-tag { color: #52b788; }
+.tok-kw  { color: #A6431D; }
+.tok-str { color: #6B7C4A; }
+.tok-num { color: #5A3A2B; }
+.tok-fn  { color: #8B6F47; }
+.tok-cm  { color: #B8A088; font-style: italic; }
+.tok-tag { color: #A67C52; }
 
 /* ── MODAL ── */
 .pj-modal-bg {
   position:fixed; inset:0; z-index:100;
-  background:rgba(178,223,195,.88); backdrop-filter:blur(16px);
+  background:rgba(251,242,230,.88); backdrop-filter:blur(16px);
   display:flex; align-items:center; justify-content:center; padding:24px;
 }
 .pj-modal {
   width:100%; max-width:680px; max-height:90vh; overflow-y:auto;
-  border-radius:28px; background:#e6f5ec;
-  border:1px solid rgba(4,50,33,.12);
-  box-shadow:0 48px 120px rgba(4,50,33,.15), 0 0 0 1px rgba(var(--ca),.12);
+  border-radius:28px; background:#F3E5D0;
+  border:1px solid rgba(90,58,43,.12);
+  box-shadow:0 48px 120px rgba(90,58,43,.15), 0 0 0 1px rgba(var(--ca),.12);
   position:relative;
 }
 .pj-modal::-webkit-scrollbar { width:4px; }
 .pj-modal::-webkit-scrollbar-track { background:transparent; }
-.pj-modal::-webkit-scrollbar-thumb { background:rgba(4,50,33,.3); border-radius:4px; }
+.pj-modal::-webkit-scrollbar-thumb { background:rgba(90,58,43,.3); border-radius:4px; }
 .pj-modal::before {
   content:''; position:absolute; top:0; left:0; right:0; height:2px; z-index:2; border-radius:28px 28px 0 0;
   background:linear-gradient(90deg,transparent,rgba(var(--ca),.7),transparent);
@@ -947,7 +1007,7 @@ const STYLES = `
   display:flex; align-items:center; justify-content:center;
 }
 .pj-modal-img img { width:100%; height:100%; object-fit:cover; }
-.pj-modal-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 50%,#e6f5ec); }
+.pj-modal-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 50%,#F3E5D0); }
 .pj-modal-ph {
   width:100%; height:100%; display:flex; align-items:center; justify-content:center;
   font-size:72px; filter:drop-shadow(0 0 40px rgba(var(--ca),.5));
@@ -955,12 +1015,12 @@ const STYLES = `
 .pj-modal-upload {
   position:absolute; top:16px; right:16px; z-index:5;
   padding:8px 16px; border-radius:100px;
-  background:rgba(255,255,255,.7); border:1px solid rgba(4,50,33,.15);
-  color:#043221; font-size:11px; font-weight:700; letter-spacing:.1em;
+  background:rgba(255,255,255,.7); border:1px solid rgba(90,58,43,.15);
+  color:#5A3A2B; font-size:11px; font-weight:700; letter-spacing:.1em;
   cursor:pointer; backdrop-filter:blur(8px);
   display:flex; align-items:center; gap:6px; transition:all .2s;
 }
-.pj-modal-upload:hover { border-color:rgba(4,50,33,.5); color:#043221; background:rgba(4,50,33,.15); }
+.pj-modal-upload:hover { border-color:rgba(90,58,43,.5); color:#5A3A2B; background:rgba(90,58,43,.15); }
 
 /* Watch Demo Video button on modal image */
 .pj-modal-watch-demo {
@@ -981,18 +1041,18 @@ const STYLES = `
 .pj-modal-close {
   position:absolute; top:16px; left:16px; z-index:5;
   width:36px; height:36px; border-radius:50%;
-  background:rgba(255,255,255,.7); border:1px solid rgba(4,50,33,.12);
-  color:rgba(4,50,33,.5); display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.7); border:1px solid rgba(90,58,43,.12);
+  color:rgba(90,58,43,.5); display:flex; align-items:center; justify-content:center;
   cursor:pointer; backdrop-filter:blur(8px); transition:all .2s; font-size:18px;
 }
-.pj-modal-close:hover { background:rgba(4,50,33,.2); border-color:rgba(4,50,33,.4); color:#043221; transform:rotate(90deg); }
+.pj-modal-close:hover { background:rgba(90,58,43,.2); border-color:rgba(90,58,43,.4); color:#5A3A2B; transform:rotate(90deg); }
 
 .pj-modal-body { padding:28px 32px 32px; }
 .pj-modal-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
 .pj-modal-type { padding:5px 14px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; border:1px solid; }
-.pj-modal-title { font-family:'Syne',sans-serif; font-weight:800; font-size:28px; color:#043221; margin-bottom:12px; line-height:1.1; }
-.pj-modal-desc { font-size:15px; line-height:1.75; color:rgba(4,50,33,.7); margin-bottom:24px; white-space: pre-line; }
-.pj-modal-lbl { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(4,50,33,.4); font-weight:700; margin-bottom:12px; }
+.pj-modal-title { font-family:'Syne',sans-serif; font-weight:800; font-size:28px; color:#5A3A2B; margin-bottom:12px; line-height:1.1; }
+.pj-modal-desc { font-size:15px; line-height:1.75; color:rgba(90,58,43,.7); margin-bottom:24px; white-space: pre-line; }
+.pj-modal-lbl { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(90,58,43,.4); font-weight:700; margin-bottom:12px; }
 .pj-modal-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
 .pj-modal-tag {
   padding:6px 14px; border-radius:8px; font-size:12px; font-weight:700;
@@ -1014,14 +1074,14 @@ const STYLES = `
 .pj-modal-btn-live:hover::before { opacity:1; }
 .pj-modal-btn-gh {
   padding:13px 20px; border-radius:12px;
-  background:rgba(255,255,255,.45); border:1px solid rgba(4,50,33,.12);
-  color:rgba(4,50,33,.6); font-family:'Syne',sans-serif; font-weight:700; font-size:13.5px;
+  background:rgba(255,255,255,.45); border:1px solid rgba(90,58,43,.12);
+  color:rgba(90,58,43,.6); font-family:'Syne',sans-serif; font-weight:700; font-size:13.5px;
   cursor:pointer; transition:all .25s cubic-bezier(.22,1,.36,1);
   display:flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;
 }
-.pj-modal-btn-gh:hover { border-color:#043221; color:#043221; background:rgba(4,50,33,.06); transform:translateY(-2px); }
+.pj-modal-btn-gh:hover { border-color:#5A3A2B; color:#5A3A2B; background:rgba(90,58,43,.06); transform:translateY(-2px); }
 
-.pj-modal-div { height:1px; background:linear-gradient(90deg,transparent,rgba(4,50,33,.2),transparent); margin:24px 0; }
+.pj-modal-div { height:1px; background:linear-gradient(90deg,transparent,rgba(90,58,43,.2),transparent); margin:24px 0; }
 
 .pj-error-toast {
   position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
@@ -1049,7 +1109,230 @@ const STYLES = `
   .pj-modal-img { height:200px; }
   .pj-float { display:none; }
 }
+/* ══════════════════════════════════════
+   UX / INTERACTION UPGRADE
+══════════════════════════════════════ */
+.pj-scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  z-index: 100000; pointer-events: none;
+  background: linear-gradient(90deg,#5A3A2B,#7A5240,#8B6F47);
+  box-shadow: 0 0 14px rgba(90,58,43,.35);
+  transform-origin: left center;
+}
+.pj-toolbar {
+  max-width: 1200px; margin: 0 auto; padding: 0 40px 30px;
+  position: relative; z-index: 5; display: flex; gap: 12px;
+  align-items: center; justify-content: space-between; flex-wrap: wrap;
+}
+.pj-search-wrap { position: relative; flex: 1 1 320px; max-width: 560px; }
+.pj-search {
+  width: 100%; padding: 14px 46px 14px 46px; border-radius: 14px;
+  border: 1px solid rgba(90,58,43,.16); background: rgba(255,255,255,.58);
+  color:#5A3A2B; outline:none; font: 500 13px 'Plus Jakarta Sans',sans-serif;
+  backdrop-filter: blur(12px); transition:.25s;
+}
+.pj-search::placeholder { color: rgba(90,58,43,.38); }
+.pj-search:focus { border-color: rgba(90,58,43,.45); box-shadow:0 0 0 4px rgba(90,58,43,.06); }
+.pj-search-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:rgba(90,58,43,.45); }
+.pj-search-clear {
+  position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  border:0; background:transparent; color:rgba(90,58,43,.5); cursor:pointer;
+  width:30px; height:30px; border-radius:8px;
+}
+.pj-search-clear:hover { background:rgba(90,58,43,.08); color:#5A3A2B; }
+.pj-sort {
+  min-width:190px; padding:13px 38px 13px 14px; border-radius:14px;
+  border:1px solid rgba(90,58,43,.16); background:rgba(255,255,255,.58);
+  color:#5A3A2B; outline:none; font:600 12px 'Plus Jakarta Sans',sans-serif;
+  backdrop-filter:blur(12px); cursor:pointer;
+}
+.pj-tool-count { font-size:11px; font-weight:700; color:rgba(90,58,43,.45); letter-spacing:.08em; white-space:nowrap; }
+.pj-tech-filter {
+  max-width:1200px; margin:0 auto; padding:0 40px 34px; position:relative; z-index:4;
+}
+.pj-tech-filter-head {
+  display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px;
+}
+.pj-tech-filter-title { font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:rgba(90,58,43,.4); }
+.pj-tech-chips { display:flex; gap:7px; overflow-x:auto; padding:3px 2px 7px; scrollbar-width:thin; }
+.pj-tech-chip {
+  flex:0 0 auto; padding:7px 12px; border-radius:999px; border:1px solid rgba(90,58,43,.14);
+  background:rgba(255,255,255,.42); color:rgba(90,58,43,.58); cursor:pointer;
+  font:700 10px 'Plus Jakarta Sans',sans-serif; transition:.22s;
+}
+.pj-tech-chip:hover,.pj-tech-chip.active { color:#fff; background:#5A3A2B; border-color:#5A3A2B; transform:translateY(-1px); }
+.pj-grid-meta {
+  max-width:1200px; margin:0 auto; padding:0 40px 16px; position:relative; z-index:4;
+  display:flex; align-items:center; gap:14px; justify-content:space-between;
+}
+.pj-grid-progress {
+  height:4px; flex:1; max-width:360px; background:rgba(90,58,43,.09); border-radius:999px; overflow:hidden;
+}
+.pj-grid-progress > span { display:block; height:100%; width:0%; border-radius:inherit; background:linear-gradient(90deg,#5A3A2B,#8B6F47); transition:width .2s; }
+.pj-grid-progress-label { font-size:10px; font-weight:800; color:rgba(90,58,43,.38); letter-spacing:.12em; text-transform:uppercase; }
+.pj-empty {
+  grid-column:1/-1; padding:70px 20px; text-align:center; border:1px dashed rgba(90,58,43,.18);
+  border-radius:24px; color:rgba(90,58,43,.48); background:rgba(255,255,255,.25);
+}
+.pj-empty strong { display:block; color:#5A3A2B; font-family:'Syne',sans-serif; margin-bottom:7px; }
+
+/* Image shimmer is deliberately independent from the page loader. */
+.pj-img-skeleton {
+  position:absolute; inset:0; overflow:hidden; background:linear-gradient(100deg,rgba(90,58,43,.06) 30%,rgba(255,255,255,.55) 50%,rgba(90,58,43,.06) 70%);
+  background-size:220% 100%; animation:pj-shimmer 1.35s linear infinite;
+}
+@keyframes pj-shimmer { to { background-position:-220% 0; } }
+.pj-img-hidden { opacity:0 !important; }
+.pj-img-loaded { opacity:1 !important; }
+
+/* Tech icons */
+.pj-tech-icon { width:13px; height:13px; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; }
+.pj-tech-icon svg { width:100%; height:100%; display:block; }
+.pj-tag,.pj-modal-tag { display:inline-flex; align-items:center; gap:6px; }
+
+/* Card flip */
+.pj-flip-shell { perspective:1200px; flex:1; display:flex; min-height:0; }
+.pj-flip-inner { width:100%; height:100%; min-height:100%; position:relative; transform-style:preserve-3d; transition:transform .65s cubic-bezier(.22,1,.36,1); }
+.pj-card:hover .pj-flip-inner { transform:rotateY(180deg); }
+.pj-card-face { width:100%; height:100%; backface-visibility:hidden; -webkit-backface-visibility:hidden; display:flex; flex-direction:column; }
+.pj-card-front { position:relative; }
+.pj-card-back {
+  position:absolute; inset:0; transform:rotateY(180deg); padding:24px;
+  background:linear-gradient(145deg,rgba(243,229,208,.98),rgba(251,242,230,.98));
+  justify-content:center; align-items:center; text-align:center;
+}
+.pj-back-kicker { font-size:10px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:rgba(90,58,43,.4); margin-bottom:8px; }
+.pj-back-title { font:800 22px 'Syne',sans-serif; color:#5A3A2B; margin-bottom:18px; }
+.pj-back-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; width:100%; max-width:300px; margin-bottom:18px; }
+.pj-back-stat { padding:13px 10px; border:1px solid rgba(90,58,43,.12); border-radius:13px; background:rgba(255,255,255,.4); }
+.pj-back-stat b { display:block; font:800 18px 'Syne',sans-serif; color:#5A3A2B; }
+.pj-back-stat span { display:block; margin-top:3px; font-size:9px; color:rgba(90,58,43,.42); text-transform:uppercase; letter-spacing:.1em; font-weight:700; }
+.pj-back-view { border:0; padding:11px 18px; border-radius:10px; background:#5A3A2B; color:#fff; font:700 12px 'Plus Jakarta Sans',sans-serif; cursor:pointer; box-shadow:0 10px 25px rgba(90,58,43,.18); }
+.pj-card-spotlight {
+  position:absolute; inset:0; z-index:4; pointer-events:none; opacity:0; transition:opacity .25s;
+  background:radial-gradient(230px circle at var(--spot-x,50%) var(--spot-y,50%),rgba(255,255,255,.18),transparent 68%);
+}
+.pj-card:hover .pj-card-spotlight { opacity:1; }
+
+/* Stats / recently viewed */
+.pj-github-stats { display:flex; gap:5px; flex-wrap:wrap; margin-top:8px; }
+.pj-stat-pill,.pj-recent-chip {
+  display:inline-flex; align-items:center; gap:5px; padding:5px 8px; border-radius:999px;
+  border:1px solid rgba(90,58,43,.12); background:rgba(255,255,255,.4);
+  color:rgba(90,58,43,.52); font-size:9px; font-weight:800;
+}
+.pj-stat-pill.loading { opacity:.45; }
+.pj-recent {
+  max-width:1200px; margin:0 auto; padding:0 40px 28px; position:relative; z-index:4;
+}
+.pj-recent-head { display:flex; align-items:center; gap:8px; margin-bottom:9px; }
+.pj-recent-title { font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:rgba(90,58,43,.4); }
+.pj-recent-list { display:flex; gap:8px; overflow-x:auto; padding:2px 2px 6px; scrollbar-width:thin; }
+.pj-recent-chip { cursor:pointer; padding:7px 10px; white-space:nowrap; transition:.2s; }
+.pj-recent-chip:hover { color:#5A3A2B; border-color:rgba(90,58,43,.28); transform:translateY(-1px); }
+.pj-recent-chip img { width:24px; height:24px; border-radius:6px; object-fit:cover; }
+.pj-recent-empty { font-size:11px; color:rgba(90,58,43,.3); }
+
+/* Modal navigation/share */
+.pj-modal-nav {
+  position:absolute; top:50%; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid rgba(90,58,43,.16); background:rgba(255,255,255,.72); color:#5A3A2B;
+  backdrop-filter:blur(10px); cursor:pointer; font-size:18px; transition:.2s;
+}
+.pj-modal-nav:hover { background:#5A3A2B; color:#fff; transform:scale(1.06); }
+.pj-modal-prev { left:-56px; transform:translateY(-50%); }
+.pj-modal-next { right:-56px; transform:translateY(-50%); }
+.pj-modal-counter {
+  position:absolute; right:70px; top:21px; z-index:6; padding:5px 9px; border-radius:999px;
+  background:rgba(255,255,255,.65); color:rgba(90,58,43,.48); font:700 10px 'Syne',sans-serif;
+}
+.pj-modal-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.pj-modal-action {
+  padding:9px 12px; border-radius:10px; border:1px solid rgba(90,58,43,.14);
+  background:rgba(255,255,255,.42); color:rgba(90,58,43,.66); cursor:pointer;
+  font:700 11px 'Plus Jakarta Sans',sans-serif; display:inline-flex; align-items:center; gap:6px; transition:.2s;
+}
+.pj-modal-action:hover { color:#5A3A2B; border-color:rgba(90,58,43,.35); background:rgba(90,58,43,.06); transform:translateY(-1px); }
+.pj-toast {
+  position:fixed; left:50%; bottom:28px; z-index:100001; transform:translateX(-50%);
+  padding:11px 16px; border-radius:999px; color:#fff; background:#5A3A2B;
+  box-shadow:0 16px 45px rgba(90,58,43,.25); font:700 12px 'Plus Jakarta Sans',sans-serif;
+  pointer-events:none;
+}
+.pj-confetti { position:fixed; inset:0; z-index:10000; pointer-events:none; overflow:hidden; }
+.pj-confetti-piece {
+  position:absolute; left:50%; top:48%; width:7px; height:11px; border-radius:45% 55% 48% 52%;
+  background:var(--cc); box-shadow:0 0 10px rgba(90,58,43,.15);
+  animation:pj-confetti-fly var(--cd) cubic-bezier(.12,.75,.2,1) forwards;
+}
+@keyframes pj-confetti-fly {
+  0% { transform:translate(-50%,-50%) rotate(0) scale(.5); opacity:1; }
+  100% { transform:translate(calc(-50% + var(--cx)),calc(-50% + var(--cy))) rotate(var(--cr)) scale(1); opacity:0; }
+}
+
+/* Counter emphasis */
+.pj-count-n.counting { display:inline-block; min-width:2ch; }
+
+/* responsive additions */
+@media (max-width:760px) {
+  .pj-toolbar,.pj-tech-filter,.pj-grid-meta,.pj-recent { padding-left:20px; padding-right:20px; }
+  .pj-grid-meta { align-items:flex-start; flex-direction:column; }
+  .pj-grid-progress { width:100%; max-width:none; }
+  .pj-modal-prev { left:8px; }
+  .pj-modal-next { right:8px; }
+  .pj-modal-nav { top:170px; }
+  .pj-modal-counter { right:58px; }
+  .pj-card:hover .pj-flip-inner { transform:none; }
+  .pj-card-back { display:none; }
+}
+/* ── Final visual polish / desktop safety overrides ── */
+.pj-toolbar {
+  width: min(1200px, 100%);
+  margin-inline: auto;
+}
+.pj-search-wrap { min-width: 260px; }
+.pj-search { appearance: none; -webkit-appearance: none; }
+.pj-grid-wrap { align-items: stretch; }
+.pj-card { min-width: 0; }
+.pj-card-front, .pj-flip-shell, .pj-flip-inner { min-height: 100%; }
+.pj-tech-chip { display:inline-flex; align-items:center; gap:7px; }
+.pj-recent-chip { max-width:260px; overflow:hidden; text-overflow:ellipsis; }
+.pj-tech-chips::-webkit-scrollbar,
+.pj-recent-list::-webkit-scrollbar { height:4px; }
+.pj-tech-chips::-webkit-scrollbar-thumb,
+.pj-recent-list::-webkit-scrollbar-thumb { background:rgba(90,58,43,.16); border-radius:999px; }
+
+@media (max-width:760px) {
+  .pj-toolbar { gap:9px; }
+  .pj-search-wrap { flex-basis:100%; max-width:none; }
+  .pj-sort { flex:1; min-width:0; }
+  .pj-tool-count { flex:0 0 auto; }
+  .pj-tech-filter-head { align-items:flex-start; }
+  .pj-tech-filter-head .pj-tech-filter-title:last-child { text-align:right; }
+  .pj-modal { max-height:94vh; border-radius:22px; }
+  .pj-modal-nav { width:38px; height:38px; }
+  .pj-modal-prev { left:7px; }
+  .pj-modal-next { right:7px; }
+}
+@media (max-width:420px) {
+  .pj-hero { padding-top:96px; }
+  .pj-title { font-size:clamp(34px,11vw,50px); }
+  .pj-count-strip { gap:11px; padding:10px 15px; font-size:11px; }
+  .pj-filters { gap:7px; }
+  .pj-filter-btn { padding:8px 14px; font-size:11px; }
+  .pj-grid-wrap { padding-left:14px; padding-right:14px; }
+  .pj-toolbar,.pj-tech-filter,.pj-grid-meta,.pj-recent { padding-left:14px; padding-right:14px; }
+  .pj-card-body { padding:18px 17px 16px; }
+  .pj-card-footer { padding:0 17px 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pj-flip-inner,.pj-card,.pj-img-skeleton,.pj-confetti-piece { animation:none !important; transition:none !important; }
+}
 `;
+
+// Stable key for client-side UI state. Some legacy project entries share the same numeric id.
+const projectKey = (project) => `${project.id}-${project.title}`;
 
 // ─── Simple syntax highlighter ─────────────────────────────────────────────
 function highlightJS(code) {
@@ -1140,8 +1423,8 @@ function useAdvancedCursor() {
       const d = document.createElement('div');
       d.className = 'pj-trail-dot';
       const sz = Math.max(2, 7 - i * .75), op = Math.max(.02, .28 - i * .028);
-      const hue = 145 + i * 4, sat = 65 - i * 2;
-      d.style.cssText = `width:${sz}px;height:${sz}px;opacity:${op};left:-300px;top:-300px;background:hsl(${hue},${sat}%,40%);`;
+      const hue = 25 + i * 2, sat = 45 - i * 1.5;
+      d.style.cssText = `width:${sz}px;height:${sz}px;opacity:${op};left:-300px;top:-300px;background:hsl(${hue},${sat}%,32%);`;
       document.body.appendChild(d);
       dots.push({ el: d, x: 0, y: 0 });
     }
@@ -1159,7 +1442,7 @@ function useAdvancedCursor() {
       { sel: '.pj-modal-btn-live', text: 'Live Demo' },
     ];
     const spawnBurst = (cx, cy) => {
-      const pal = ['#043221', '#054a32', '#0f5c40', '#307355'];
+      const pal = ['#5A3A2B', '#7A5240', '#8B6F47', '#A68C6E'];
       for (let i = 0; i < 14; i++) {
         const el = document.createElement('div'); el.className = 'pj-burst';
         const angle = (i / 14) * Math.PI * 2 + (Math.random() - .5) * .4;
@@ -1261,6 +1544,8 @@ const TiltCard = forwardRef(({ children, style, className, onClick, ...rest }, r
     const dy = (e.clientY - r.top) / r.height - .5;
     mx.set(dy * -10);
     my.set(dx * 10);
+    internalRef.current.style.setProperty('--spot-x', `${(dx + .5) * 100}%`);
+    internalRef.current.style.setProperty('--spot-y', `${(dy + .5) * 100}%`);
   };
   const onLeave = () => { mx.set(0); my.set(0); };
 
@@ -1403,9 +1688,9 @@ function FullscreenVideoPlayer({ src, accentColor, onClose }) {
             transition: 'all .2s',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.background = 'rgba(99,102,241,0.25)';
-            e.currentTarget.style.borderColor = 'rgba(99,102,241,0.5)';
-            e.currentTarget.style.color = '#a78bfa';
+            e.currentTarget.style.background = 'rgba(90,58,43,0.25)';
+            e.currentTarget.style.borderColor = 'rgba(90,58,43,0.5)';
+            e.currentTarget.style.color = '#c9a887';
           }}
           onMouseLeave={e => {
             e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
@@ -1605,27 +1890,134 @@ function CodeModal({ code, onClose }) {
   );
 }
 
+
+// ─── TECH ICONS ─────────────────────────────────────────────────────────────
+function TechIcon({ name }) {
+  const n = String(name || '').toLowerCase();
+  const common = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8 };
+  if (n.includes('react')) return <span className="pj-tech-icon" title={name}><svg {...common}><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="9" ry="4"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(120 12 12)"/></svg></span>;
+  if (n.includes('node')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="M12 3.2 19.5 7.5v9L12 20.8 4.5 16.5v-9L12 3.2Z"/><path d="M8.5 9.1v5.8l3.5 2 3.5-2V9.1l-3.5-2-3.5 2Z"/></svg></span>;
+  if (n.includes('mongo')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="M12 2c-1.5 4.3-3.7 6.4-3.7 10.2 0 3.7 1.9 6.6 3.7 9.8 1.8-3.2 3.7-6.1 3.7-9.8C15.7 8.4 13.5 6.3 12 2Z"/><path d="M12 15.5v5"/></svg></span>;
+  if (n.includes('next')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="M5 18V6l12 12V6"/><path d="M17 18 13.5 14.5"/></svg></span>;
+  if (n.includes('typescript')) return <span className="pj-tech-icon" title={name}><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10h5M9.5 10v8M14 15.5c.8 1 3 1 3.5-.2.5-1.2-1-1.7-2-2-1-.3-1.7-.8-1.5-1.7.2-.9 1.8-1.2 2.8-.4" stroke="white" strokeWidth="1.4" fill="none"/></svg></span>;
+  if (n.includes('javascript')) return <span className="pj-tech-icon" title={name}><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 16.5c.8 1 2.9 1 3.4-.2.5-1.2-.6-1.7-1.6-2.1-.9-.3-1.5-.7-1.4-1.5.1-.9 1.5-1.3 2.5-.6M14.5 12v5M13 12h3" stroke="white" strokeWidth="1.3" fill="none"/></svg></span>;
+  if (n.includes('html')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="m5 4 1.5 15L12 21l5.5-2L19 4H5Z"/><path d="M8 8h8M8.5 12h7M9 16l3 .9 3-.9"/></svg></span>;
+  if (n.includes('css')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="m5 4 1.5 15L12 21l5.5-2L19 4H5Z"/><path d="M8 8h8M8.5 12h6M9 16h4"/></svg></span>;
+  if (n.includes('tailwind')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="M4 12c2.3-4.8 5.2-4.8 8.1-1.9 2.9 2.9 5.8 2.9 7.9-1.1-2.2 5.3-5.2 5.4-8.1 2.6C9 8.7 6.2 8.7 4 12Z"/><path d="M4 18c2.3-4.8 5.2-4.8 8.1-1.9 2.9 2.9 5.8 2.9 7.9-1.1"/></svg></span>;
+  if (n.includes('firebase')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="m5 17 2-10 3 4 2-7 5 15-6 2-6-4Z"/><path d="m7 7 5 5 5-3"/></svg></span>;
+  if (n.includes('expo')) return <span className="pj-tech-icon" title={name}><svg {...common}><path d="M5 18 12 5l7 13"/><path d="M8.5 14h7"/></svg></span>;
+  if (n.includes('github')) return <span className="pj-tech-icon" title={name}><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.18 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03A9.6 9.6 0 0 1 12 6.84c.85 0 1.71.11 2.5.34 1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.94.36.31.68.92.68 1.86v2.75c0 .27.18.58.69.48A10.02 10.02 0 0 0 22 12c0-5.52-4.48-10-10-10Z"/></svg></span>;
+  return <span className="pj-tech-icon" title={name}><svg {...common}><polyline points="8 9 5 12 8 15"/><polyline points="16 9 19 12 16 15"/><line x1="14" y1="6" x2="10" y2="18"/></svg></span>;
+}
+
+function TechTag({ tech, modal = false }) {
+  return <span className={modal ? 'pj-modal-tag' : 'pj-tag'}><TechIcon name={tech}/><span>{tech}</span></span>;
+}
+
+function ImageWithSkeleton({ src, alt, className = '' }) {
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  return (
+    <>
+      {!loaded && !failed && <div className="pj-img-skeleton" aria-hidden="true" />}
+      {failed ? null : (
+        <img
+          src={src}
+          alt={alt}
+          className={`${className} ${loaded ? 'pj-img-loaded' : 'pj-img-hidden'}`}
+          onLoad={() => setLoaded(true)}
+          onError={() => { setFailed(true); setLoaded(false); }}
+        />
+      )}
+    </>
+  );
+}
+
+function ConfettiBurst({ active, onDone }) {
+  const [pieces, setPieces] = useState([]);
+  useEffect(() => {
+    if (!active) return;
+    const pal = ['#5A3A2B','#7A5240','#8B6F47','#A68C6E','#C9A887'];
+    const next = Array.from({ length: 34 }, (_, i) => {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 120 + Math.random() * 300;
+      return {
+        id: i, x: Math.cos(angle) * dist, y: Math.sin(angle) * dist + 80,
+        r: `${Math.round(Math.random() * 720 - 360)}deg`,
+        d: `${.75 + Math.random() * .65}s`,
+        c: pal[i % pal.length],
+      };
+    });
+    setPieces(next);
+    const t = setTimeout(() => { setPieces([]); onDone?.(); }, 1500);
+    return () => clearTimeout(t);
+  }, [active, onDone]);
+  if (!pieces.length) return null;
+  return <div className="pj-confetti">{pieces.map(p => (
+    <span key={p.id} className="pj-confetti-piece" style={{ '--cx': `${p.x}px`, '--cy': `${p.y}px`, '--cr': p.r, '--cd': p.d, '--cc': p.c }} />
+  ))}</div>;
+}
+
+function GitHubStats({ project, stats, loading }) {
+  const value = stats?.[projectKey(project)];
+  if (!project.github) return null;
+  if (loading && !value) return <div className="pj-github-stats"><span className="pj-stat-pill loading">GitHub stats…</span></div>;
+  if (!value) return null;
+  return <div className="pj-github-stats">
+    <span className="pj-stat-pill">★ {value.stars}</span>
+    <span className="pj-stat-pill">⑂ {value.forks}</span>
+  </div>;
+}
+
+
+function CountUp({ value }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const duration = 900;
+    const t0 = performance.now();
+    let af;
+    const tick = now => {
+      const p = Math.min(1, (now - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setCount(Math.round(value * eased));
+      if (p < 1) af = requestAnimationFrame(tick);
+    };
+    af = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(af);
+  }, [value]);
+  return <span className="pj-count-n counting">{count}</span>;
+}
+
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────
 export default function Projects() {
   const [filter, setFilter] = useState('All');
+  const [techFilter, setTechFilter] = useState('All');
+  const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('Featured first');
   const [modal, setModal] = useState(null);
   const [images, setImages] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [showCodeModal, setShowCodeModal] = useState(false);
-  // fullscreenVideo: null or { src, accent }
   const [fullscreenVideo, setFullscreenVideo] = useState(null);
+  const [toast, setToast] = useState('');
+  const [recent, setRecent] = useState([]);
+  const [confetti, setConfetti] = useState(false);
+  const [githubStats, setGithubStats] = useState({});
+  const [githubLoading, setGithubLoading] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const canvasRef = useRef(null);
   const rafRef = useRef(null);
   const mxR = useRef(0), myR = useRef(0);
   const observerRef = useRef(null);
   const elementsRef = useRef([]);
+  const gridRef = useRef(null);
+  const toastTimerRef = useRef(null);
 
   const { curRef, curRRef, haloRef, labelRef } = useAdvancedCursor();
   const { heroRef, heroBgRef, setFloatRef } = useParallax();
 
-  // inject styles
   useEffect(() => {
     const id = 'pj-v2';
     if (!document.getElementById(id)) {
@@ -1634,19 +2026,19 @@ export default function Projects() {
     }
   }, []);
 
-  // canvas
+  // Background particle canvas.
   useEffect(() => {
     const canvas = canvasRef.current; if (!canvas) return;
     const ctx = canvas.getContext('2d'); let W, H, nodes = [], t = 0;
-    const ORBS = [{ x: .1, y: .2, c: '4,50,33', r: 420 }, { x: .88, y: .55, c: '5,74,50', r: 340 }, { x: .5, y: .05, c: '15,92,64', r: 240 }];
+    const ORBS = [{ x: .1, y: .2, c: '90,58,43', r: 420 }, { x: .88, y: .55, c: '122,82,64', r: 340 }, { x: .5, y: .05, c: '139,111,71', r: 240 }];
     class N {
-      constructor() { this.x = Math.random() * W; this.y = Math.random() * H; this.vx = (Math.random() - .5) * .38; this.vy = (Math.random() - .5) * .38; this.r = Math.random() * 1.3 + .4; const P = [[4, 50, 33], [5, 74, 50], [15, 92, 64], [30, 115, 85]]; this.c = P[~~(Math.random() * 4)]; this.op = Math.random() * .38 + .1; }
-      update() { const dx = mxR.current - this.x, dy = myR.current - this.y, d = Math.hypot(dx, dy); if (d < 160) { this.vx += dx / d * .012; this.vy += dy / d * .012; } const sp = Math.hypot(this.vx, this.vy); if (sp > .9) { this.vx = this.vx / sp * .9; this.vy = this.vy / sp * .9; } this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > W) this.vx *= -1; if (this.y < 0 || this.y > H) this.vy *= -1; }
+      constructor() { this.x = Math.random() * W; this.y = Math.random() * H; this.vx = (Math.random() - .5) * .38; this.vy = (Math.random() - .5) * .38; this.r = Math.random() * 1.3 + .4; const P = [[90, 58, 43], [122, 82, 64], [139, 111, 71], [166, 140, 110]]; this.c = P[~~(Math.random() * 4)]; this.op = Math.random() * .38 + .1; }
+      update() { const dx = mxR.current - this.x, dy = myR.current - this.y, d = Math.hypot(dx, dy); if (d > 0 && d < 160) { this.vx += dx / d * .012; this.vy += dy / d * .012; } const sp = Math.hypot(this.vx, this.vy); if (sp > .9) { this.vx = this.vx / sp * .9; this.vy = this.vy / sp * .9; } this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > W) this.vx *= -1; if (this.y < 0 || this.y > H) this.vy *= -1; }
       draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.c},${this.op})`; ctx.fill(); }
     }
     const resize = () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; nodes = Array.from({ length: 80 }, () => new N()); };
     resize(); window.addEventListener('resize', resize);
-    const loop = () => { ctx.clearRect(0, 0, W, H); t += .008; ORBS.forEach((o, i) => { const ox = (o.x + Math.sin(t + i) * .07) * W, oy = (o.y + Math.cos(t * 1.2 + i) * .06) * H; const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, o.r); g.addColorStop(0, `rgba(${o.c},.1)`); g.addColorStop(1, `rgba(${o.c},0)`); ctx.beginPath(); ctx.arc(ox, oy, o.r, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill(); }); nodes.forEach((n, i) => { nodes.forEach((m, j) => { if (j <= i) return; const dx = n.x - m.x, dy = n.y - m.y, d = Math.hypot(dx, dy); if (d < 115) { ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); ctx.strokeStyle = `rgba(4,50,33,${.065 * (1 - d / 115)})`; ctx.lineWidth = .5; ctx.stroke(); } }); n.update(); n.draw(); }); rafRef.current = requestAnimationFrame(loop); };
+    const loop = () => { ctx.clearRect(0, 0, W, H); t += .008; ORBS.forEach((o, i) => { const ox = (o.x + Math.sin(t + i) * .07) * W, oy = (o.y + Math.cos(t * 1.2 + i) * .06) * H; const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, o.r); g.addColorStop(0, `rgba(${o.c},.1)`); g.addColorStop(1, `rgba(${o.c},0)`); ctx.beginPath(); ctx.arc(ox, oy, o.r, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill(); }); nodes.forEach((n, i) => { nodes.forEach((m, j) => { if (j <= i) return; const dx = n.x - m.x, dy = n.y - m.y, d = Math.hypot(dx, dy); if (d < 115) { ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); ctx.strokeStyle = `rgba(90,58,43,${.065 * (1 - d / 115)})`; ctx.lineWidth = .5; ctx.stroke(); } }); n.update(); n.draw(); }); rafRef.current = requestAnimationFrame(loop); };
     loop();
     return () => { window.removeEventListener('resize', resize); cancelAnimationFrame(rafRef.current); };
   }, []);
@@ -1664,14 +2056,55 @@ export default function Projects() {
     return () => observerRef.current?.disconnect();
   }, [loaded]);
 
+  // Scroll progress bar.
   useEffect(() => {
-    if (!modal) { setErrorMsg(null); setFullscreenVideo(null); }
-  }, [modal]);
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(max > 0 ? (window.scrollY / max) * 100 : 0);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
+  }, []);
 
-  const rr = useCallback(el => {
-    if (el && !elementsRef.current.includes(el)) elementsRef.current.push(el);
-    if (el && observerRef.current) observerRef.current.observe(el);
-  }, [loaded]);
+  // Recently viewed projects persist for the current browser.
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('pj-recent') || '[]');
+      if (Array.isArray(saved)) {
+        const valid = saved.filter(key => PROJECTS.some(p => projectKey(p) === key)).slice(0, 6);
+        setRecent(valid);
+      }
+    } catch {}
+  }, []);
+
+  const showToast = useCallback((message) => {
+    setToast(message);
+    window.clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = window.setTimeout(() => setToast(''), 2200);
+  }, []);
+
+  const rememberProject = useCallback((project) => {
+    setRecent(prev => {
+      const key = projectKey(project);
+      const next = [key, ...prev.filter(id => id !== key)].slice(0, 6);
+      try { localStorage.setItem('pj-recent', JSON.stringify(next)); } catch {}
+      return next;
+    });
+  }, []);
+
+  const openProject = useCallback((project) => {
+    setModal(project);
+    rememberProject(project);
+    if (project.featured) setConfetti(true);
+  }, [rememberProject]);
+
+  const closeModal = useCallback(() => {
+    setModal(null);
+    setErrorMsg(null);
+    setFullscreenVideo(null);
+  }, []);
 
   const handleImageUpload = useCallback((projectId, e) => {
     e.stopPropagation();
@@ -1686,26 +2119,176 @@ export default function Projects() {
     document.getElementById(`upload-${projectId}`)?.click();
   }, []);
 
-  const filtered = filter === 'All' ? PROJECTS : PROJECTS.filter(p => p.type === filter);
-  const fu = (d = 0) => ({ initial: { opacity: 0, y: 26, filter: 'blur(7px)' }, animate: { opacity: 1, y: 0, filter: 'blur(0px)' }, transition: { duration: .72, delay: d, ease: [.22, 1, .36, 1] } });
+  const allTech = useMemo(() => {
+    const set = new Set();
+    PROJECTS.forEach(p => p.tech.forEach(t => t && set.add(t)));
+    return ['All', ...Array.from(set).sort((a,b) => a.localeCompare(b))];
+  }, []);
+
+  // Fuzzy subsequence scoring: exact/prefix/substring matches rank highest.
+  const fuzzyScore = useCallback((value, query) => {
+    const s = String(value || '').toLowerCase().trim();
+    const q = String(query || '').toLowerCase().trim();
+    if (!q) return 0;
+    if (s === q) return 1000;
+    if (s.startsWith(q)) return 800;
+    if (s.includes(q)) return 650 - Math.max(0, s.indexOf(q));
+    let qi = 0, score = 0, last = -1;
+    for (let i = 0; i < s.length && qi < q.length; i++) {
+      if (s[i] === q[qi]) {
+        score += last === i - 1 ? 7 : 3;
+        last = i; qi++;
+      }
+    }
+    return qi === q.length ? 300 + score : -1;
+  }, []);
+
+  const filtered = useMemo(() => {
+    const q = search.trim();
+    const result = PROJECTS.filter(p => {
+      if (filter !== 'All' && p.type !== filter) return false;
+      if (techFilter !== 'All' && !p.tech.some(t => t.toLowerCase() === techFilter.toLowerCase())) return false;
+      if (!q) return true;
+      const scores = [fuzzyScore(p.title, q), ...p.tech.map(t => fuzzyScore(t, q))];
+      return Math.max(...scores) >= 0;
+    });
+    if (sort === 'Featured first') {
+      return [...result].sort((a,b) => Number(b.featured) - Number(a.featured));
+    }
+    if (sort === 'A-Z') return [...result].sort((a,b) => a.title.localeCompare(b.title));
+    // Project data is kept in newest-first source order, so this preserves that order.
+    return [...result];
+  }, [filter, techFilter, search, sort, fuzzyScore]);
+
+  // Fetch public GitHub repository stars/forks with session cache.
+  useEffect(() => {
+    let cancelled = false;
+    const repos = Array.from(new Set(PROJECTS.flatMap(p => Array.isArray(p.github) ? p.github : [p.github]).filter(Boolean)));
+    if (!repos.length) return;
+    setGithubLoading(true);
+    const parseRepo = url => {
+      try {
+        const u = new URL(url);
+        if (!u.hostname.includes('github.com')) return null;
+        const parts = u.pathname.split('/').filter(Boolean);
+        return parts.length >= 2 ? `${parts[0]}/${parts[1].replace(/\.git$/,'')}` : null;
+      } catch { return null; }
+    };
+    const load = async () => {
+      const out = {};
+      await Promise.all(repos.map(async url => {
+        const repo = parseRepo(url);
+        if (!repo) return;
+        const key = `pj-gh-${repo}`;
+        try {
+          const cached = JSON.parse(sessionStorage.getItem(key) || 'null');
+          if (cached && typeof cached.stars === 'number') { out[url] = cached; return; }
+        } catch {}
+        try {
+          const res = await fetch(`https://api.github.com/repos/${repo}`, { headers: { Accept: 'application/vnd.github+json' } });
+          if (!res.ok) return;
+          const data = await res.json();
+          const stats = { stars: data.stargazers_count ?? 0, forks: data.forks_count ?? 0 };
+          try { sessionStorage.setItem(key, JSON.stringify(stats)); } catch {}
+          out[url] = stats;
+        } catch {}
+      }));
+      if (cancelled) return;
+      const byProject = {};
+      PROJECTS.forEach(p => {
+        const repoUrl = Array.isArray(p.github) ? p.github[0] : p.github;
+        if (repoUrl && out[repoUrl]) byProject[p.id] = out[repoUrl];
+      });
+      setGithubStats(byProject);
+      setGithubLoading(false);
+    };
+    load();
+    return () => { cancelled = true; };
+  }, []);
+
+  const rr = useCallback(el => {
+    if (el && !elementsRef.current.includes(el)) elementsRef.current.push(el);
+    if (el && observerRef.current) observerRef.current.observe(el);
+  }, []);
+
   const getTypeStyle = t => {
-    if (t === 'Full Stack') return { bg: 'rgba(4,50,33,.05)', bc: 'rgba(4,50,33,.25)', c: '#043221' };
-    if (t === 'Mobile') return { bg: 'rgba(5,74,50,.05)', bc: 'rgba(5,74,50,.25)', c: '#054a32' };
-    return { bg: 'rgba(15,92,64,.05)', bc: 'rgba(15,92,64,.25)', c: '#0f5c40' };
+    if (t === 'Full Stack') return { bg: 'rgba(90,58,43,.05)', bc: 'rgba(90,58,43,.25)', c: '#5A3A2B' };
+    if (t === 'Mobile') return { bg: 'rgba(122,82,64,.05)', bc: 'rgba(122,82,64,.25)', c: '#7A5240' };
+    return { bg: 'rgba(139,111,71,.05)', bc: 'rgba(139,111,71,.25)', c: '#8B6F47' };
   };
 
   const onLoaderDone = useCallback(() => setLoaded(true), []);
 
+  const copyLink = useCallback(async () => {
+    if (!modal?.live) { showToast('No live link available'); return; }
+    try {
+      await navigator.clipboard.writeText(modal.live);
+      showToast('Live link copied ✓');
+    } catch {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = modal.live; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        showToast('Live link copied ✓');
+      } catch { showToast('Could not copy link'); }
+    }
+  }, [modal, showToast]);
+
+  const shareProject = useCallback(async () => {
+    if (!modal) return;
+    const url = modal.live || window.location.href;
+    const data = { title: modal.title, text: modal.short, url };
+    try {
+      if (navigator.share) {
+        await navigator.share(data);
+        showToast('Shared successfully ✓');
+      } else {
+        await navigator.clipboard.writeText(url);
+        showToast('Share link copied ✓');
+      }
+    } catch (err) {
+      if (err?.name !== 'AbortError') {
+        try { await navigator.clipboard.writeText(url); showToast('Share link copied ✓'); }
+        catch { showToast('Sharing is not available'); }
+      }
+    }
+  }, [modal, showToast]);
+
+  const moveModal = useCallback((direction) => {
+    if (!modal || !filtered.length) return;
+    const index = filtered.findIndex(p => projectKey(p) === projectKey(modal));
+    if (index < 0) return;
+    const nextIndex = (index + direction + filtered.length) % filtered.length;
+    const next = filtered[nextIndex];
+    setModal(next);
+    rememberProject(next);
+    if (next.featured) setConfetti(true);
+  }, [modal, filtered, rememberProject]);
+
+  // Keyboard navigation and Escape.
+  useEffect(() => {
+    if (!modal) return;
+    const onKey = e => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); moveModal(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); moveModal(1); }
+      if (e.key === 'Escape') closeModal();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [modal, moveModal, closeModal]);
+
+  const fu = (d = 0) => ({ initial: { opacity: 0, y: 26, filter: 'blur(7px)' }, animate: { opacity: 1, y: 0, filter: 'blur(0px)' }, transition: { duration: .72, delay: d, ease: [.22, 1, .36, 1] } });
+  const recentProjects = recent.map(id => PROJECTS.find(p => p.id === id)).filter(Boolean);
+
   return (
     <>
       <Header />
-
-      {/* ═══ PAGE LOADER ═══ */}
       <PageLoader onDone={onLoaderDone} />
+
+      <div className="pj-scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
       <PageTransition>
         <div className="pj pj-bgrid">
-          {/* ═══ CURSOR ═══ */}
           <div ref={curRef} className="pj-cur" />
           <div ref={curRRef} className="pj-curR" />
           <div ref={haloRef} className="pj-cur-halo" />
@@ -1715,7 +2298,6 @@ export default function Projects() {
           <div className="pj-noise" />
           <canvas ref={canvasRef} className="pj-canvas" />
 
-          {/* ═══ FLOATING SYMBOLS ═══ */}
           {FLOAT_SYMBOLS.map((f, i) => (
             <div key={i} ref={setFloatRef(i)} className="pj-float" style={{
               left: f.x, top: f.y, fontSize: f.sz, opacity: f.op,
@@ -1723,12 +2305,11 @@ export default function Projects() {
             }}>{f.s}</div>
           ))}
 
-          {/* ── HERO ── */}
           <div style={{ position: 'relative', zIndex: 3 }}>
             <div ref={heroBgRef} style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
               {[
-                { top: '0%', left: '-5%', w: 500, c: '4,50,33', op: .07 },
-                { bottom: '-10%', right: '-5%', w: 400, c: '5,74,50', op: .07 },
+                { top: '0%', left: '-5%', w: 500, c: '90,58,43', op: .07 },
+                { bottom: '-10%', right: '-5%', w: 400, c: '122,82,64', op: .07 },
               ].map((o, i) => (
                 <div key={i} style={{
                   position: 'absolute', borderRadius: '50%', filter: 'blur(60px)', width: o.w, height: o.w,
@@ -1740,177 +2321,179 @@ export default function Projects() {
             <div ref={heroRef} className="pj-hero">
               <motion.div className="pj-badge" {...fu(0)}>
                 <span className="pj-bdot" />My Work
+                <div className="pj-steam-wrap">
+                  {STEAM_WISPS.map((w, i) => <span key={i} className="pj-steam" style={{ left: w.left, animationDelay: `${w.delay}s` }} />)}
+                </div>
               </motion.div>
               <motion.h1 className="pj-title" {...fu(.1)}>
                 <span className="pj-t1">THINGS I'VE</span>
                 <span className="pj-t2">BUILT & SHIPPED</span>
               </motion.h1>
               <motion.p className="pj-sub" {...fu(.22)}>
-                From concept to production — 16 real projects spanning mobile apps, full-stack systems and beautiful frontends.
+                From concept to production — {PROJECTS.length} real projects spanning mobile apps, full-stack systems and beautiful frontends.
               </motion.p>
               <motion.div className="pj-count-strip" {...fu(.32)}>
-                <span><span className="pj-count-n">{PROJECTS.length}</span> Projects</span>
-                <span style={{ color: 'rgba(4,50,33,.2)' }}>|</span>
-                <span><span className="pj-count-n">{PROJECTS.filter(p => p.type === 'Full Stack').length}</span> Full Stack</span>
+                <span><CountUp value={PROJECTS.length} /> Projects</span>
+                <span style={{ color: 'rgba(90,58,43,.2)' }}>|</span>
+                <span><CountUp value={PROJECTS.filter(p => p.type === 'Full Stack').length} /> Full Stack</span>
               </motion.div>
             </div>
           </div>
 
-          {/* ── FILTERS ── */}
           <motion.div className="pj-filters" {...fu(.44)}>
             {FILTERS.map(f => (
-              <button
-                key={f}
-                className={`pj-filter-btn ${filter === f ? 'active' : ''}`}
-                onClick={() => setFilter(f)}
-              >
+              <button key={f} className={`pj-filter-btn ${filter === f ? 'active' : ''}`} onClick={() => setFilter(f)}>
                 {f}
               </button>
             ))}
           </motion.div>
 
-          {/* ── GRID ── */}
-          <div className="pj-grid-wrap">
-            {filtered.map((proj, i) => (
+          <motion.div className="pj-toolbar" {...fu(.5)}>
+            <div className="pj-search-wrap">
+              <svg className="pj-search-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
+              </svg>
+              <input
+                className="pj-search"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Search projects or technologies…"
+                aria-label="Search projects by title or technology"
+              />
+              {search && <button className="pj-search-clear" onClick={() => setSearch('')} aria-label="Clear search">✕</button>}
+            </div>
+            <select className="pj-sort" value={sort} onChange={e => setSort(e.target.value)} aria-label="Sort projects">
+              <option>Featured first</option>
+              <option>Newest</option>
+              <option>A-Z</option>
+            </select>
+            <span className="pj-tool-count">{filtered.length} / {PROJECTS.length} projects</span>
+          </motion.div>
+
+          {recentProjects.length > 0 && (
+            <motion.div className="pj-recent" {...fu(.54)}>
+              <div className="pj-recent-head">
+                <span className="pj-recent-title">Recently viewed</span>
+              </div>
+              <div className="pj-recent-list">
+                {recentProjects.map(p => (
+                  <button key={projectKey(p)} className="pj-recent-chip" onClick={() => openProject(p)}>
+                    {p.image ? <img src={images[projectKey(p)] || p.image} alt="" /> : <span>{p.placeholder}</span>}
+                    {p.title}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+       
+
+          <div ref={gridRef} className="pj-grid-wrap">
+            {filtered.length === 0 ? (
+              <div className="pj-empty">
+                <strong>No projects found</strong>
+                Try another title, technology, type, or clear the filters.
+              </div>
+            ) : filtered.map((proj, i) => (
               <TiltCard
-                key={proj.id}
+                key={`${projectKey(proj)}-${sort}-${filter}-${techFilter}-${search}`}
                 ref={rr}
                 className="pj-card pj-reveal"
                 style={{ '--ca': proj.accent }}
-                onClick={() => setModal(proj)}
+                onClick={() => openProject(proj)}
               >
-                {proj.featured && <div className="pj-featured-badge">Featured</div>}
-                <div className="pj-type-badge" style={getTypeStyle(proj.type)}>
-                  {proj.type}
-                </div>
-                <div className="pj-status" style={{ padding: '0 22px', paddingTop: '14px' }}>
-                  <span className={`pj-status-dot ${proj.status === 'In Progress' || proj.status === 'IN progress' ? 'blink' : ''}`} style={{
-                    background: proj.status === 'Completed' ? '#043221' : '#054a32',
-                    boxShadow: proj.status === 'Completed' ? '0 0 8px rgba(4,50,33,.5)' : '0 0 8px rgba(5,74,50,.4)'
-                  }} />
-                  {proj.status}
-                </div>
-                <div className="pj-img-zone">
-                  {images[proj.id] ? (
-                    <>
-                      <img src={images[proj.id]} alt={proj.title} />
-                      <div className="pj-img-overlay" />
-                    </>
-                  ) : proj.image ? (
-                    <>
-                      <img src={proj.image} alt={proj.title} />
-                      <div className="pj-img-overlay" />
-                    </>
-                  ) : (
-                    <div className="pj-placeholder">
-                      <div className="pj-ph-icon">{proj.placeholder}</div>
-                      <div className="pj-ph-lbl">Project Image</div>
-                      <div className="pj-upload-hint" onClick={e => triggerUpload(proj.id, e)}>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="17,8 12,3 7,8" />
-                          <line x1="12" y1="3" x2="12" y2="15" />
-                        </svg>
-                        <span>Click to upload</span>
+                <div className="pj-card-spotlight" />
+                <div className="pj-flip-shell">
+                  <div className="pj-flip-inner">
+                    <div className="pj-card-face pj-card-front">
+                      {proj.featured && <div className="pj-featured-badge">Featured</div>}
+                      <div className="pj-type-badge" style={getTypeStyle(proj.type)}>{proj.type}</div>
+
+                      <div className="pj-status" style={{ padding: '14px 22px 0' }}>
+                        <span className={`pj-status-dot ${proj.status === 'In Progress' || proj.status === 'IN progress' ? 'blink' : ''}`} style={{
+                          background: proj.status === 'Completed' ? '#5A3A2B' : '#7A5240',
+                          boxShadow: proj.status === 'Completed' ? '0 0 8px rgba(90,58,43,.5)' : '0 0 8px rgba(122,82,64,.4)'
+                        }} />
+                        {proj.status}
                       </div>
-                      <input
-                        id={`upload-${proj.id}`}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: 'none' }}
-                        onChange={e => handleImageUpload(proj.id, e)}
-                      />
+
+                      <div className="pj-img-zone">
+                        {images[projectKey(proj)] ? (
+                          <>
+                            <ImageWithSkeleton src={images[projectKey(proj)]} alt={proj.title} />
+                            <div className="pj-img-overlay" />
+                          </>
+                        ) : proj.image ? (
+                          <>
+                            <ImageWithSkeleton src={proj.image} alt={proj.title} />
+                            <div className="pj-img-overlay" />
+                          </>
+                        ) : (
+                          <div className="pj-placeholder">
+                            <div className="pj-ph-icon">{proj.placeholder}</div>
+                            <div className="pj-ph-lbl">Project Image</div>
+                            <div className="pj-upload-hint" onClick={e => triggerUpload(proj.id, e)}>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17,8 12,3 7,8" /><line x1="12" y1="3" x2="12" y2="15" />
+                              </svg>
+                              <span>Click to upload</span>
+                            </div>
+                            <input id={`upload-${proj.id}`} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(proj.id, e)} />
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="pj-card-body">
+                        <h3 className="pj-card-title">{proj.title}</h3>
+                        <p className="pj-card-short">{proj.short}</p>
+                        <div className="pj-card-tags">
+                          {proj.tech.map(t => <TechTag key={t} tech={t} />)}
+                        </div>
+                        <GitHubStats project={proj} stats={githubStats} loading={githubLoading} />
+                      </div>
+
+                     
+                      {proj.ngrokNote && (
+                        <div className="pj-ngrok-wrap" style={{ position: 'absolute', bottom: 64, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 10 }}>
+                          <div style={{
+                            display: 'flex', alignItems: 'center', gap: '5px', fontSize: '10px', color: '#5A3A2B', fontWeight: '700',
+                            letterSpacing: '.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '6px',
+                            background: 'rgba(90,58,43,.06)', border: '1px solid rgba(90,58,43,.2)', cursor: 'default',
+                          }}>
+                            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#5A3A2B', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite' }} />
+                            Backend via ngrok
+                          </div>
+                          <div className="pj-ngrok-tooltip">
+                            <div className="pj-ngrok-title"><span className="pj-ngrok-dot" />Backend Access Required</div>
+                            <div className="pj-ngrok-step"><span>1.</span><span>Contact the owner to get the active ngrok URL</span></div>
+                            <div className="pj-ngrok-step"><span>2.</span><span>Open the live app link</span></div>
+                            <div style={{ marginTop: '8px', fontSize: '11px', color: 'rgba(90,58,43,.4)', borderTop: '1px solid rgba(90,58,43,.1)', paddingTop: '8px' }}>ngrok backend is temporary — reach owner to check if it's live</div>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                <div className="pj-card-body">
-                  <h3 className="pj-card-title">{proj.title}</h3>
-                  <p className="pj-card-short">{proj.short}</p>
-                  <div className="pj-card-tags">
-                    {proj.tech.map(t => (
-                      <span key={t} className="pj-tag">{t}</span>
-                    ))}
-                  </div>
-                </div>
-                <div className="pj-card-footer">
-                  <button className="pj-btn-view">
-                    <span>View Details</span>
-                    <span className="pj-btn-arrow">→</span>
-                  </button>
 
-                  {proj.live && (
-                    <a
-                      href={proj.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="pj-btn-demo"
-                      onClick={e => e.stopPropagation()}
-                      title="Live Demo"
-                    >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15,3 21,3 21,9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                      Demo
-                    </a>
-                  )}
-
-                  {proj.github && (
-                    <a
-                      href={Array.isArray(proj.github) ? proj.github[0] : proj.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="pj-btn-gh"
-                      onClick={e => e.stopPropagation()}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-
-                {proj.ngrokNote && (
-                  <div className="pj-ngrok-wrap" style={{ position: 'absolute', bottom: 64, left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 10 }}>
-                    <div style={{
-                      display: 'flex', alignItems: 'center', gap: '5px',
-                      fontSize: '10px', color: '#043221', fontWeight: '700',
-                      letterSpacing: '.1em', textTransform: 'uppercase',
-                      padding: '4px 10px', borderRadius: '6px',
-                      background: 'rgba(4,50,33,.06)', border: '1px solid rgba(4,50,33,.2)',
-                      cursor: 'default',
-                    }}>
-                      <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#043221', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite' }} />
-                      Backend via ngrok
-                    </div>
-                    <div className="pj-ngrok-tooltip">
-                      <div className="pj-ngrok-title">
-                        <span className="pj-ngrok-dot" />
-                        Backend Access Required
+                    <div className="pj-card-face pj-card-back">
+                      <div className="pj-back-kicker">Quick stats</div>
+                      <div className="pj-back-title">{proj.title}</div>
+                      <div className="pj-back-stats">
+                        <div className="pj-back-stat"><b>{proj.tech.length}</b><span>Technologies</span></div>
+                        <div className="pj-back-stat"><b>{proj.status === 'Completed' ? '✓' : '•'}</b><span>{proj.status}</span></div>
+                        <div className="pj-back-stat"><b>{githubStats[projectKey(proj)]?.stars ?? '—'}</b><span>GitHub stars</span></div>
+                        <div className="pj-back-stat"><b>{githubStats[projectKey(proj)]?.forks ?? '—'}</b><span>Forks</span></div>
                       </div>
-                      <div className="pj-ngrok-step"><span>1.</span><span>Contact the owner to get the active ngrok URL</span></div>
-                      <div className="pj-ngrok-step"><span>2.</span><span>Open the live app link</span></div>
-                      <div style={{ marginTop: '8px', fontSize: '11px', color: 'rgba(4,50,33,.4)', borderTop: '1px solid rgba(4,50,33,.1)', paddingTop: '8px' }}>
-                        ngrok backend is temporary — reach owner to check if it's live
-                      </div>
+                      <button className="pj-back-view" onClick={e => { e.stopPropagation(); openProject(proj); }}>View Details →</button>
                     </div>
                   </div>
-                )}
+                </div>
               </TiltCard>
             ))}
           </div>
 
-          {/* ── MODAL ── */}
           <AnimatePresence>
             {modal && (
-              <motion.div
-                className="pj-modal-bg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setModal(null)}
-              >
+              <motion.div className="pj-modal-bg" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal}>
                 <motion.div
                   className="pj-modal"
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -1920,95 +2503,65 @@ export default function Projects() {
                   onClick={e => e.stopPropagation()}
                   style={{ '--ca': modal.accent }}
                 >
-                  {/* ── Modal image zone ── */}
+                  <button className="pj-modal-nav pj-modal-prev" onClick={() => moveModal(-1)} aria-label="Previous project">←</button>
+                  <button className="pj-modal-nav pj-modal-next" onClick={() => moveModal(1)} aria-label="Next project">→</button>
+                  <div className="pj-modal-counter">{Math.max(0, filtered.findIndex(p => projectKey(p) === projectKey(modal)) + 1)} / {filtered.length}</div>
+
                   <div className="pj-modal-img">
-                    {images[modal.id] ? (
+                    {images[projectKey(modal)] ? (
                       <>
-                        <img src={images[modal.id]} alt={modal.title} />
+                        <ImageWithSkeleton src={images[projectKey(modal)]} alt={modal.title} />
                         <div className="pj-modal-img-overlay" />
                       </>
                     ) : modal.image ? (
                       <>
-                        <img src={modal.image} alt={modal.title} />
+                        <ImageWithSkeleton src={modal.image} alt={modal.title} />
                         <div className="pj-modal-img-overlay" />
                       </>
-                    ) : (
-                      <div className="pj-modal-ph">{modal.placeholder}</div>
-                    )}
+                    ) : <div className="pj-modal-ph">{modal.placeholder}</div>}
 
-                    <button className="pj-modal-close" onClick={() => setModal(null)}>✕</button>
+                    <button className="pj-modal-close" onClick={closeModal}>✕</button>
 
-                    {/* Watch Demo Video button — only for projects with video */}
                     {modal.video && (
-                      <button
-                        className="pj-modal-watch-demo"
-                        style={{ '--ca': modal.accent }}
-                        onClick={e => {
-                          e.stopPropagation();
-                          setFullscreenVideo({ src: modal.video, accent: modal.accent });
-                        }}
-                      >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                          <polygon points="5,3 19,12 5,21" />
-                        </svg>
+                      <button className="pj-modal-watch-demo" style={{ '--ca': modal.accent }} onClick={e => { e.stopPropagation(); setFullscreenVideo({ src: modal.video, accent: modal.accent }); }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
                         Watch Demo Video
                       </button>
                     )}
 
-                    <button className="pj-modal-upload" onClick={e => triggerUpload(modal.id, e)}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17,8 12,3 7,8" />
-                        <line x1="12" y1="3" x2="12" y2="15" />
-                      </svg>
+                    <button className="pj-modal-upload" onClick={e => triggerUpload(projectKey(modal), e)}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                       Upload Image
                     </button>
-
-                    <input
-                      id={`upload-${modal.id}`}
-                      type="file"
-                      accept="image/*"
-                      style={{ display: 'none' }}
-                      onChange={e => handleImageUpload(modal.id, e)}
-                    />
+                    <input id={`upload-${projectKey(modal)}`} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImageUpload(projectKey(modal), e)} />
                   </div>
 
                   <div className="pj-modal-body">
                     <div className="pj-modal-meta">
-                      <div className="pj-modal-type" style={getTypeStyle(modal.type)}>
-                        {modal.type}
-                      </div>
+                      <div className="pj-modal-type" style={getTypeStyle(modal.type)}>{modal.type}</div>
                       <div className="pj-status">
                         <span className={`pj-status-dot ${modal.status === 'In Progress' || modal.status === 'IN progress' ? 'blink' : ''}`} style={{
-                          background: modal.status === 'Completed' ? '#043221' : '#054a32',
-                          boxShadow: modal.status === 'Completed' ? '0 0 8px rgba(4,50,33,.5)' : '0 0 8px rgba(5,74,50,.4)'
+                          background: modal.status === 'Completed' ? '#5A3A2B' : '#7A5240',
+                          boxShadow: modal.status === 'Completed' ? '0 0 8px rgba(90,58,43,.5)' : '0 0 8px rgba(122,82,64,.4)'
                         }} />
                         {modal.status}
                       </div>
                     </div>
                     <h2 className="pj-modal-title">{modal.title}</h2>
                     <p className="pj-modal-desc">{modal.desc}</p>
-                    <div className="pj-modal-lbl">Technologies Used</div>
-                    <div className="pj-modal-tags">
-                      {modal.tech.map(t => (
-                        <span key={t} className="pj-modal-tag">{t}</span>
-                      ))}
-                    </div>
 
-                    {/* ngrok note in modal */}
+                    <div className="pj-modal-lbl">Technologies Used</div>
+                    <div className="pj-modal-tags">{modal.tech.map(t => <TechTag key={t} tech={t} modal />)}</div>
+
+                    <GitHubStats project={modal} stats={githubStats} loading={githubLoading} />
+
                     {modal.ngrokNote && (
-                      <div style={{
-                        padding: '14px 18px', borderRadius: '12px',
-                        background: 'rgba(4,50,33,.04)', border: '1px solid rgba(4,50,33,.15)',
-                        marginBottom: '20px',
-                      }}>
+                      <div style={{ padding: '14px 18px', borderRadius: '12px', background: 'rgba(90,58,43,.04)', border: '1px solid rgba(90,58,43,.15)', margin: '20px 0' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
-                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#043221', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite', flexShrink: 0 }} />
-                          <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '11px', fontWeight: '700', letterSpacing: '.14em', textTransform: 'uppercase', color: '#043221' }}>
-                            Backend runs on ngrok
-                          </span>
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5A3A2B', display: 'inline-block', animation: 'pj-blink 1.4s ease infinite', flexShrink: 0 }} />
+                          <span style={{ fontFamily: 'Syne, sans-serif', fontSize: '11px', fontWeight: '700', letterSpacing: '.14em', textTransform: 'uppercase', color: '#5A3A2B' }}>Backend runs on ngrok</span>
                         </div>
-                        <div style={{ fontSize: '13px', color: 'rgba(4,50,33,.6)', lineHeight: '1.7' }}>
+                        <div style={{ fontSize: '13px', color: 'rgba(90,58,43,.6)', lineHeight: '1.7' }}>
                           <div style={{ marginBottom: '4px' }}>1. Contact the owner to get the active ngrok URL</div>
                           <div>2. Open the live app link above</div>
                         </div>
@@ -2018,48 +2571,30 @@ export default function Projects() {
                     <div className="pj-modal-btns">
                       {modal.live && (
                         <a href={modal.live} target="_blank" rel="noreferrer" className="pj-modal-btn-live">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                            <polyline points="15,3 21,3 21,9" />
-                            <line x1="10" y1="14" x2="21" y2="3" />
-                          </svg>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                           Live Demo
                         </a>
                       )}
-
                       {Array.isArray(modal.github) ? (
                         <>
-                          <a href={modal.github[0]} target="_blank" rel="noreferrer" className="pj-modal-btn-gh">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-                            </svg>
-                            Backend
-                          </a>
-                          <a href={modal.github[1]} target="_blank" rel="noreferrer" className="pj-modal-btn-gh">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-                            </svg>
-                            Frontend
-                          </a>
+                          <a href={modal.github[0]} target="_blank" rel="noreferrer" className="pj-modal-btn-gh"><TechIcon name="GitHub"/>Backend</a>
+                          <a href={modal.github[1]} target="_blank" rel="noreferrer" className="pj-modal-btn-gh"><TechIcon name="GitHub"/>Frontend</a>
                         </>
-                      ) : (
-                        <a href={modal.github} target="_blank" rel="noreferrer" className="pj-modal-btn-gh">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
-                          </svg>
-                          GitHub
-                        </a>
+                      ) : modal.github && (
+                        <a href={modal.github} target="_blank" rel="noreferrer" className="pj-modal-btn-gh"><TechIcon name="GitHub"/>GitHub</a>
                       )}
+                    </div>
+
+                    <div className="pj-modal-actions">
+                      <button className="pj-modal-action" onClick={copyLink} title="Copy live link">⧉ Copy Link</button>
+                      <button className="pj-modal-action" onClick={shareProject} title="Share project">↗ Share</button>
+                      <button className="pj-modal-action" onClick={() => moveModal(-1)} title="Previous project">← Previous</button>
+                      <button className="pj-modal-action" onClick={() => moveModal(1)} title="Next project">Next →</button>
                     </div>
 
                     <AnimatePresence>
                       {errorMsg && (
-                        <motion.div
-                          className="pj-error-toast"
-                          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                        >
+                        <motion.div className="pj-error-toast" initial={{ opacity: 0, y: 20, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.9 }}>
                           {errorMsg}
                         </motion.div>
                       )}
@@ -2070,25 +2605,22 @@ export default function Projects() {
             )}
           </AnimatePresence>
 
-          {/* ── CODE MODAL ── */}
           <AnimatePresence>
-            {showCodeModal && (
-              <CodeModal code={VAULT_CODE} onClose={() => setShowCodeModal(false)} />
-            )}
+            {showCodeModal && <CodeModal code={VAULT_CODE} onClose={() => setShowCodeModal(false)} />}
           </AnimatePresence>
 
+          <AnimatePresence>
+            {toast && <motion.div className="pj-toast" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}>{toast}</motion.div>}
+          </AnimatePresence>
+
+          <ConfettiBurst active={confetti} onDone={() => setConfetti(false)} />
         </div>
         <Footer />
       </PageTransition>
 
-      {/* ── FULLSCREEN VIDEO PLAYER — renders outside PageTransition so z-index works fully ── */}
       <AnimatePresence>
         {fullscreenVideo && (
-          <FullscreenVideoPlayer
-            src={fullscreenVideo.src}
-            accentColor={fullscreenVideo.accent}
-            onClose={() => setFullscreenVideo(null)}
-          />
+          <FullscreenVideoPlayer src={fullscreenVideo.src} accentColor={fullscreenVideo.accent} onClose={() => setFullscreenVideo(null)} />
         )}
       </AnimatePresence>
     </>

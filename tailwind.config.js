@@ -11,17 +11,12 @@ export default {
         'display': ['Syne', 'sans-serif'],
       },
       colors: {
-        // 🌌 Deep Dark Background
-        'dark': '#04050e',
-
-        // 🟣 Indigo/Purple palette for primary highlights
-        'primary': '#6366f1',
-        'secondary': '#8b5cf6',
-        'accent': '#7c3aed',
-        'muted': '#a5b4fc',
-
-        // 📝 Premium text on dark background
-        'text': '#f1f1ff',
+        'dark': '#5A3A2B',
+        'primary': '#5A3A2B',
+        'secondary': '#EEDCC6',
+        'accent': '#5A3A2B',
+        'muted': '#5A3A2B',
+        'text': '#5A3A2B',
       },
       animation: {
         'gradient': 'gradient 8s linear infinite',

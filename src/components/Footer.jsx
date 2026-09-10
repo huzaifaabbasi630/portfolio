@@ -1,11 +1,12 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 const NAV_LINKS = [
-  { path: '/',         label: 'Home'     },
+  { path: '/', label: 'Home' },
   { path: '/projects', label: 'Projects' },
-  { path: '/skills',   label: 'Skills'   },
-  { path: '/contact',  label: 'Contact'  },
+  { path: '/skills', label: 'Skills' },
+  { path: '/contact', label: 'Contact' },
 ];
 
 const SOCIALS = [
@@ -38,28 +39,71 @@ const SOCIALS = [
   },
 ];
 
+// Magnetic Wrapper Component
+const MagneticButton = ({ children, className = '', ...props }) => {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springX = useSpring(x, { stiffness: 150, damping: 15 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15 });
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    x.set(middleX * 0.25);
+    y.set(middleY * 0.25);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: springX, y: springY }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-.ft { font-family: 'Plus Jakarta Sans', sans-serif; position: relative; overflow: hidden; }
+.ft { 
+  font-family: 'Plus Jakarta Sans', sans-serif; 
+  position: relative; 
+  overflow: hidden; 
+  color: #FFFFFF; 
+  background: #5A3A2B; 
+}
 
 .ft-line {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(4,50,33,.2) 25%, rgba(4,50,33,.15) 50%, rgba(4,50,33,.1) 75%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.28) 25%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.28) 75%, transparent 100%);
 }
 
-.ft-bg { position: absolute; inset: 0; background: #b2dfc3; pointer-events: none; }
+.ft-bg { position: absolute; inset: 0; background: #5A3A2B; pointer-events: none; }
 .ft-orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
 .ft-noise {
-  position: absolute; inset: 0; pointer-events: none; opacity: .015;
+  position: absolute; inset: 0; pointer-events: none; opacity: .025;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
 }
 .ft-grid-bg {
   position: absolute; inset: 0; pointer-events: none;
   background-image:
-    linear-gradient(rgba(4,50,33,.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(4,50,33,.015) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -74,7 +118,7 @@ const STYLES = `
   grid-template-columns: 1.5fr 1fr 1fr;
   gap: 56px;
   padding-bottom: 56px;
-  border-bottom: 1px solid rgba(4,50,33,.08);
+  border-bottom: 1px solid rgba(255,255,255,.18);
   margin-bottom: 32px;
 }
 
@@ -83,103 +127,145 @@ const STYLES = `
   display: inline-flex; align-items: center; gap: 10px;
   text-decoration: none; margin-bottom: 18px;
 }
-.ft-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: #043221; flex-shrink: 0; }
-@keyframes ft-dot { 0%,100%{box-shadow:0 0 0 0 rgba(4,50,33,.3)} 50%{box-shadow:0 0 0 8px rgba(4,50,33,0)} }
+.ft-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; flex-shrink: 0; }
+@keyframes ft-dot { 0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.5)} 50%{box-shadow:0 0 0 8px rgba(255,255,255,0)} }
 .ft-logo-dot { animation: ft-dot 2.2s ease infinite; }
 .ft-logo-text {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -.3px;
-  color: #043221;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -.3px;
+  color: #FFFFFF; transition: transform .3s ease;
 }
-.ft-tagline { font-size: 14px; line-height: 1.75; color: rgba(4,50,33,.65); max-width: 300px; margin-bottom: 26px; }
+.ft-logo:hover .ft-logo-text { transform: translateX(3px); }
+
+.ft-tagline { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,.78); max-width: 320px; margin-bottom: 20px; }
+
+/* Interactive Email Action */
+.ft-email-box {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 14px; border-radius: 12px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+  margin-bottom: 20px; cursor: pointer; transition: all .25s ease;
+}
+.ft-email-box:hover {
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.3);
+}
+.ft-email-text { font-size: 12.5px; font-weight: 600; color: #FFFFFF; }
+.ft-copy-badge {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 6px; background: #EEDCC6; color: #5A3A2B;
+}
+
+/* Status & Time */
+.ft-status-container { display: flex; flex-direction: column; gap: 10px; }
 .ft-avail {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 16px; border-radius: 100px;
-  background: rgba(4,50,33,.05); border: 1px solid rgba(4,50,33,.12);
-  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #043221;
+  display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+  padding: 8px 16px; border-radius: 100px;
+  background: #EEDCC6; border: 1px solid #EEDCC6;
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #5A3A2B;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08); transition: all .3s ease;
 }
-.ft-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #043221; }
-@keyframes ft-adot { 0%,100%{box-shadow:0 0 0 0 rgba(4,50,33,.35)} 50%{box-shadow:0 0 0 6px rgba(4,50,33,0)} }
+.ft-avail:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+.ft-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #5A3A2B; }
+@keyframes ft-adot { 0%,100%{box-shadow:0 0 0 0 rgba(90,58,43,.4)} 50%{box-shadow:0 0 0 6px rgba(90,58,43,0)} }
 .ft-avail-dot { animation: ft-adot 2s infinite; }
+
+.ft-time-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,.75);
+}
 
 /* col label */
 .ft-col-label {
   font-family: 'Syne', sans-serif;
   font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
-  color: rgba(4,50,33,.35); margin-bottom: 22px;
+  color: rgba(255,255,255,.78); margin-bottom: 22px;
   display: flex; align-items: center; gap: 8px;
 }
-.ft-col-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(4,50,33,.15), transparent); }
+.ft-col-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,.25), transparent); }
 
 /* nav links */
-.ft-nav-links { display: flex; flex-direction: column; gap: 3px; }
+.ft-nav-links { display: flex; flex-direction: column; gap: 6px; }
 .ft-nav-link {
   display: flex; align-items: center;
-  padding: 8px 10px; border-radius: 10px;
-  font-size: 14px; font-weight: 500; color: rgba(4,50,33,.6);
-  text-decoration: none; transition: all .22s;
+  padding: 8px 12px; border-radius: 10px;
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.78);
+  text-decoration: none; transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative; overflow: hidden;
 }
 .ft-nav-link::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-  background: #043221; border-radius: 2px;
-  transform: scaleY(0); transition: transform .22s;
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: #EEDCC6; border-radius: 2px;
+  transform: scaleY(0); transition: transform .25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.ft-nav-link:hover { color: #043221; background: rgba(4,50,33,.05); padding-left: 16px; }
+.ft-nav-link:hover { 
+  color: #5A3A2B; background: #EEDCC6; padding-left: 18px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
 .ft-nav-link:hover::before { transform: scaleY(1); }
 
 /* socials */
-.ft-social-links { display: flex; flex-direction: column; gap: 8px; }
+.ft-social-links { display: flex; flex-direction: column; gap: 10px; }
 .ft-social {
   display: flex; align-items: center; gap: 12px;
-  padding: 11px 15px; border-radius: 12px; text-decoration: none;
-  background: rgba(4,50,33,.02); border: 1px solid rgba(4,50,33,.08);
-  color: rgba(4,50,33,.65); font-size: 13.5px; font-weight: 600;
-  transition: all .25s; position: relative; overflow: hidden;
+  padding: 10px 16px; border-radius: 12px; text-decoration: none;
+  background: #EEDCC6; border: 1px solid #EEDCC6;
+  color: #5A3A2B; font-size: 13.5px; font-weight: 600;
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06); width: 100%;
 }
 .ft-social::after {
-  content: '→'; position: absolute; right: 14px; font-size: 12px;
-  opacity: 0; transform: translateX(-6px); transition: all .22s;
-  color: #043221;
+  content: '→'; position: absolute; right: 14px; font-size: 13px;
+  opacity: 0; transform: translateX(-8px); transition: all .25s ease;
+  color: #5A3A2B; font-weight: bold;
 }
-.ft-social:hover { background: rgba(4,50,33,.06); border-color: rgba(4,50,33,.22); color: #043221; }
+.ft-social:hover { 
+  box-shadow: 0 8px 20px rgba(0,0,0,.15); padding-right: 34px;
+}
 .ft-social:hover::after { opacity: 1; transform: translateX(0); }
 .ft-social-ic {
   width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(4,50,33,.05); border: 1px solid rgba(4,50,33,.1); transition: all .22s;
+  background: rgba(90,58,43,.08); border: 1px solid rgba(90,58,43,.1); 
+  transition: all .25s ease;
 }
-.ft-social:hover .ft-social-ic { background: rgba(4,50,33,.1); }
+.ft-social:hover .ft-social-ic { 
+  background: rgba(90,58,43,.15); transform: scale(1.05) rotate(-3deg);
+}
 
 /* bottom */
 .ft-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 .ft-copy {
-  font-size: 12.5px; color: rgba(4,50,33,.5); font-weight: 500;
+  font-size: 12.5px; color: rgba(255,255,255,.78); font-weight: 500;
   display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
 }
-.ft-copy-name {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px;
-  color: #043221;
-}
-.ft-sep { color: rgba(4,50,33,.12); }
-@keyframes ft-beat { 0%,100%{transform:scale(1)} 40%{transform:scale(1.3)} }
-.ft-heart { display: inline-block; color: #043221; animation: ft-beat 1.6s ease infinite; }
+.ft-copy-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; color: #FFFFFF; }
+.ft-sep { color: rgba(255,255,255,.3); }
+@keyframes ft-beat { 0%,100%{transform:scale(1)} 40%{transform:scale(1.25)} }
+.ft-heart { display: inline-block; color: #FFFFFF; animation: ft-beat 1.6s ease infinite; }
+
 .ft-stack { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .ft-pill {
-  padding: 3px 10px; border-radius: 100px; font-size: 10.5px; font-weight: 700;
-  letter-spacing: .07em; background: rgba(4,50,33,.05); border: 1px solid rgba(4,50,33,.12);
-  color: rgba(4,50,33,.6);
+  padding: 4px 12px; border-radius: 100px; font-size: 10.5px; font-weight: 700;
+  letter-spacing: .07em; background: #EEDCC6; border: 1px solid #EEDCC6;
+  color: #5A3A2B; transition: transform .2s ease; cursor: default;
 }
+.ft-pill:hover { transform: scale(1.08); }
+
+/* Top Button */
 .ft-top-btn {
-  display: flex; align-items: center; gap: 7px;
-  padding: 8px 18px; border-radius: 100px; cursor: pointer;
-  background: rgba(4,50,33,.03); border: 1px solid rgba(4,50,33,.1);
-  color: rgba(4,50,33,.5); font-size: 11.5px; font-weight: 700;
-  letter-spacing: .09em; text-transform: uppercase; transition: all .25s;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 100px; cursor: pointer;
+  background: transparent; border: 1px solid rgba(255,255,255,.55);
+  color: #FFFFFF; font-size: 11.5px; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase; transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
-.ft-top-btn:hover { background: rgba(4,50,33,.08); border-color: rgba(4,50,33,.22); color: #043221; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(4,50,33,.1); }
-.ft-top-btn:hover svg { transform: translateY(-2px); }
-.ft-top-btn svg { transition: transform .25s; }
+.ft-top-btn:hover { 
+  background: #EEDCC6; border-color: #EEDCC6; color: #5A3A2B; 
+  transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.2); 
+}
+.ft-top-btn svg { transition: transform .3s ease; }
+.ft-top-btn:hover svg { transform: translateY(-3px); }
 
 @media (max-width: 860px) {
   .ft-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -188,29 +274,77 @@ const STYLES = `
 @media (max-width: 540px) {
   .ft-grid { grid-template-columns: 1fr; gap: 36px; }
   .ft-inner { padding: 48px 24px 32px; }
-  .ft-bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .ft-bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
 }
 `;
 
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
+  const [time, setTime] = useState('');
+
+  const email = 'huzaifaabbasi630@gmail.com'; // Change to your preferred email address
+
+  // Real-time Local Clock
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Karachi',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      });
+      setTime(timeString);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Copy Email Handler
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <motion.footer
       className="ft"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: .7 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
       <style>{STYLES}</style>
 
       <div className="ft-line" />
 
+      {/* Dynamic Background */}
       <div className="ft-bg">
-        <div className="ft-orb" style={{ width: 480, height: 480, top: '-160px', left: '-100px', background: 'radial-gradient(circle, rgba(4,50,33,.05), transparent 70%)' }} />
-        <div className="ft-orb" style={{ width: 360, height: 360, bottom: '-80px', right: '-60px', background: 'radial-gradient(circle, rgba(4,50,33,.03), transparent 70%)' }} />
-        <div className="ft-orb" style={{ width: 280, height: 280, top: '40%', left: '50%', background: 'radial-gradient(circle, rgba(4,50,33,.02), transparent 70%)' }} />
+        <motion.div 
+          className="ft-orb" 
+          animate={{
+            scale: [1, 1.15, 1],
+            x: [0, 20, 0],
+            y: [0, -15, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ width: 480, height: 480, top: '-160px', left: '-100px', background: 'radial-gradient(circle, rgba(238,220,198,.15), transparent 70%)' }} 
+        />
+        <motion.div 
+          className="ft-orb" 
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, -25, 0],
+            y: [0, 20, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+          style={{ width: 360, height: 360, bottom: '-80px', right: '-60px', background: 'radial-gradient(circle, rgba(238,220,198,.12), transparent 70%)' }} 
+        />
         <div className="ft-noise" />
         <div className="ft-grid-bg" />
       </div>
@@ -218,8 +352,14 @@ export default function Footer() {
       <div className="ft-inner">
         <div className="ft-grid">
 
-          {/* Brand */}
-          <div className="ft-brand-col">
+          {/* Brand & Status Column */}
+          <motion.div 
+            className="ft-brand-col"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             <Link to="/" className="ft-logo">
               <span className="ft-logo-dot" />
               <span className="ft-logo-text">HMH.</span>
@@ -227,83 +367,118 @@ export default function Footer() {
             <p className="ft-tagline">
               Building fast, beautiful &amp; scalable web experiences — from pixel to production. Open to freelance and full-time opportunities.
             </p>
-            <div className="ft-avail">
-              <span className="ft-avail-dot" />
-              Available for work
+
+            {/* Copy Email Bar */}
+            <div className="ft-email-box" onClick={handleCopyEmail}>
+              <span className="ft-email-text">{email}</span>
+              <span className="ft-copy-badge">{copied ? '✓ Copied!' : 'Copy'}</span>
             </div>
-          </div>
+
+            <div className="ft-status-container">
+              <div className="ft-avail">
+                <span className="ft-avail-dot" />
+                Available for work
+              </div>
+              <div className="ft-time-badge">
+                <span>📍 Karachi, PK</span>
+                <span>•</span>
+                <span>{time || '00:00:00 AM'} PKT</span>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Navigation */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <p className="ft-col-label">Navigation</p>
             <nav className="ft-nav-links">
               {NAV_LINKS.map(({ path, label }, i) => (
                 <motion.div
                   key={path}
-                  initial={{ opacity: 0, x: -12 }}
+                  initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * .05 }}
+                  transition={{ delay: 0.2 + i * 0.06 }}
                 >
                   <Link to={path} className="ft-nav-link">{label}</Link>
                 </motion.div>
               ))}
             </nav>
-          </div>
+          </motion.div>
 
-          {/* Socials */}
-          <div>
+          {/* Socials with Magnetic Animation */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <p className="ft-col-label">Connect</p>
             <div className="ft-social-links">
               {SOCIALS.map(({ label, href, icon }, i) => (
-                <motion.a
+                <motion.div
                   key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ft-social"
-                  initial={{ opacity: 0, x: 12 }}
+                  initial={{ opacity: 0, x: 10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * .07 }}
-                  whileHover={{ scale: 1.02 }}
+                  transition={{ delay: 0.3 + i * 0.07 }}
                 >
-                  <span className="ft-social-ic">{icon}</span>
-                  {label}
-                </motion.a>
+                  <MagneticButton>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="ft-social"
+                    >
+                      <span className="ft-social-ic">{icon}</span>
+                      {label}
+                    </a>
+                  </MagneticButton>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom Row */}
-        <div className="ft-bottom">
+        <motion.div 
+          className="ft-bottom"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <div className="ft-copy">
             <span>© {new Date().getFullYear()}</span>
             <span className="ft-sep">·</span>
             <span className="ft-copy-name">Hafiz Muhammad Huzaifa</span>
             <span className="ft-sep">·</span>
-            <span>Made with <span className="ft-heart">♥</span></span>
           </div>
 
           <div className="ft-stack">
-            <span style={{ fontSize: 11.5, color: 'rgba(241,241,255,.15)', fontWeight: 500 }}>Built with</span>
+            <span style={{ fontSize: 11.5, color: 'rgba(255,255,255,.6)', fontWeight: 500 }}>Built with</span>
             {['React', 'Vite', 'Framer Motion', 'Tailwind'].map(t => (
               <span key={t} className="ft-pill">{t}</span>
             ))}
           </div>
 
-          <motion.button
-            className="ft-top-btn"
-            onClick={scrollTop}
-            whileTap={{ scale: .94 }}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <path d="M12 19V5M5 12l7-7 7 7"/>
-            </svg>
-            Back to top
-          </motion.button>
-        </div>
+          <MagneticButton>
+            <motion.button
+              className="ft-top-btn"
+              onClick={scrollTop}
+              whileTap={{ scale: 0.95 }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <path d="M12 19V5M5 12l7-7 7 7"/>
+              </svg>
+              Back to top
+            </motion.button>
+          </MagneticButton>
+        </motion.div>
       </div>
     </motion.footer>
   );

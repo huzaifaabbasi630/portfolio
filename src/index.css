@@ -12,10 +12,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #b2dfc3 !important; /* Force global background to match theme */
+  background-color: #FEF6E9 !important;
   overflow-x: hidden;
   width: 100%;
-  color: #043221;
+  color: #5A3A2B;
 }
 
 /* ── Hide default n8n launcher ── */

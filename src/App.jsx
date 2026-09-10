@@ -87,8 +87,8 @@ function App() {
           style: {
             displayLauncher: false,
             fontFamily: "'Plus Jakarta Sans', sans-serif",
-            primaryColor: '#a855f7',
-            secondaryColor: '#4f46e5',
+            primaryColor: '#5A3A2B',
+            secondaryColor: '#EEDCC6',
             backgroundColor: 'transparent',
           },
         });
@@ -223,7 +223,7 @@ function App() {
   return (
     <Router>
       <ScreenGuard>
-        <div className="bg-[#b2dfc3] text-[#043221] min-h-screen selection:bg-[#043221]/20 selection:text-[#043221] antialiased">
+        <div className="bg-[#FEF6E9] text-[#5A3A2B] min-h-screen selection:bg-[#5A3A2B]/20 selection:text-[#5A3A2B] antialiased">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -246,7 +246,7 @@ function App() {
             aria-label="Open AI assistant"
           >
             <img src="/assets/avator.png" alt="HMH AI" />
-            <span className="avatar-tooltip" style={{ background: 'rgba(255, 255, 255, 0.75)', border: '1px solid rgba(4, 50, 33, 0.25)', color: '#043221' }}>AI — Ask me anything</span>
+            <span className="avatar-tooltip" style={{ background: '#EEDCC6', border: '1px solid rgba(90, 58, 43, 0.35)', color: '#5A3A2B' }}>AI — Ask me anything</span>
             <span className="avatar-shadow" aria-hidden="true" />
           </motion.button>
 

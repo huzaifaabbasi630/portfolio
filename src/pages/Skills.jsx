@@ -1,979 +1,393 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PageTransition from '../components/PageTransition';
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
 const CATEGORIES = [
-  {
-    id: 'frontend',
-    label: 'Frontend',
-    icon: '◈',
-    accent: '4,50,33',
-    glow: '#043221',
-    skills: [
-      { name: 'React',         icon: '⚛',  level: 92, desc: 'Hooks, context, custom hooks, performance optimization' },
-      { name: 'JavaScript',    icon: '⬡',  level: 90, desc: 'ES6+, async/await, closures, DOM manipulation' },
-      { name: 'TypeScript',    icon: 'TS', level: 85, desc: 'Type safety, interfaces, generic types, robust coding' },
-      { name: 'HTML / CSS',    icon: '◫',  level: 95, desc: 'Semantic HTML, Flexbox, Grid, animations' },
-      { name: 'Tailwind CSS',  icon: '◉',  level: 88, desc: 'Utility-first, responsive design, custom config' },
-    ],
-  },
-  {
-    id: 'backend',
-    label: 'Backend',
-    icon: '⬡',
-    accent: '4,50,33',
-    glow: '#043221',
-    skills: [
-      { name: 'Node.js',    icon: '🟢', level: 85, desc: 'Event loop, streams, file system, HTTP server' },
-      { name: 'Express',    icon: '⚡', level: 83, desc: 'REST APIs, middleware, routing, error handling' },
-      { name: 'MongoDB',    icon: '🍃', level: 80, desc: 'CRUD, aggregation, indexing, Mongoose ODM' },
-      { name: 'REST APIs',  icon: '◈',  level: 87, desc: 'Design patterns, authentication, versioning' },
-      { name: 'JWT / Auth', icon: '🔐', level: 78, desc: 'Token-based auth, refresh tokens, role-based access' },
-    ],
-  },
-  {
-    id: 'mobile',
-    label: 'Mobile Developer',
-    icon: '📱',
-    accent: '5,74,50',
-    glow: '#054a32',
-    skills: [
-      { name: 'React Native (CLI / Expo)', icon: '⚛',  level: 88, desc: 'Cross-platform mobile apps for iOS and Android' },
-      { name: 'JavaScript (ES6+)',         icon: '⬡',  level: 90, desc: 'Modern JavaScript features and best practices' },
-      { name: 'TypeScript',                icon: 'TS', level: 85, desc: 'Type-safe development for enterprise apps' },
-    ],
-  },
-  {
-    id: 'tools',
-    label: 'Tools & Other',
-    icon: '⌘',
-    accent: '5,74,50',
-    glow: '#054a32',
-    skills: [
-      { name: 'Git / GitHub', icon: '⎇',  level: 88, desc: 'Branching, PRs, rebasing, collaboration workflows' },
-      { name: 'Vite',         icon: '⚡', level: 90, desc: 'Fast builds, HMR, plugin ecosystem, optimization' },
-      { name: 'Vercel',       icon: '▲',  level: 82, desc: 'Deployment, CI/CD, edge functions, analytics' },
-      { name: 'Socket.io',    icon: '⟳',  level: 70, desc: 'Real-time bidirectional communication, rooms' },
-      { name: 'Postman',      icon: '◉',  level: 85, desc: 'API testing, collections, environment variables' },
-      { name: 'Bootstrap',    icon: '🅱',  level: 90, desc: 'Responsive grid, prebuilt components, utilities' },
-    ],
-  },
+  { id:'frontend', label:'Frontend', icon:'◈', accent:'90,58,43', glow:'#5A3A2B', skills:[
+    { name:'React', icon:'⚛', level:92, desc:'Hooks, context, custom hooks, performance optimization', projects:['ShareHub','DevBoard','Weather App','Portfolio'] },
+    { name:'JavaScript', icon:'⬡', level:90, desc:'ES6+, async/await, closures, DOM manipulation', projects:['ShareHub','DevBoard','Weather App'] },
+    { name:'TypeScript', icon:'TS', level:85, desc:'Type safety, interfaces, generic types, robust coding', projects:['DevBoard','SnapURL'] },
+    { name:'HTML / CSS', icon:'◫', level:95, desc:'Semantic HTML, Flexbox, Grid, animations', projects:['Portfolio','E-Commerce Website','Weather App'] },
+    { name:'Tailwind CSS', icon:'◉', level:88, desc:'Utility-first, responsive design, custom config', projects:['DevBoard','SnapURL','ShareHub'] },
+  ]},
+  { id:'backend', label:'Backend', icon:'⬡', accent:'122,82,64', glow:'#7A5240', skills:[
+    { name:'Node.js', icon:'🟢', level:85, desc:'Event loop, streams, file system, HTTP server', projects:['ShareHub','DevBoard','SnapURL','Weather App'] },
+    { name:'Express', icon:'⚡', level:83, desc:'REST APIs, middleware, routing, error handling', projects:['ShareHub','DevBoard','SnapURL','Weather App'] },
+    { name:'MongoDB', icon:'🍃', level:80, desc:'CRUD, aggregation, indexing, Mongoose ODM', projects:['ShareHub','AI Resume Analyzer','Auto Ustad'] },
+    { name:'REST APIs', icon:'◈', level:87, desc:'Design patterns, authentication, versioning', projects:['DevBoard','SnapURL','Weather App','AI Resume Analyzer'] },
+    { name:'JWT / Auth', icon:'🔐', level:78, desc:'Token-based auth, refresh tokens, role-based access', projects:['AI Resume Analyzer','ShareHub'] },
+  ]},
+  { id:'mobile', label:'Mobile Developer', icon:'📱', accent:'139,111,71', glow:'#8B6F47', skills:[
+    { name:'React Native (CLI / Expo)', icon:'⚛', level:88, desc:'Cross-platform mobile apps for iOS and Android', projects:['Quran Academy','Weather App Mobile','Vault Calculator'] },
+    { name:'JavaScript (ES6+)', icon:'⬡', level:90, desc:'Modern JavaScript features and best practices', projects:['Quran Academy','ShareHub','Weather App Mobile'] },
+    { name:'TypeScript', icon:'TS', level:85, desc:'Type-safe development for enterprise apps', projects:['Quran Academy','Mobile Apps'] },
+  ]},
+  { id:'tools', label:'Tools & Other', icon:'⌘', accent:'166,140,110', glow:'#A68C6E', skills:[
+    { name:'Git / GitHub', icon:'⎇', level:88, desc:'Branching, PRs, rebasing, collaboration workflows', projects:['All major projects'] },
+    { name:'Vite', icon:'⚡', level:90, desc:'Fast builds, HMR, plugin ecosystem, optimization', projects:['Portfolio','DevBoard','Weather App'] },
+    { name:'Vercel', icon:'▲', level:82, desc:'Deployment, CI/CD, edge functions, analytics', projects:['DevBoard','SnapURL','Weather App'] },
+    { name:'Socket.io', icon:'⟳', level:70, desc:'Real-time bidirectional communication, rooms', projects:['ShareHub','Auto Ustad'] },
+    { name:'Postman', icon:'◉', level:85, desc:'API testing, collections, environment variables', projects:['DevBoard','SnapURL','AI Resume Analyzer'] },
+    { name:'Bootstrap', icon:'🅱', level:90, desc:'Responsive grid, prebuilt components, utilities', projects:['E-Commerce Website','Assignments'] },
+  ]},
 ];
 
 const TECH_ICONS = [
-  { icon: '⚛',  label: 'React',      c: '4,50,33'  },
-  { icon: '🟢', label: 'Node.js',    c: '5,74,50'  },
-  { icon: '🍃', label: 'MongoDB',    c: '4,50,33'  },
-  { icon: '⬡',  label: 'JS',         c: '15,92,64'  },
-  { icon: '◉',  label: 'Tailwind',   c: '5,74,50'  },
-  { icon: '▲',  label: 'Vercel',     c: '4,50,33' },
-  { icon: '⌘',  label: 'Git',        c: '4,50,33'  },
+  ['⚛','React','90,58,43'],['🟢','Node.js','122,82,64'],['🍃','MongoDB','90,58,43'],['⬡','JavaScript','139,111,71'],
+  ['TS','TypeScript','122,82,64'],['◉','Tailwind','90,58,43'],['⟳','Socket.io','139,111,71'],['▲','Vercel','90,58,43'],
+  ['⎇','Git','122,82,64'],['◫','HTML/CSS','139,111,71'],['📱','React Native','90,58,43'],['⚡','Express','122,82,64'],
+];
+
+const WORKFLOW = [
+  { n:'01', title:'Idea & UX', icon:'✦', text:'Understand the problem, shape the experience and define the core user flow.', skills:['HTML / CSS','React','Bootstrap'] },
+  { n:'02', title:'Build the UI', icon:'◈', text:'Turn the idea into responsive interfaces with reusable components and motion.', skills:['React','JavaScript','Tailwind CSS'] },
+  { n:'03', title:'Connect the Backend', icon:'⌘', text:'Create APIs, authentication, business logic and reliable data flows.', skills:['Node.js','Express','REST APIs','JWT / Auth'] },
+  { n:'04', title:'Data & Realtime', icon:'◉', text:'Persist data and add realtime communication when the product needs it.', skills:['MongoDB','Socket.io'] },
+  { n:'05', title:'Test & Ship', icon:'↗', text:'Test endpoints, manage code with Git and deploy the finished product.', skills:['Postman','Git / GitHub','Vercel','Vite'] },
+];
+
+const LEARNING = [
+  { name:'WebRTC', level:68, icon:'◌', text:'Peer-to-peer audio/video and realtime connectivity' },
+  { name:'Firebase', level:72, icon:'✦', text:'Auth, notifications and cloud-backed application flows' },
+  { name:'System Design', level:45, icon:'⌘', text:'Scalable architecture, caching and production patterns' },
+  { name:'Advanced TypeScript', level:60, icon:'TS', text:'Deeper generics, architecture and type-safe patterns' },
+];
+
+const BADGES = [
+  { icon:'⚛', title:'React Builder', text:'Builds component-driven interfaces with React.' },
+  { icon:'⚡', title:'API Builder', text:'Creates and connects practical REST APIs.' },
+  { icon:'📱', title:'Mobile Maker', text:'Works across React Native and Expo.' },
+  { icon:'⟳', title:'Realtime', text:'Explores realtime apps with Socket.io and WebRTC.' },
+  { icon:'🗄', title:'Data Driven', text:'Works with MongoDB and structured data flows.' },
+  { icon:'🚀', title:'Ship It', text:'Uses GitHub and modern deployment workflows.' },
 ];
 
 const FLOAT_SYMBOLS = [
-  { s: '</>',  x: '3%',  y: '10%', sz: 13, op: .06, dur: 14, depth: 0.3 },
-  { s: '{ }',  x: '92%', y: '7%',  sz: 15, op: .05, dur: 17, depth: 0.5 },
-  { s: '=>',   x: '90%', y: '44%', sz: 13, op: .04, dur: 19, depth: 0.2 },
-  { s: '===',  x: '4%',  y: '58%', sz: 11, op: .04, dur: 20, depth: 0.4 },
-  { s: '[ ]',  x: '80%', y: '78%', sz: 11, op: .04, dur: 15, depth: 0.35 },
-  { s: '//',   x: '14%', y: '82%', sz: 12, op: .04, dur: 13, depth: 0.25 },
+  {s:'</>',x:'4%',y:'13%',sz:14,dur:14},{s:'{ }',x:'91%',y:'10%',sz:15,dur:17},{s:'=>',x:'88%',y:'46%',sz:13,dur:19},
+  {s:'===',x:'5%',y:'57%',sz:11,dur:20},{s:'[ ]',x:'80%',y:'78%',sz:11,dur:15},{s:'//',x:'14%',y:'82%',sz:12,dur:13}
 ];
 
-// ─── CSS ─────────────────────────────────────────────────────────────────────
 const STYLES = `
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
-
-:root {
-  --indigo: #043221; --violet: #054a32; --pink: #022518;
-  --cyan: #043221; --bg: #b2dfc3;
-}
-.sk, .sk * { box-sizing: border-box; }
-.sk {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg); min-height: 100vh;
-  overflow-x: hidden; color: #043221;
-}
-
-/* ── BG ── */
-.sk-noise {
-  position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .015;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-}
-.sk-canvas { position: fixed; inset: 0; z-index: 0; opacity: .45; pointer-events: none; }
-.sk-spotlight {
-  position: fixed; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(650px circle at var(--mx,50%) var(--my,50%), rgba(4,50,33,.05), transparent 70%);
-}
-.sk-bgrid {
-  background-image:
-    linear-gradient(rgba(4,50,33,.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(4,50,33,.015) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-/* ══════════════════════════════════════
-   PAGE LOADER
-   ══════════════════════════════════════ */
-.sk-loader {
-  position: fixed; inset: 0; z-index: 99999;
-  background: var(--bg);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 32px;
-}
-.sk-loader-logo {
-  font-family: 'Syne', sans-serif; font-weight: 800;
-  font-size: clamp(36px, 7vw, 68px); letter-spacing: -2px;
-  color: #043221;
-}
-.sk-loader-bar-wrap {
-  width: min(300px, 78vw); height: 2px;
-  background: rgba(4,50,33,.1); border-radius: 2px; overflow: hidden;
-}
-.sk-loader-bar {
-  height: 100%; border-radius: 2px;
-  background: linear-gradient(90deg, #043221, #054a32, #0f5c40);
-  transition: width .08s linear;
-  box-shadow: 0 0 12px rgba(4,50,33,.25);
-}
-.sk-loader-pct {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px;
-  letter-spacing: .22em; color: rgba(4,50,33,.4); text-transform: uppercase;
-}
-.sk-loader-scan {
-  position: absolute; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(4,50,33,.2), transparent);
-  animation: sk-scan-line 1.2s ease-in-out infinite;
-}
-@keyframes sk-scan-line {
-  0%   { top: 0%;   opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-/* ══════════════════════════════════════
-   CURSOR SYSTEM v4
-   ══════════════════════════════════════ */
-@media (hover: hover) {
-  .sk { cursor: none; }
-
-  .sk-cur {
-    position: fixed; pointer-events: none; z-index: 9999;
-    transform: translate(-50%,-50%);
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #043221; mix-blend-mode: normal;
-    will-change: left, top;
-    transition: width .18s cubic-bezier(.22,1,.36,1), height .18s cubic-bezier(.22,1,.36,1),
-                border-radius .18s, background .18s, box-shadow .18s, mix-blend-mode 0s;
-  }
-  .sk-cur.hov {
-    width: 10px; height: 10px; mix-blend-mode: normal;
-    background: #043221;
-    box-shadow: 0 0 0 3px rgba(4,50,33,.1), 0 0 18px rgba(4,50,33,.3);
-  }
-  .sk-cur.clicking {
-    width: 5px; height: 5px; mix-blend-mode: normal;
-    background: #054a32;
-    box-shadow: 0 0 20px #054a32, 0 0 40px rgba(4,50,33,.2);
-  }
-  .sk-cur.text-hov {
-    width: 2px; height: 20px; border-radius: 1px; mix-blend-mode: normal;
-    background: #043221; box-shadow: 0 0 10px rgba(4,50,33,.3);
-  }
-
-  .sk-curR {
-    position: fixed; pointer-events: none; z-index: 9997;
-    transform: translate(-50%,-50%);
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1.5px solid rgba(4,50,33,.35);
-    will-change: left, top;
-    transition: width .38s cubic-bezier(.22,1,.36,1), height .38s cubic-bezier(.22,1,.36,1),
-                border-color .25s, border-radius .25s, background .25s;
-  }
-  .sk-curR.hov      { width: 50px; height: 50px; border-color: rgba(4,50,33,.65); background: rgba(4,50,33,.04); }
-  .sk-curR.clicking { width: 22px; height: 22px; border-color: #054a32; background: rgba(4,50,33,.07); }
-  .sk-curR.text-hov { width: 2px; height: 28px; border-radius: 2px; border-color: transparent; background: rgba(4,50,33,.1); }
-
-  .sk-cur-halo {
-    position: fixed; pointer-events: none; z-index: 9996;
-    transform: translate(-50%,-50%);
-    width: 80px; height: 80px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(4,50,33,.06) 0%, transparent 70%);
-    opacity: 0; filter: blur(6px); will-change: left, top;
-    transition: opacity .4s, width .5s cubic-bezier(.22,1,.36,1), height .5s cubic-bezier(.22,1,.36,1), background .3s;
-  }
-  .sk-cur-halo.vis      { opacity: 1; }
-  .sk-cur-halo.hov      { opacity: 1; width: 110px; height: 110px; background: radial-gradient(circle, rgba(4,50,33,.08) 0%, transparent 70%); }
-  .sk-cur-halo.clicking { opacity: 1; width: 55px;  height: 55px;  background: radial-gradient(circle, rgba(4,50,33,.12) 0%, transparent 70%); }
-
-  .sk-cur-label {
-    position: fixed; pointer-events: none; z-index: 10000;
-    transform: translate(-50%, -50%);
-    padding: 4px 12px; border-radius: 100px;
-    background: rgba(255,255,255,.9); backdrop-filter: blur(12px);
-    border: 1px solid rgba(4,50,33,.15);
-    font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
-    letter-spacing: .1em; text-transform: uppercase; color: #043221;
-    white-space: nowrap; opacity: 0; transition: opacity .2s;
-  }
-  .sk-cur-label.vis { opacity: 1; }
-}
-
-/* trail + burst */
-.sk-trail-dot {
-  position: fixed; pointer-events: none; z-index: 9995;
-  border-radius: 50%; transform: translate(-50%,-50%);
-  mix-blend-mode: normal; will-change: left, top;
-}
-.sk-burst {
-  position: fixed; pointer-events: none; z-index: 9994; border-radius: 50%;
-  animation: sk-burst-out var(--bd,.5s) ease-out forwards;
-}
-@keyframes sk-burst-out {
-  0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
-  60%  { opacity: .8; }
-  100% { transform: translate(calc(-50% + var(--tx,0px)), calc(-50% + var(--ty,0px))) scale(1); opacity: 0; }
-}
-
-.sk-badge {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 8px 20px; border-radius: 100px;
-  border: 1px solid rgba(4,50,33,.25); background: rgba(4,50,33,.04);
-  font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
-  color: #043221; margin-bottom: 28px;
-  position: relative; overflow: hidden;
-  animation: sk-badge-glow 3s ease-in-out infinite;
-  justify-content: center;
-}
-@keyframes sk-badge-glow {
-  0%,100% { box-shadow: 0 0 20px rgba(4,50,33,.03); }
-  50%     { box-shadow: 0 0 32px rgba(4,50,33,.1); }
-}
-.sk-badge::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(4,50,33,.04) 50%, transparent 60%);
-  transform: translateX(-100%); animation: sk-badge-shimmer 3s ease-in-out 1s infinite;
-}
-@keyframes sk-badge-shimmer { 0%,100% { transform: translateX(-100%); } 50% { transform: translateX(300%); } }
-@keyframes sk-bdot { 0%,100%{box-shadow:0 0 0 0 rgba(4,50,33,.35)} 50%{box-shadow:0 0 0 8px rgba(4,50,33,0)} }
-.sk-bdot { width:7px; height:7px; border-radius:50%; background:var(--indigo); animation:sk-bdot 2s infinite; flex-shrink:0; }
-
-.sk-title {
-  font-family: 'Syne', sans-serif; font-weight: 800;
-  font-size: clamp(38px, 7vw, 72px); line-height: .9; letter-spacing: -2px; margin-bottom: 18px;
-  text-align: center;
-}
-.sk-t1 { display: block; color: #043221; }
-.sk-t2 {
-  display: block;
-  color: #043221;
-}
-
-.sk-sub {
-  font-size: clamp(14px,1.8vw,16px); line-height:1.75;
-  color: rgba(4,50,33,.6); font-style:italic; max-width:480px; margin:0 auto 44px;
-  text-align: center;
-}
-
-/* ── TECH ICON STRIP ── */
-.sk-icon-strip {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
-  padding: 0 40px 56px; position: relative; z-index: 3;
-}
-.sk-icon-chip {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 16px 20px; border-radius: 18px; min-width: 72px;
-  background: rgba(255,255,255,.45); border: 1px solid rgba(4,50,33,.12);
-  backdrop-filter: blur(12px); cursor: default;
-  transition: all .32s cubic-bezier(.22,1,.36,1);
-  position: relative; overflow: hidden;
-}
-/* shimmer on chip */
-.sk-icon-chip::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.2) 50%, transparent 60%);
-  transform: translateX(-100%); transition: transform 0s;
-}
-.sk-icon-chip:hover {
-  transform: translateY(-9px) scale(1.07);
-  border-color: rgba(var(--ic),.42); background: rgba(var(--ic),.08);
-  box-shadow: 0 18px 48px rgba(var(--ic),.2);
-}
-.sk-icon-chip:hover::after { transform: translateX(300%); transition: transform .5s cubic-bezier(.22,1,.36,1); }
-.sk-icon-chip:hover .sk-chip-icon {
-  animation: sk-bounce .52s cubic-bezier(.22,1,.36,1);
-  filter: drop-shadow(0 0 14px rgba(var(--ic),.55));
-}
-@keyframes sk-bounce { 0%,100%{transform:translateY(0) scale(1)} 40%{transform:translateY(-10px) scale(1.18)} 70%{transform:translateY(-3px) scale(1.06)} }
-.sk-chip-icon { font-size: 26px; transition: filter .3s; }
-.sk-chip-lbl { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(4,50,33,.5); transition: color .25s; }
-.sk-icon-chip:hover .sk-chip-lbl { color: rgba(var(--ic),.8); }
-
-/* ── CATEGORY TABS ── */
-.sk-tabs {
-  display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
-  padding: 0 40px 44px; position: relative; z-index: 3;
-}
-.sk-tab {
-  padding: 10px 26px; border-radius: 100px; font-size: 13px; font-weight: 700;
-  letter-spacing: .06em; border: 1px solid rgba(4,50,33,.2);
-  background: rgba(255,255,255,.45); color: rgba(4,50,33,.6);
-  cursor: pointer; transition: all .28s cubic-bezier(.22,1,.36,1);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  display: flex; align-items: center; gap: 8px;
-  position: relative; overflow: hidden;
-}
-.sk-tab::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.2) 50%, transparent 60%);
-  transform: translateX(-100%); transition: transform 0s;
-}
-.sk-tab:hover { border-color: #043221; color: #043221; background: rgba(4,50,33,.06); }
-.sk-tab:hover::after { transform: translateX(300%); transition: transform .5s cubic-bezier(.22,1,.36,1); }
-.sk-tab.active {
-  background: #043221;
-  border-color: transparent; color: #fff;
-  box-shadow: 0 8px 28px rgba(4,50,33,.2);
-}
-.sk-tab.active.cyan { background: #043221; box-shadow:0 8px 28px rgba(4,50,33,.2); }
-.sk-tab.active.pink { background: #043221; box-shadow:0 8px 28px rgba(4,50,33,.2); }
-
-/* ════ SKILLS SECTION ════ */
-.sk-section {
-  position: relative; z-index: 3;
-  max-width: 1100px; margin: 0 auto; padding: 0 40px 100px;
-}
-
-/* ── category header ── */
-.sk-cat-header {
-  display: flex; align-items: center; gap: 16px; margin-bottom: 36px;
-}
-.sk-cat-icon {
-  width: 52px; height: 52px; border-radius: 16px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; font-family: 'Syne', monospace;
-  border: 1px solid rgba(var(--ca),.3); background: rgba(var(--ca),.1);
-  color: rgb(var(--ca)); box-shadow: 0 0 24px rgba(var(--ca),.15);
-  transition: all .3s cubic-bezier(.22,1,.36,1);
-}
-.sk-cat-icon:hover { transform: scale(1.12) rotate(-6deg); box-shadow: 0 0 36px rgba(var(--ca),.3); }
-.sk-cat-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(22px,3vw,30px); letter-spacing:-1px; color:#043221; }
-.sk-cat-subtitle { font-size:13px; color:rgba(4,50,33,.5); margin-top:2px; font-weight:500; }
-.sk-cat-count {
-  margin-left: auto; padding:5px 14px; border-radius:100px;
-  font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
-  background:rgba(var(--ca),.1); border:1px solid rgba(var(--ca),.25); color:rgb(var(--ca));
-}
-
-/* ── skills grid ── */
-.sk-grid-skills { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
-
-/* ── skill card ── */
-.sk-skill-card {
-  padding: 22px 24px; border-radius: 18px;
-  background: rgba(255,255,255,.45); border: 1px solid rgba(4,50,33,.12);
-  backdrop-filter: blur(16px); position: relative; overflow: hidden;
-  transition: all .35s cubic-bezier(.22,1,.36,1); cursor: default;
-  transform-style: preserve-3d;
-}
-/* top accent line */
-.sk-skill-card::before {
-  content: ''; position: absolute; top:0; left:0; right:0; height:1px;
-  background: linear-gradient(90deg, transparent, rgba(var(--ca),.55), transparent);
-  opacity: 0; transition: opacity .35s;
-}
-/* shimmer sweep */
-.sk-skill-card::after {
-  content: ''; position: absolute; inset:0; pointer-events: none;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.1) 50%, transparent 60%);
-  transform: translateX(-100%); transition: transform 0s;
-}
-.sk-skill-card:hover {
-  border-color: rgba(var(--ca),.3);
-  transform: translateY(-8px) rotateX(3deg) rotateY(-1deg);
-  box-shadow: 0 24px 60px rgba(4,50,33,.08), 0 0 0 1px rgba(var(--ca),.1) inset;
-}
-.sk-skill-card:hover::before { opacity: 1; }
-.sk-skill-card:hover::after { transform: translateX(300%); transition: transform .65s cubic-bezier(.22,1,.36,1); }
-
-/* skill top row */
-.sk-skill-top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
-.sk-skill-icon {
-  width:40px; height:40px; border-radius:12px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center; font-size:18px;
-  background:rgba(var(--ca),.1); border:1px solid rgba(var(--ca),.2);
-  transition: all .3s cubic-bezier(.22,1,.36,1);
-}
-.sk-skill-card:hover .sk-skill-icon {
-  background: rgba(var(--ca),.2); transform: scale(1.12) rotate(-6deg);
-  box-shadow: 0 0 16px rgba(var(--ca),.3);
-}
-.sk-skill-name { font-family:'Syne',sans-serif; font-weight:800; font-size:16px; color:#043221; transition: color .2s; }
-.sk-skill-card:hover .sk-skill-name { color:#043221; }
-.sk-skill-desc { font-size:12px; color:rgba(4,50,33,.6); line-height:1.5; margin-top:2px; }
-.sk-skill-pct {
-  margin-left:auto; font-family:'Syne',sans-serif; font-weight:800; font-size:20px;
-  color:rgb(var(--ca)); filter:drop-shadow(0 0 8px rgba(var(--ca),.45));
-  transition: filter .3s, transform .3s;
-}
-.sk-skill-card:hover .sk-skill-pct { filter:drop-shadow(0 0 16px rgba(var(--ca),.7)); transform: scale(1.08); }
-
-/* bar */
-.sk-bar-track {
-  height: 7px; border-radius: 100px;
-  background: rgba(4,50,33,.1); overflow: visible; position: relative;
-}
-.sk-bar-fill {
-  height: 100%; border-radius: 100px; position: relative;
-  transform-origin: left; transform: scaleX(0);
-  transition: transform 1.4s cubic-bezier(.22,1,.36,1);
-}
-.sk-skill-card.vis .sk-bar-fill { transform: scaleX(1); }
-.sk-bar-fill::after {
-  content: ''; position: absolute; top:0; right:0; bottom:0; width:30px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45));
-  border-radius: 100px;
-}
-.sk-bar-dot {
-  position: absolute; top:50%; right:0; transform: translate(50%,-50%);
-  width:12px; height:12px; border-radius:50%;
-  opacity:0; transition: opacity .3s .8s;
-}
-.sk-skill-card.vis .sk-bar-dot { opacity:1; animation: sk-dot-pulse 2s ease infinite; }
-@keyframes sk-dot-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(var(--ca),.5)} 50%{box-shadow:0 0 0 6px rgba(var(--ca),0)} }
-.sk-bar-labels { display:flex; justify-content:space-between; margin-top:8px; }
-.sk-bar-lbl { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(4,50,33,.35); font-weight:600; }
-.sk-bar-lvl { font-size:10px; font-weight:700; color:rgba(var(--ca),.7); letter-spacing:.08em; }
-
-/* ── SUMMARY ── */
-.sk-summary {
-  margin-top: 64px; padding: 36px; border-radius: 24px;
-  background: rgba(255,255,255,.45); border: 1px solid rgba(4,50,33,.12);
-  backdrop-filter: blur(16px); position: relative; overflow: hidden;
-  transition: border-color .3s, box-shadow .3s;
-}
-.sk-summary::before {
-  content: ''; position: absolute; top:-60px; right:-60px; width:240px; height:240px;
-  border-radius:50%; background:radial-gradient(circle,rgba(4,50,33,.05),transparent 70%);
-  pointer-events: none;
-}
-.sk-summary::after {
-  content: ''; position: absolute; inset:0; pointer-events: none;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.05) 50%, transparent 60%);
-  transform: translateX(-100%); transition: transform 0s;
-}
-.sk-summary:hover { border-color: rgba(4,50,33,.2); box-shadow: 0 16px 56px rgba(4,50,33,.05); }
-.sk-summary:hover::after { transform: translateX(300%); transition: transform .8s cubic-bezier(.22,1,.36,1); }
-.sk-summary-title { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; color:#043221; margin-bottom:6px; }
-.sk-summary-sub { font-size:13px; color:rgba(4,50,33,.5); margin-bottom:32px; }
-.sk-summary-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
-.sk-sum-item { text-align:center; }
-.sk-sum-ring {
-  width:80px; height:80px; border-radius:50%; margin:0 auto 10px;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Syne',sans-serif; font-weight:800; font-size:18px; position:relative;
-}
-.sk-sum-lbl { font-size:12px; font-weight:600; color:rgba(4,50,33,.5); letter-spacing:.05em; }
-
-/* ── SCROLL REVEAL ── */
-.sk-reveal {
-  opacity:0; transform:translateY(28px); filter:blur(5px);
-  transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1), filter .8s;
-}
-.sk-reveal.vis { opacity:1; transform:translateY(0); filter:blur(0); }
-
-/* ── RESPONSIVE ── */
-@media (max-width:768px) {
-  .sk-grid-skills { grid-template-columns:1fr; }
-  .sk-summary-grid { grid-template-columns:repeat(2,1fr); }
-  .sk-hero, .sk-section { padding-left:20px; padding-right:20px; }
-  .sk-icon-strip, .sk-tabs { padding-left:20px; padding-right:20px; }
-  .sk-float { display:none; }
-}
-@media (max-width:480px) {
-  .sk-summary-grid { grid-template-columns:repeat(2,1fr); }
-}
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
+:root{--sk-bg:#FBF2E6;--sk-ink:#5A3A2B;--sk-muted:rgba(90,58,43,.58);--sk-line:rgba(90,58,43,.13);--sk-card:rgba(255,255,255,.58)}
+.sk,.sk *{box-sizing:border-box}.sk{min-height:100vh;background:var(--sk-bg);color:var(--sk-ink);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;position:relative}.sk button{font:inherit}.sk button,.sk a{cursor:pointer}
+.sk-grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(90,58,43,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(90,58,43,.025) 1px,transparent 1px);background-size:56px 56px}.sk-grid-bg:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.7),transparent 48%)}
+.sk-noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sk-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:.42}.sk-spot{position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(620px circle at var(--mx,50%) var(--my,50%),rgba(90,58,43,.055),transparent 70%)}
+.sk-content{position:relative;z-index:3}.sk-float{position:absolute;z-index:1;color:rgba(90,58,43,.07);font-family:monospace;pointer-events:none;animation:sk-float 14s ease-in-out infinite}@keyframes sk-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(3deg)}}
+.sk-loader{position:fixed;inset:0;background:var(--sk-bg);z-index:99999;display:grid;place-items:center}.sk-loader-inner{text-align:center}.sk-loader-logo{font:800 clamp(42px,8vw,72px) 'Syne';letter-spacing:-.06em}.sk-loader-bar{height:2px;width:min(300px,70vw);background:rgba(90,58,43,.1);margin:22px auto 10px;overflow:hidden}.sk-loader-fill{height:100%;background:linear-gradient(90deg,#5A3A2B,#8B6F47,#7A5240);transition:width .08s}.sk-loader-text{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(90,58,43,.45)}
+.sk-hero{min-height:620px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 24px 70px;position:relative}.sk-orb{position:absolute;border-radius:50%;filter:blur(65px);pointer-events:none}.sk-orb.a{width:440px;height:440px;left:-180px;top:90px;background:radial-gradient(circle,rgba(90,58,43,.09),transparent 70%)}.sk-orb.b{width:400px;height:400px;right:-180px;bottom:10px;background:radial-gradient(circle,rgba(139,111,71,.09),transparent 70%)}
+.sk-badge{position:relative;display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border:1px solid rgba(90,58,43,.2);border-radius:999px;background:rgba(255,255,255,.42);backdrop-filter:blur(12px);font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:24px;box-shadow:0 10px 35px rgba(90,58,43,.04)}.sk-dot{width:7px;height:7px;border-radius:50%;background:#5A3A2B;box-shadow:0 0 0 0 rgba(90,58,43,.3);animation:sk-pulse 2s infinite}@keyframes sk-pulse{50%{box-shadow:0 0 0 8px rgba(90,58,43,0)}}
+.sk-title{font:800 clamp(44px,8vw,86px)/.9 'Syne';letter-spacing:-.065em;margin:0;color:var(--sk-ink)}.sk-title span{display:block}.sk-title .accent{background:linear-gradient(90deg,#5A3A2B,#8B6F47,#7A5240,#5A3A2B);background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sk-shine 8s linear infinite}@keyframes sk-shine{to{background-position:300%}}
+.sk-sub{max-width:620px;margin:25px auto 30px;color:var(--sk-muted);line-height:1.8;font-size:14px}.sk-counts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.sk-count{padding:11px 18px;border:1px solid var(--sk-line);background:rgba(255,255,255,.5);border-radius:999px;font-size:12px;color:var(--sk-muted);backdrop-filter:blur(12px)}.sk-count strong{font:800 18px 'Syne';color:var(--sk-ink);margin-right:5px}
+.sk-section{max-width:1160px;margin:auto;padding:0 28px 100px}.sk-section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:0 0 28px}.sk-eyebrow{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(90,58,43,.42)}.sk-h2{font:800 clamp(28px,4vw,44px)/1 'Syne';letter-spacing:-.04em;margin:7px 0 0}.sk-lead{max-width:440px;font-size:12px;line-height:1.7;color:var(--sk-muted);text-align:right}
+.sk-tech-wall{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0 auto 90px}.sk-tech{min-width:92px;padding:14px 13px;border:1px solid var(--sk-line);background:rgba(255,255,255,.48);border-radius:17px;text-align:center;backdrop-filter:blur(12px);transition:.35s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}.sk-tech:before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.55),transparent 65%);transform:translateX(-120%)}.sk-tech:hover{transform:translateY(-8px) scale(1.05);border-color:rgba(var(--tc),.38);box-shadow:0 18px 42px rgba(var(--tc),.14)}.sk-tech:hover:before{transform:translateX(120%);transition:.65s}.sk-tech-icon{font-size:25px;font-weight:800;display:block;margin-bottom:6px}.sk-tech-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(90,58,43,.5)}
+.sk-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}.sk-tab{border:1px solid var(--sk-line);background:rgba(255,255,255,.48);color:var(--sk-muted);padding:11px 16px;border-radius:999px;font-size:11px;font-weight:800;transition:.3s}.sk-tab:hover{transform:translateY(-2px);color:var(--sk-ink);border-color:rgba(90,58,43,.3)}.sk-tab.active{background:#5A3A2B;color:#fff;border-color:#5A3A2B;box-shadow:0 10px 25px rgba(90,58,43,.18)}.sk-tab b{margin-left:6px;opacity:.65}
+.sk-category{padding:26px;border:1px solid var(--sk-line);border-radius:28px;background:rgba(255,255,255,.35);backdrop-filter:blur(18px);box-shadow:0 20px 70px rgba(90,58,43,.04);overflow:hidden}.sk-cat-top{display:flex;align-items:center;gap:14px;margin-bottom:24px}.sk-cat-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;background:rgba(var(--ca),.1);border:1px solid rgba(var(--ca),.25);font-size:22px;color:rgb(var(--ca));box-shadow:0 10px 30px rgba(var(--ca),.12)}.sk-cat-name{font:800 24px 'Syne'}.sk-cat-small{font-size:11px;color:var(--sk-muted);margin-top:3px}.sk-avg{margin-left:auto;padding:6px 12px;border-radius:999px;background:rgba(var(--ca),.08);color:rgb(var(--ca));font-size:10px;font-weight:800;letter-spacing:.08em}
+.sk-skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.sk-card{position:relative;padding:22px;border:1px solid var(--sk-line);border-radius:21px;background:rgba(255,255,255,.58);overflow:hidden;transform-style:preserve-3d;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .35s;cursor:pointer}.sk-card:hover{transform:translateY(-7px) rotateX(2deg) rotateY(-1deg);box-shadow:0 25px 55px rgba(90,58,43,.09);border-color:rgba(var(--ca),.3)}.sk-card:after{content:'';position:absolute;width:210px;height:210px;border-radius:50%;left:var(--sx,50%);top:var(--sy,50%);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(var(--ca),.12),transparent 67%);pointer-events:none;opacity:0;transition:opacity .25s}.sk-card:hover:after{opacity:1}.sk-card-top{display:flex;gap:13px;align-items:center;position:relative;z-index:1}.sk-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:rgba(var(--ca),.1);border:1px solid rgba(var(--ca),.18);font-size:19px;font-weight:800;flex:none;transition:.35s}.sk-card:hover .sk-icon{transform:rotate(-7deg) scale(1.1);box-shadow:0 0 25px rgba(var(--ca),.2)}.sk-card-name{font:800 16px 'Syne'}.sk-card-desc{font-size:10.5px;line-height:1.5;color:var(--sk-muted);margin-top:3px}.sk-pct{margin-left:auto;font:800 21px 'Syne';color:rgb(var(--ca))}.sk-bar{height:7px;border-radius:999px;background:rgba(90,58,43,.08);margin:20px 0 9px;overflow:hidden}.sk-fill{height:100%;border-radius:inherit;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,rgba(var(--ca),.42),rgb(var(--ca)));transition:transform 1.1s cubic-bezier(.22,1,.36,1)}.sk-card.in .sk-fill{transform:scaleX(1)}.sk-meta{display:flex;justify-content:space-between;font-size:9px;color:rgba(90,58,43,.4);text-transform:uppercase;letter-spacing:.12em;font-weight:700}.sk-card-action{margin-top:14px;font-size:9px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:rgb(var(--ca));opacity:0;transform:translateY(5px);transition:.3s}.sk-card:hover .sk-card-action{opacity:1;transform:none}
+.sk-creative{margin-top:80px}.sk-panel{border:1px solid var(--sk-line);border-radius:28px;background:rgba(255,255,255,.43);backdrop-filter:blur(18px);overflow:hidden;box-shadow:0 20px 70px rgba(90,58,43,.04)}.sk-panel-head{padding:28px 30px 20px}.sk-panel-title{font:800 26px 'Syne'}.sk-panel-desc{font-size:11px;color:var(--sk-muted);line-height:1.7;margin-top:6px}
+.sk-flow{padding:10px 30px 34px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.sk-flow-step{position:relative;padding:20px 15px;border:1px solid var(--sk-line);border-radius:19px;background:rgba(255,255,255,.48);min-height:205px;transition:.35s}.sk-flow-step:hover{transform:translateY(-8px);border-color:rgba(90,58,43,.25);box-shadow:0 20px 40px rgba(90,58,43,.07)}.sk-flow-num{font:800 10px 'Syne';color:rgba(90,58,43,.32)}.sk-flow-icon{font-size:26px;margin:25px 0 12px}.sk-flow-title{font:800 14px 'Syne'}.sk-flow-text{font-size:10px;line-height:1.55;color:var(--sk-muted);margin:6px 0 12px}.sk-flow-skills{display:flex;flex-wrap:wrap;gap:4px}.sk-mini{padding:4px 6px;border-radius:7px;background:rgba(90,58,43,.06);font-size:7px;font-weight:800;color:rgba(90,58,43,.52)}
+.sk-proof{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px}.sk-radar-wrap,.sk-proof-list{padding:28px;border:1px solid var(--sk-line);border-radius:26px;background:rgba(255,255,255,.48);backdrop-filter:blur(16px)}.sk-proof-title{font:800 21px 'Syne';margin-bottom:5px}.sk-proof-sub{font-size:10px;color:var(--sk-muted);margin-bottom:18px}.sk-radar{width:min(100%,360px);display:block;margin:0 auto}.sk-radar text{font:800 9px 'Plus Jakarta Sans';fill:rgba(90,58,43,.55)}.sk-proof-item{padding:15px 0;border-bottom:1px solid rgba(90,58,43,.08);display:flex;gap:12px;align-items:center}.sk-proof-item:last-child{border-bottom:0}.sk-proof-dot{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:rgba(90,58,43,.07);font-weight:800}.sk-proof-name{font:800 12px 'Syne'}.sk-proof-desc{font-size:9px;color:var(--sk-muted);margin-top:2px}.sk-proof-pct{margin-left:auto;font:800 15px 'Syne'}
+.sk-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 30px 30px}.sk-badge-card{padding:19px;border:1px solid var(--sk-line);border-radius:19px;background:rgba(255,255,255,.46);transition:.3s}.sk-badge-card:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 18px 40px rgba(90,58,43,.07)}.sk-badge-icon{font-size:25px}.sk-badge-title{font:800 13px 'Syne';margin-top:10px}.sk-badge-text{font-size:9px;line-height:1.55;color:var(--sk-muted);margin-top:4px}
+.sk-learning{margin-top:18px;padding:28px;border:1px solid var(--sk-line);border-radius:26px;background:rgba(255,255,255,.48)}.sk-learning-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.sk-learn-card{padding:17px;border-radius:18px;background:rgba(255,255,255,.52);border:1px solid rgba(90,58,43,.1)}.sk-learn-top{display:flex;align-items:center;gap:8px}.sk-learn-icon{font-weight:800}.sk-learn-name{font:800 12px 'Syne'}.sk-learn-pct{margin-left:auto;font-size:10px;font-weight:800}.sk-learn-text{font-size:9px;color:var(--sk-muted);line-height:1.5;margin:8px 0}.sk-learn-bar{height:5px;background:rgba(90,58,43,.08);border-radius:99px;overflow:hidden}.sk-learn-fill{height:100%;background:#8B6F47;border-radius:99px}
+.sk-universe{margin-top:80px}.sk-universe-box{position:relative;min-height:470px;border:1px solid var(--sk-line);border-radius:30px;background:radial-gradient(circle at center,rgba(255,255,255,.72),rgba(255,255,255,.35));overflow:hidden}.sk-universe-title{position:absolute;left:28px;top:24px;z-index:2}.sk-universe-title h3{font:800 24px 'Syne';margin:4px 0}.sk-universe-title p{font-size:10px;color:var(--sk-muted);max-width:280px;line-height:1.5}.sk-universe-svg{width:100%;height:470px}.sk-node{cursor:pointer;transition:.25s}.sk-node circle{fill:rgba(255,255,255,.85);stroke:rgba(90,58,43,.18);stroke-width:1.5;transition:.3s}.sk-node.active circle,.sk-node:hover circle{fill:#5A3A2B;stroke:#5A3A2B;filter:drop-shadow(0 0 13px rgba(90,58,43,.28))}.sk-node text{font:800 9px 'Plus Jakarta Sans';fill:#5A3A2B;pointer-events:none}.sk-node.active text,.sk-node:hover text{fill:#fff}.sk-edge{stroke:rgba(90,58,43,.12);stroke-width:1;transition:.3s}.sk-edge.hot{stroke:rgba(90,58,43,.55);stroke-width:1.8}.sk-universe-hint{position:absolute;right:26px;bottom:22px;font-size:9px;color:rgba(90,58,43,.38);letter-spacing:.1em;text-transform:uppercase}
+.sk-modal-back{position:fixed;inset:0;background:rgba(55,32,23,.32);backdrop-filter:blur(12px);z-index:9990;display:grid;place-items:center;padding:20px}.sk-modal{width:min(600px,100%);max-height:min(700px,90vh);overflow:auto;background:#FBF2E6;border:1px solid rgba(255,255,255,.7);border-radius:28px;box-shadow:0 35px 100px rgba(55,32,23,.25);padding:28px}.sk-modal-top{display:flex;align-items:center;gap:13px}.sk-close{margin-left:auto;border:1px solid var(--sk-line);background:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;color:var(--sk-ink)}.sk-modal h3{font:800 28px 'Syne';margin:22px 0 6px}.sk-modal p{font-size:12px;line-height:1.7;color:var(--sk-muted)}.sk-related{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.sk-related span{padding:8px 10px;border-radius:10px;background:rgba(90,58,43,.06);font-size:9px;font-weight:800}.sk-modal-bar{height:9px;border-radius:99px;background:rgba(90,58,43,.08);margin:20px 0 7px;overflow:hidden}.sk-modal-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,#5A3A2B,#8B6F47)}
+@media(max-width:900px){.sk-flow{grid-template-columns:repeat(2,1fr)}.sk-learning-grid{grid-template-columns:repeat(2,1fr)}.sk-proof{grid-template-columns:1fr}.sk-badges{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.sk-hero{min-height:560px;padding-top:100px}.sk-section{padding:0 17px 70px}.sk-section-head{display:block}.sk-lead{text-align:left;margin-top:10px}.sk-skills-grid{grid-template-columns:1fr}.sk-category{padding:18px}.sk-flow{grid-template-columns:1fr}.sk-learning-grid{grid-template-columns:1fr}.sk-badges{grid-template-columns:1fr;padding:0 18px 20px}.sk-panel-head{padding:22px 18px}.sk-universe-box{min-height:430px}.sk-universe-svg{height:430px}.sk-universe-title{left:18px;top:18px}.sk-universe-title h3{font-size:20px}.sk-universe-title p{max-width:210px}.sk-tech{min-width:76px;padding:11px 9px}.sk-tech-label{font-size:8px}.sk-tech-icon{font-size:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.sk-canvas{display:none}}
 `;
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-function getLevelLabel(pct) {
-  if (pct >= 90) return 'Expert';
-  if (pct >= 80) return 'Advanced';
-  if (pct >= 70) return 'Proficient';
-  return 'Learning';
-}
+function getLevelLabel(n){if(n>=90)return'Expert';if(n>=80)return'Advanced';if(n>=70)return'Proficient';return'Learning'}
+function CountUp({target,active}){const[v,setV]=useState(0);useEffect(()=>{if(!active)return;let st=null;let raf;const step=t=>{if(!st)st=t;const p=Math.min((t-st)/1100,1);setV(Math.round((1-Math.pow(1-p,3))*target));if(p<1)raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step);return()=>cancelAnimationFrame(raf)},[target,active]);return <strong>{v}</strong>}
+function Loader({onDone}){const[p,setP]=useState(0);useEffect(()=>{let v=0;const id=setInterval(()=>{v+=2;setP(v);if(v>=100){clearInterval(id);setTimeout(onDone,420)}},18);return()=>clearInterval(id)},[onDone]);return <AnimatePresence>{p<100&&<motion.div className="sk-loader" initial={{opacity:1}} exit={{opacity:0}}><div className="sk-loader-inner"><div className="sk-loader-logo">HMH</div><div className="sk-loader-bar"><div className="sk-loader-fill" style={{width:`${p}%`}}/></div><div className="sk-loader-text">Building skill system — {p}%</div></div></motion.div>}</AnimatePresence>}
+function SkillCard({skill,accent,isTop,onOpen}){const ref=useRef(null);const[vis,setVis]=useState(false);useEffect(()=>{const o=new IntersectionObserver(([e])=>e.isIntersecting&&setVis(true),{threshold:.15});if(ref.current)o.observe(ref.current);return()=>o.disconnect()},[]);const move=e=>{const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.setProperty('--sx',`${e.clientX-r.left}px`);e.currentTarget.style.setProperty('--sy',`${e.clientY-r.top}px`)};return <motion.div ref={ref} className={`sk-card ${vis?'in':''}`} style={{'--ca':accent}} onMouseMove={move} onClick={()=>onOpen(skill)} whileTap={{scale:.985}}>{isTop&&<div style={{position:'absolute',right:14,top:14,fontSize:8,fontWeight:800,letterSpacing:'.1em',textTransform:'uppercase',padding:'5px 8px',borderRadius:99,background:'#5A3A2B',color:'#fff',zIndex:2}}>★ Top Skill</div>}<div className="sk-card-top"><div className="sk-icon">{skill.icon}</div><div><div className="sk-card-name">{skill.name}</div><div className="sk-card-desc">{skill.desc}</div></div><div className="sk-pct">{skill.level}%</div></div><div className="sk-bar"><div className="sk-fill" style={{width:`${skill.level}%`}}/></div><div className="sk-meta"><span>{getLevelLabel(skill.level)}</span><span>{skill.projects.length} project{skill.projects.length>1?'s':''}</span></div><div className="sk-card-action">Explore skill →</div></motion.div>}
+function Radar({data}){const cx=180,cy=180,r=125;const pts=(scale)=>data.map((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/data.length;return [cx+Math.cos(a)*r*scale,cy+Math.sin(a)*r*scale]});const poly=p=>p.map(x=>x.join(',')).join(' ');return <svg className="sk-radar" viewBox="0 0 360 360"><g>{[.25,.5,.75,1].map((s,i)=><polygon key={i} points={poly(pts(s))} fill="none" stroke="rgba(90,58,43,.09)" strokeWidth="1"/>)}{data.map((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/data.length;return <line key={d.label} x1={cx} y1={cy} x2={cx+Math.cos(a)*r} y2={cy+Math.sin(a)*r} stroke="rgba(90,58,43,.08)"/>})}<polygon points={poly(data.map((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/data.length;return [cx+Math.cos(a)*r*d.value,cy+Math.sin(a)*r*d.value]}))} fill="rgba(90,58,43,.13)" stroke="#5A3A2B" strokeWidth="2"/></g>{data.map((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/data.length;return <text key={d.label} x={cx+Math.cos(a)*(r+22)} y={cy+Math.sin(a)*(r+22)} textAnchor="middle" dominantBaseline="middle">{d.label}</text>})}</svg>}
+function Universe({skills,onOpen}){const nodes=[...skills.slice(0,10),{name:'APIs',icon:'◈',level:87,projects:['Core']},{name:'Deploy',icon:'↗',level:82,projects:['Core']}];const pos=[[50,50],[25,28],[76,28],[18,58],[38,78],[62,77],[83,57],[38,45],[62,45],[50,25],[50,76],[50,56]];const edges=[[0,1],[0,2],[0,7],[0,8],[0,9],[0,10],[0,11],[1,3],[1,7],[2,6],[2,8],[3,4],[4,10],[5,10],[5,6],[6,2],[7,8],[8,11],[9,2],[10,11]];const[active,setActive]=useState(null);return <div className="sk-universe-box"><div className="sk-universe-title"><div className="sk-eyebrow">Interactive map</div><h3>Skill Universe</h3><p>Hover or click a node to see how the technologies connect.</p></div><svg className="sk-universe-svg" viewBox="0 0 100 100" preserveAspectRatio="none">{edges.map(([a,b],i)=><line key={i} className={`sk-edge ${active!==null&&(a===active||b===active)?'hot':''}`} x1={pos[a][0]} y1={pos[a][1]} x2={pos[b][0]} y2={pos[b][1]}/>) }{nodes.map((n,i)=><g key={`${n.name}-${i}`} className={`sk-node ${active===i?'active':''}`} onMouseEnter={()=>setActive(i)} onMouseLeave={()=>setActive(null)} onClick={()=>onOpen(n)}><circle cx={pos[i][0]} cy={pos[i][1]} r={i===0?6.5:4.5}/><text x={pos[i][0]} y={pos[i][1]+.7} textAnchor="middle" dominantBaseline="middle" fontSize={i===0?2.1:1.65}>{i===0?'CORE':n.name.length>14?n.name.split(' ')[0]:n.name}</text></g>)}</svg><div className="sk-universe-hint">01 — click a node</div></div>}
+function SkillModal({skill,onClose}){useEffect(()=>{const f=e=>e.key==='Escape'&&onClose();window.addEventListener('keydown',f);return()=>window.removeEventListener('keydown',f)},[onClose]);return <motion.div className="sk-modal-back" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onMouseDown={e=>e.target===e.currentTarget&&onClose()}><motion.div className="sk-modal" initial={{y:35,scale:.96,opacity:0}} animate={{y:0,scale:1,opacity:1}} exit={{y:20,scale:.98,opacity:0}}><div className="sk-modal-top"><div className="sk-icon" style={{'--ca':'90,58,43'}}>{skill.icon}</div><div><div className="sk-eyebrow">Skill detail</div><div style={{fontWeight:800,fontFamily:'Syne',fontSize:15}}>{getLevelLabel(skill.level)}</div></div><button className="sk-close" onClick={onClose}>×</button></div><h3>{skill.name}</h3><p>{skill.desc}. This skill is part of the development toolkit used across practical portfolio work.</p><div className="sk-modal-bar"><div className="sk-modal-fill" style={{width:`${skill.level}%`}}/></div><div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'rgba(90,58,43,.45)',fontWeight:800}}><span>PROFICIENCY</span><span>{skill.level}%</span></div><div style={{marginTop:25,font:'800 14px Syne'}}>Where it connects</div><div className="sk-related">{skill.projects.map(p=><span key={p}>{p}</span>)}</div></motion.div></motion.div>}
 
-// ─── SVG Ring ────────────────────────────────────────────────────────────────
-function Ring({ pct, color, label, active }) {
-  const r = 32, cx = 40;
-  const circ = 2 * Math.PI * r;
-  const [drawn, setDrawn] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    let start = null;
-    const dur = 1400;
-    const step = ts => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / dur, 1);
-      setDrawn((1 - Math.pow(1-p, 3)) * pct);
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [pct, active]);
-  const offset = circ - (drawn / 100) * circ;
-  return (
-    <div className="sk-sum-item">
-      <div className="sk-sum-ring">
-        <svg width="80" height="80" viewBox="0 0 80 80" style={{position:'absolute',inset:0}}>
-          <circle cx={cx} cy={cx} r={r} fill="none" stroke="rgba(255,255,255,.06)" strokeWidth="6" />
-          <circle cx={cx} cy={cx} r={r} fill="none" stroke={`rgb(${color})`} strokeWidth="6"
-            strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset}
-            transform="rotate(-90 40 40)"
-            style={{filter:`drop-shadow(0 0 6px rgba(${color},.5))`,transition:'stroke-dashoffset .05s'}} />
-        </svg>
-        <span style={{color:`rgb(${color})`,fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:15,position:'relative',zIndex:1}}>
-          {Math.round(drawn)}%
-        </span>
-      </div>
-      <div className="sk-sum-lbl">{label}</div>
-    </div>
-  );
-}
-
-// ─── PAGE LOADER ─────────────────────────────────────────────────────────────
-function PageLoader({ onDone }) {
-  const [pct, setPct]   = useState(0);
-  const [done, setDone] = useState(false);
-  useEffect(() => {
-    let v = 0;
-    const steps = [
-      { target: 30,  speed: 18 },
-      { target: 70,  speed: 28 },
-      { target: 90,  speed: 45 },
-      { target: 100, speed: 22 },
-    ];
-    let s = 0;
-    const tick = () => {
-      if (s >= steps.length) { setDone(true); setTimeout(onDone, 600); return; }
-      const { target, speed } = steps[s];
-      if (v < target) { v = Math.min(v+1, target); setPct(v); setTimeout(tick, speed); }
-      else { s++; setTimeout(tick, 80); }
-    };
-    tick();
-  }, [onDone]);
-  return (
-    <AnimatePresence>
-      {!done && (
-        <motion.div className="sk-loader"
-          initial={{ opacity:1 }}
-          exit={{ opacity:0, scale:1.04 }}
-          transition={{ duration:.6, ease:[.22,1,.36,1] }}
-        >
-          <div className="sk-loader-scan" />
-          <motion.div className="sk-loader-logo"
-            initial={{ opacity:0, y:20, filter:'blur(10px)' }}
-            animate={{ opacity:1, y:0,  filter:'blur(0px)'  }}
-            transition={{ duration:.7, ease:[.22,1,.36,1] }}
-          >HMH</motion.div>
-          <motion.div
-            initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:.3 }}
-            style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'10px', width:'100%' }}
-          >
-            <div className="sk-loader-bar-wrap">
-              <div className="sk-loader-bar" style={{ width:`${pct}%` }} />
-            </div>
-            <div className="sk-loader-pct">{pct < 100 ? 'Loading' : 'Ready'} — {pct}%</div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-// ─── ADVANCED CURSOR ─────────────────────────────────────────────────────────
-function useAdvancedCursor() {
-  const curRef   = useRef(null);
-  const curRRef  = useRef(null);
-  const haloRef  = useRef(null);
-  const labelRef = useRef(null);
-  const trailsRef= useRef([]);
-  const TRAIL_N  = 8;
-  const mx=useRef(0),my=useRef(0),rx=useRef(0),ry=useRef(0),hx=useRef(0),hy=useRef(0);
-
-  useEffect(() => {
-    if (window.matchMedia('(hover:none)').matches) return;
-    const dots = [];
-    for (let i=0; i<TRAIL_N; i++) {
-      const d = document.createElement('div');
-      d.className = 'sk-trail-dot';
-      const sz = Math.max(2, 7-i*.75), op = Math.max(.02, .28-i*.028);
-      const hue = 145+i*4, sat = 65-i*2;
-      d.style.cssText = `width:${sz}px;height:${sz}px;opacity:${op};left:-300px;top:-300px;background:hsl(${hue},${sat}%,40%);`;
-      document.body.appendChild(d);
-      dots.push({ el:d, x:0, y:0 });
-    }
-    trailsRef.current = dots;
-    return () => dots.forEach(d => d.el.remove());
-  }, []);
-
-  useEffect(() => {
-    if (window.matchMedia('(hover:none)').matches) return;
-    const LABELS = [
-      { sel: '.sk-skill-card', text: 'Skill Info'      },
-      { sel: '.sk-tab',        text: 'Filter'          },
-      { sel: '.sk-icon-chip',  text: 'Tech'            },
-      { sel: '.sk-sum-item',   text: 'Proficiency'     },
-    ];
-    const spawnBurst = (cx, cy) => {
-      const pal = ['#043221', '#054a32', '#0f5c40', '#307355'];
-      for (let i=0; i<14; i++) {
-        const el = document.createElement('div'); el.className = 'sk-burst';
-        const angle = (i/14)*Math.PI*2+(Math.random()-.5)*.4;
-        const dist = 22+Math.random()*32, tx = Math.cos(angle)*dist, ty = Math.sin(angle)*dist;
-        const sz = 2.5+Math.random()*4, dur = .35+Math.random()*.25, col = pal[i%pal.length];
-        el.style.cssText = `left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;background:${col};box-shadow:0 0 ${sz*2.5}px ${col};--tx:${tx}px;--ty:${ty}px;--bd:${dur}s;`;
-        document.body.appendChild(el); setTimeout(() => el.remove(), (dur+.1)*1000);
-      }
-    };
-    let lastType = '';
-    const onMove = e => {
-      mx.current = e.clientX; my.current = e.clientY;
-      const cur=curRef.current, curR=curRRef.current, halo=haloRef.current, lbl=labelRef.current;
-      if (!cur) return;
-      cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      const isBtn  = !!el?.closest('a,button');
-      const isText = !isBtn && !!el?.closest('p,h1,h2,h3,span:not(.sk-bdot):not(.sk-status-dot)');
-      const isCard = !isBtn && !!el?.closest('.sk-skill-card,.sk-icon-chip,.sk-sum-item');
-      const isInter = isBtn || isCard;
-      const t = isText?'text':isInter?'hov':'normal';
-      if (t !== lastType) {
-        cur.classList.toggle('hov', t==='hov'); cur.classList.toggle('text-hov', t==='text');
-        curR?.classList.toggle('hov', t==='hov'); curR?.classList.toggle('text-hov', t==='text');
-        halo?.classList.toggle('hov', t==='hov');
-        lastType = t;
-      }
-      document.querySelector('.sk-spotlight')?.style.setProperty('--mx', e.clientX+'px');
-      document.querySelector('.sk-spotlight')?.style.setProperty('--my', e.clientY+'px');
-      if (lbl) {
-        let found = '';
-        for (const {sel, text} of LABELS) { if (el?.closest(sel)) { found=text; break; } }
-        if (found && isInter) { lbl.textContent=found; lbl.style.left=e.clientX+'px'; lbl.style.top=(e.clientY-46)+'px'; lbl.classList.add('vis'); }
-        else lbl.classList.remove('vis');
-      }
-    };
-    const onClick = e => {
-      const cur=curRef.current, curR=curRRef.current, halo=haloRef.current;
-      cur?.classList.add('clicking'); curR?.classList.add('clicking'); halo?.classList.add('clicking');
-      spawnBurst(e.clientX, e.clientY);
-      setTimeout(() => { cur?.classList.remove('clicking'); curR?.classList.remove('clicking'); halo?.classList.remove('clicking'); }, 300);
-    };
-    window.addEventListener('mousemove', onMove, { passive:true });
-    window.addEventListener('click', onClick);
-    const trail = trailsRef.current;
-    let af;
-    const tick = () => {
-      rx.current += (mx.current-rx.current)*.1; ry.current += (my.current-ry.current)*.1;
-      if (curRRef.current) { curRRef.current.style.left=rx.current+'px'; curRRef.current.style.top=ry.current+'px'; }
-      hx.current += (mx.current-hx.current)*.065; hy.current += (my.current-hy.current)*.065;
-      if (haloRef.current) { haloRef.current.style.left=hx.current+'px'; haloRef.current.style.top=hy.current+'px'; haloRef.current.classList.add('vis'); }
-      trail.forEach((dot,i) => {
-        const lag = 1+i*1.6; dot.x+=(mx.current-dot.x)/lag; dot.y+=(my.current-dot.y)/lag;
-        dot.el.style.left=dot.x+'px'; dot.el.style.top=dot.y+'px';
-      });
-      af = requestAnimationFrame(tick);
-    };
-    tick();
-    return () => { window.removeEventListener('mousemove',onMove); window.removeEventListener('click',onClick); cancelAnimationFrame(af); };
-  }, []);
-
-  return { curRef, curRRef, haloRef, labelRef };
-}
-
-// ─── PARALLAX HOOK ────────────────────────────────────────────────────────────
-function useParallax() {
-  const heroRef   = useRef(null);
-  const heroBgRef = useRef(null);
-  const floatRefs = useRef([]);
-  useEffect(() => {
-    const onScroll = () => {
-      const sy = window.scrollY;
-      if (heroRef.current)   { heroRef.current.style.transform   = `translateY(${sy*.2}px)`; heroRef.current.style.opacity = `${1-sy*.002}`; }
-      if (heroBgRef.current) { heroBgRef.current.style.transform = `translateY(${sy*.42}px)`; }
-      floatRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const depth = FLOAT_SYMBOLS[i]?.depth ?? 0.3;
-        el.style.transform = `translateY(${sy*depth*.5}px)`;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive:true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  const setFloatRef = i => el => { floatRefs.current[i] = el; };
-  return { heroRef, heroBgRef, setFloatRef };
-}
-
-// ─── SKILL CARD with intersection reveal ─────────────────────────────────────
-function SkillCard({ skill, accent, index, loaded }) {
-  const ref = useRef(null);
-  const [vis, setVis] = useState(false);
-  useEffect(() => {
-    if (!loaded || !ref.current) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold:.15 });
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [loaded]);
-
-  return (
-    <div
-      ref={ref}
-      className={`sk-skill-card sk-reveal${vis ? ' vis' : ''}`}
-      style={{ '--ca': accent, transitionDelay:`${index*.09}s` }}
-    >
-      <div className="sk-skill-top">
-        <div className="sk-skill-icon">{skill.icon}</div>
-        <div>
-          <div className="sk-skill-name">{skill.name}</div>
-          <div className="sk-skill-desc">{skill.desc}</div>
-        </div>
-        <div className="sk-skill-pct">{skill.level}%</div>
-      </div>
-      <div className="sk-bar-track">
-        <div className="sk-bar-fill" style={{
-          width:`${skill.level}%`,
-          background:`linear-gradient(90deg,rgba(${accent},.5),rgb(${accent}))`,
-          transitionDelay:`${index*.09+.18}s`,
-        }}>
-          <div className="sk-bar-dot" style={{ background:`rgb(${accent})`, boxShadow:`0 0 8px rgba(${accent},.8)` }} />
-        </div>
-      </div>
-      <div className="sk-bar-labels">
-        <span className="sk-bar-lbl">Proficiency</span>
-        <span className="sk-bar-lvl">{getLevelLabel(skill.level)}</span>
-      </div>
-    </div>
-  );
-}
-
-// ─── MAIN ────────────────────────────────────────────────────────────────────
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState('frontend');
-  const [loaded, setLoaded]       = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [tab, setTab] = useState('frontend');
+  const [selected, setSelected] = useState(null);
   const canvasRef = useRef(null);
-  const rafRef    = useRef(null);
-  const mxR       = useRef(0), myR = useRef(0);
+  const mouse = useRef({ x: 0, y: 0 });
+  
+  const active = CATEGORIES.find(c => c.id === tab) || CATEGORIES[0];
+  const allSkills = useMemo(() => CATEGORIES.flatMap(c => c.skills), []);
+  const totalSkills = allSkills.length;
+  const top = active.skills.reduce((a, b) => (b.level > a.level ? b : a), active.skills[0]);
+  const avg = Math.round(active.skills.reduce((a, s) => a + s.level, 0) / active.skills.length);
+  
+  const radar = CATEGORIES.map(c => ({
+    label: c.label === 'Mobile Developer' ? 'Mobile' : c.label === 'Tools & Other' ? 'Tools' : c.label,
+    value: c.skills.reduce((a, s) => a + s.level, 0) / c.skills.length / 100
+  }));
 
-  const activeCat = CATEGORIES.find(c => c.id === activeTab) || CATEGORIES[0];
-  const { curRef, curRRef, haloRef, labelRef } = useAdvancedCursor();
-  const { heroRef, heroBgRef, setFloatRef }    = useParallax();
-
-  // inject styles
-  useEffect(() => {
-    const id = 'sk-v2';
-    if (!document.getElementById(id)) {
-      const el = document.createElement('style'); el.id=id; el.textContent=STYLES;
-      document.head.appendChild(el);
-    }
-  }, []);
-
-  // canvas
-  useEffect(() => {
-    const canvas = canvasRef.current; if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let W, H, nodes = [], t = 0;
-    const ORBS=[{x:.1,y:.2,c:'4,50,33',r:400},{x:.88,y:.6,c:'5,74,50',r:320},{x:.5,y:.05,c:'15,92,64',r:220}];
-    class N {
-      constructor(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.38;this.vy=(Math.random()-.5)*.38;this.r=Math.random()*1.3+.4;const P=[[4,50,33],[5,74,50],[15,92,64],[30,115,85]];this.c=P[~~(Math.random()*4)];this.op=Math.random()*.36+.1;}
-      update(){const dx=mxR.current-this.x,dy=myR.current-this.y,d=Math.hypot(dx,dy);if(d<150){this.vx+=dx/d*.011;this.vy+=dy/d*.011;}const sp=Math.hypot(this.vx,this.vy);if(sp>.88){this.vx=this.vx/sp*.88;this.vy=this.vy/sp*.88;}this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W)this.vx*=-1;if(this.y<0||this.y>H)this.vy*=-1;}
-      draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(${this.c},${this.op})`;ctx.fill();}
-    }
-    const resize=()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;nodes=Array.from({length:75},()=>new N());};
-    resize(); window.addEventListener('resize',resize);
-    const loop=()=>{ctx.clearRect(0,0,W,H);t+=.008;ORBS.forEach((o,i)=>{const ox=(o.x+Math.sin(t+i)*.07)*W,oy=(o.y+Math.cos(t*1.2+i)*.06)*H;const g=ctx.createRadialGradient(ox,oy,0,ox,oy,o.r);g.addColorStop(0,`rgba(${o.c},.1)`);g.addColorStop(1,`rgba(${o.c},0)`);ctx.beginPath();ctx.arc(ox,oy,o.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();});nodes.forEach((n,i)=>{nodes.forEach((m,j)=>{if(j<=i)return;const dx=n.x-m.x,dy=n.y-m.y,d=Math.hypot(dx,dy);if(d<112){ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.strokeStyle=`rgba(4,50,33,${.065*(1-d/112)})`;ctx.lineWidth=.5;ctx.stroke();}});n.update();n.draw();});rafRef.current=requestAnimationFrame(loop);};
-    loop();
-    return()=>{window.removeEventListener('resize',resize);cancelAnimationFrame(rafRef.current);};
-  },[]);
-
-  // mouse for canvas
-  useEffect(()=>{
-    const f=e=>{mxR.current=e.clientX;myR.current=e.clientY;};
-    window.addEventListener('mousemove',f,{passive:true});
-    return()=>window.removeEventListener('mousemove',f);
-  },[]);
-
-  const fu = (d=0) => ({
-    initial:{opacity:0,y:26,filter:'blur(7px)'},
-    animate:{opacity:1,y:0, filter:'blur(0px)'},
-    transition:{duration:.72,delay:d,ease:[.22,1,.36,1]},
+  const fu = (d = 0) => ({
+    initial: { opacity: 0, y: 25, filter: 'blur(7px)' },
+    animate: { opacity: 1, y: 0, filter: 'blur(0)' },
+    transition: { duration: 0.7, delay: d, ease: [0.22, 1, 0.36, 1] }
   });
 
-  const tabClass = cat => {
-    let cls = 'sk-tab';
-    if (activeTab===cat.id) {
-      cls += ' active';
-      if (cat.id==='backend') cls += ' cyan';
-      if (cat.id==='tools')   cls += ' pink';
+  const onDone = useCallback(() => setLoaded(true), []);
+
+  // Fixed useEffect 1 (Style Injection)
+  useEffect(() => {
+    const id = 'skills-v3';
+    if (!document.getElementById(id)) {
+      const s = document.createElement('style');
+      s.id = id;
+      s.textContent = STYLES;
+      document.head.appendChild(s);
     }
-    return cls;
-  };
+    return () => {
+      document.getElementById(id)?.remove();
+    };
+  }, []);
 
-  const summaryData = CATEGORIES.map(cat => ({
-    label: cat.label,
-    color: cat.accent,
-    avg: Math.round(cat.skills.reduce((a,s)=>a+s.level,0)/cat.skills.length),
-  }));
-  
+  // Fixed useEffect 2 (Canvas Background)
+  useEffect(() => {
+    const c = canvasRef.current;
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    let w = 0, h = 0, raf;
+    const dots = [];
 
-  const onLoaderDone = useCallback(() => setLoaded(true), []);
+    const resize = () => {
+      w = c.width = innerWidth;
+      h = c.height = innerHeight;
+      dots.length = 0;
+      for (let i = 0; i < 55; i++) {
+        dots.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 1.5 + 0.3
+        });
+      }
+    };
+
+    resize();
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const d of dots) {
+        const dx = mouse.current.x - d.x;
+        const dy = mouse.current.y - d.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 170) {
+          d.vx += (dx / dist) * 0.003;
+          d.vy += (dy / dist) * 0.003;
+        }
+        d.x += d.vx;
+        d.y += d.vy;
+        if (d.x < 0 || d.x > w) d.vx *= -1;
+        if (d.y < 0 || d.y > h) d.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(90,58,43,.16)';
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    const move = e => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+      document.querySelector('.sk-spot')?.style.setProperty('--mx', e.clientX + 'px');
+      document.querySelector('.sk-spot')?.style.setProperty('--my', e.clientY + 'px');
+    };
+
+    addEventListener('mousemove', move, { passive: true });
+    addEventListener('resize', resize);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      removeEventListener('mousemove', move);
+      removeEventListener('resize', resize);
+    };
+  }, []);
 
   return (
     <>
       <Header />
-
-      {/* ═══ PAGE LOADER ═══ */}
-      <PageLoader onDone={onLoaderDone} />
-
+      <Loader onDone={onDone} />
       <PageTransition>
-        <div className="sk sk-bgrid">
-          {/* ═══ CURSOR ═══ */}
-          <div ref={curRef}   className="sk-cur"       />
-          <div ref={curRRef}  className="sk-curR"      />
-          <div ref={haloRef}  className="sk-cur-halo"  />
-          <div ref={labelRef} className="sk-cur-label" />
-
-          <div className="sk-spotlight" />
+        <main className="sk">
+          <div className="sk-grid-bg" />
           <div className="sk-noise" />
-          <canvas ref={canvasRef} className="sk-canvas" />
-
-          {/* ═══ FLOATING SYMBOLS with parallax ═══ */}
-          {FLOAT_SYMBOLS.map((f,i)=>(
-            <div key={i} ref={setFloatRef(i)} className="sk-float" style={{
-              left:f.x, top:f.y, fontSize:f.sz, opacity:f.op,
-              animation:`sk-float-sym ${f.dur}s ease-in-out ${i*1.3}s infinite`,
-            }}>{f.s}</div>
+          <div className="sk-spot" />
+          <canvas className="sk-canvas" ref={canvasRef} />
+          
+          {FLOAT_SYMBOLS.map((f, i) => (
+            <span key={i} className="sk-float" style={{ left: f.x, top: f.y, fontSize: f.sz, animationDuration: `${f.dur}s` }}>
+              {f.s}
+            </span>
           ))}
 
-          {/* ══ HERO ══ */}
-          <div style={{ position:'relative', zIndex:3 }}>
-            {/* parallax bg orbs */}
-            <div ref={heroBgRef} style={{ position:'absolute', inset:0, zIndex:0, pointerEvents:'none' }}>
-              {[
-                {top:'0%',    left:'-5%',  w:480, c:'4,50,33', op:.07},
-                {bottom:'-5%',right:'-5%', w:380, c:'5,74,50', op:.06},
-              ].map((o,i)=>(
-                <div key={i} style={{position:'absolute',borderRadius:'50%',filter:'blur(60px)',width:o.w,height:o.w,
-                  background:`radial-gradient(circle,rgba(${o.c},${o.op}) 0%,transparent 70%)`,
-                  top:o.top,left:o.left,bottom:o.bottom,right:o.right,pointerEvents:'none'}} />
-              ))}
-            </div>
+          <div className="sk-content">
+            <motion.section className="sk-hero" {...fu(0)}>
+              <div className="sk-orb a" />
+              <div className="sk-orb b" />
+              <div className="sk-badge"><span className="sk-dot" />Technical Arsenal</div>
+              <h1 className="sk-title"><span>TOOLS OF MY</span><span className="accent">CRAFT</span></h1>
+              <p className="sk-sub">A visual map of the technologies I use to turn ideas into responsive interfaces, connected applications and production-ready experiences.</p>
+              <div className="sk-counts">
+                <div className="sk-count"><CountUp target={totalSkills} active={loaded} /> Skills</div>
+                <div className="sk-count"><CountUp target={CATEGORIES.length} active={loaded} /> Categories</div>
+                <div className="sk-count"><CountUp target={BADGES.length} active={loaded} /> Badges</div>
+              </div>
+            </motion.section>
 
-            {/* parallax hero text */}
-            <div ref={heroRef} className="sk-hero">
-              <motion.div className="sk-badge" {...fu(0)}>
-                <span className="sk-bdot" />Technical Arsenal
-              </motion.div>
-              <motion.h1 className="sk-title" {...fu(.1)}>
-                <span className="sk-t1">TOOLS OF MY</span>
-                <span className="sk-t2">CRAFT</span>
-              </motion.h1>
-              <motion.p className="sk-sub" {...fu(.22)}>
-                The technologies I use daily to turn ideas into production-grade software.
-              </motion.p>
-            </div>
-          </div>
-
-          {/* ── TECH ICON STRIP ── */}
-          <motion.div className="sk-icon-strip" {...fu(.32)}>
-            {TECH_ICONS.map((t,i)=>(
-              <motion.div key={t.label} className="sk-icon-chip" style={{'--ic':t.c}}
-                initial={{opacity:0,y:22,filter:'blur(6px)'}}
-                animate={{opacity:1,y:0, filter:'blur(0px)'}}
-                transition={{delay:.34+i*.055, ease:[.22,1,.36,1], duration:.6}}
-              >
-                <span className="sk-chip-icon">{t.icon}</span>
-                <span className="sk-chip-lbl">{t.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* ── CATEGORY TABS ── */}
-          <motion.div className="sk-tabs" {...fu(.5)}>
-            {CATEGORIES.map(cat => (
-              <button key={cat.id} className={tabClass(cat)} onClick={() => setActiveTab(cat.id)}>
-                <span>{cat.icon}</span>
-                {cat.label}
-                <span style={{
-                  fontSize:10, fontWeight:800, letterSpacing:'.1em',
-                  padding:'2px 8px', borderRadius:'100px',
-                  background: activeTab===cat.id ? 'rgba(255,255,255,.2)' : 'rgba(255,255,255,.06)',
-                  color: activeTab===cat.id ? '#fff' : 'rgba(241,241,255,.3)',
-                }}>{cat.skills.length}</span>
-              </button>
-            ))}
-          </motion.div>
-
-          {/* ── SKILLS CONTENT ── */}
-          <div className="sk-section">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity:0, y:22, filter:'blur(8px)' }}
-                animate={{ opacity:1, y:0,  filter:'blur(0px)' }}
-                exit={{ opacity:0, y:-12, filter:'blur(4px)' }}
-                transition={{ duration:.38, ease:[.22,1,.36,1] }}
-              >
-                {/* category header */}
-                <div className="sk-cat-header" style={{'--ca': activeCat.accent}}>
-                  <div className="sk-cat-icon">{activeCat.icon}</div>
-                  <div>
-                    <div className="sk-cat-title">{activeCat.label}</div>
-                    <div className="sk-cat-subtitle">{activeCat.skills.length} skills in this category</div>
-                  </div>
-                  <div className="sk-cat-count">
-                    Avg {Math.round(activeCat.skills.reduce((a,s)=>a+s.level,0)/activeCat.skills.length)}%
-                  </div>
+            <section className="sk-section">
+              <motion.div className="sk-section-head" {...fu(0.15)}>
+                <div>
+                  <div className="sk-eyebrow">01 — Technology wall</div>
+                  <h2 className="sk-h2">My Arsenal</h2>
                 </div>
-
-                {/* skills grid */}
-                <div className="sk-grid-skills">
-                  {activeCat.skills.map((skill, i) => (
-                    <SkillCard
-                      key={skill.name}
-                      skill={skill}
-                      accent={activeCat.accent}
-                      index={i}
-                      loaded={loaded}
-                    />
-                  ))}
-                </div>
+                <p className="sk-lead">The core tools that move from idea → interface → API → data → deployment.</p>
               </motion.div>
-            </AnimatePresence>
 
-            {/* ── SUMMARY RINGS ── */}
-            <motion.div
-              className="sk-summary sk-reveal"
-              style={{ marginTop:64 }}
-              initial={{ opacity:0, y:32, filter:'blur(6px)' }}
-              whileInView={{ opacity:1, y:0, filter:'blur(0px)' }}
-              viewport={{ once:true, margin:'-60px' }}
-              transition={{ duration:.8, ease:[.22,1,.36,1] }}
-            >
-              <div className="sk-summary-title">Overall Proficiency</div>
-              <div className="sk-summary-sub">Averaged across all {CATEGORIES.flatMap(c=>c.skills).length} skills</div>
-              <div className="sk-summary-grid">
-                {summaryData.map((s,i) => (
-                  <Ring key={s.label} pct={s.avg} color={s.color} label={s.label} active={loaded} />
+              <div className="sk-tech-wall">
+                {TECH_ICONS.map(([icon, label, c], i) => (
+                  <motion.div key={label} className="sk-tech" style={{ '--tc': c }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.035 }}>
+                    <span className="sk-tech-icon">{icon}</span>
+                    <span className="sk-tech-label">{label}</span>
+                  </motion.div>
                 ))}
               </div>
-            </motion.div>
+
+              <div className="sk-tabs">
+                {CATEGORIES.map(c => (
+                  <button key={c.id} className={`sk-tab ${tab === c.id ? 'active' : ''}`} onClick={() => setTab(c.id)}>
+                    {c.icon} {c.label}<b>{c.skills.length}</b>
+                  </button>
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div key={tab} initial={{ opacity: 0, x: 20, filter: 'blur(5px)' }} animate={{ opacity: 1, x: 0, filter: 'blur(0)' }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35 }} className="sk-category" style={{ '--ca': active.accent }}>
+                  <div className="sk-cat-top">
+                    <div className="sk-cat-icon">{active.icon}</div>
+                    <div>
+                      <div className="sk-cat-name">{active.label}</div>
+                      <div className="sk-cat-small">{active.skills.length} technologies · Top skill: {top.name}</div>
+                    </div>
+                    <div className="sk-avg">AVG {avg}%</div>
+                  </div>
+                  <div className="sk-skills-grid">
+                    {active.skills.map((s, i) => (
+                      <SkillCard key={s.name} skill={s} accent={active.accent} isTop={s === top} onOpen={setSelected} />
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              
+
+              <div className="sk-creative">
+                <div className="sk-eyebrow"> — Workflow</div>
+                <h2 className="sk-h2" style={{ marginBottom: 18 }}>How I Build</h2>
+                <div className="sk-panel">
+                  <div className="sk-panel-head">
+                    <div className="sk-panel-title">From idea to shipped product</div>
+                    <div className="sk-panel-desc">My stack is not a list — it is a workflow. Each layer solves a different part of the product.</div>
+                  </div>
+                  <div className="sk-flow">
+                    {WORKFLOW.map((w, i) => (
+                      <motion.div key={w.n} className="sk-flow-step" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
+                        <div className="sk-flow-num">{w.n}</div>
+                        <div className="sk-flow-icon">{w.icon}</div>
+                        <div className="sk-flow-title">{w.title}</div>
+                        <div className="sk-flow-text">{w.text}</div>
+                        <div className="sk-flow-skills">
+                          {w.skills.map(s => <span className="sk-mini" key={s}>{s}</span>)}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="sk-creative">
+                <div className="sk-eyebrow"> — Proof & balance</div>
+                <h2 className="sk-h2" style={{ marginBottom: 18 }}>My Ability Map</h2>
+                <div className="sk-proof">
+                  <div className="sk-radar-wrap">
+                    <div className="sk-proof-title">Full-stack profile</div>
+                    <div className="sk-proof-sub">Average proficiency across the four main areas.</div>
+                    <Radar data={radar} />
+                  </div>
+                  <div className="sk-proof-list">
+                    <div className="sk-proof-title">Category strength</div>
+                    <div className="sk-proof-sub">Tap a category above to explore its individual skills.</div>
+                    {CATEGORIES.map(c => {
+                      const a = Math.round(c.skills.reduce((x, s) => x + s.level, 0) / c.skills.length);
+                      return (
+                        <div className="sk-proof-item" key={c.id}>
+                          <div className="sk-proof-dot">{c.icon}</div>
+                          <div>
+                            <div className="sk-proof-name">{c.label}</div>
+                            <div className="sk-proof-desc">{c.skills.length} skills in the toolkit</div>
+                          </div>
+                          <div className="sk-proof-pct">{a}%</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              <div className="sk-creative">
+                <div className="sk-eyebrow"> — Achievements</div>
+                <h2 className="sk-h2" style={{ marginBottom: 18 }}>Skill Badges</h2>
+                <div className="sk-panel">
+                  <div className="sk-badges">
+                    {BADGES.map((b, i) => (
+                      <motion.div key={b.title} className="sk-badge-card" initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+                        <div className="sk-badge-icon">{b.icon}</div>
+                        <div className="sk-badge-title">{b.title}</div>
+                        <div className="sk-badge-text">{b.text}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="sk-learning">
+                <div className="sk-eyebrow"> — Always learning</div>
+                <div className="sk-proof-title" style={{ marginTop: 6 }}>Currently Exploring</div>
+                <div className="sk-proof-sub">The toolkit keeps evolving. These are the areas I am actively pushing further.</div>
+                <div className="sk-learning-grid">
+                  {LEARNING.map(x => (
+                    <div className="sk-learn-card" key={x.name}>
+                      <div className="sk-learn-top">
+                        <span className="sk-learn-icon">{x.icon}</span>
+                        <span className="sk-learn-name">{x.name}</span>
+                        <span className="sk-learn-pct">{x.level}%</span>
+                      </div>
+                      <div className="sk-learn-text">{x.text}</div>
+                      <div className="sk-learn-bar">
+                        <div className="sk-learn-fill" style={{ width: `${x.level}%` }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
           </div>
-        </div>
-        <Footer />
+        </main>
       </PageTransition>
+      <Footer />
+      {selected && (
+        <AnimatePresence>
+          <SkillModal skill={selected} onClose={() => setSelected(null)} />
+        </AnimatePresence>
+      )}
     </>
   );
 }
